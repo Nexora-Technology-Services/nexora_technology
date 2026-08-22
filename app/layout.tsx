@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My Website",
-  description: "Welcome to my website",
+  title: "Nexora Technology",
+  description: "Welcome to Nexora Technology",
 };
 
 export default function RootLayout({
