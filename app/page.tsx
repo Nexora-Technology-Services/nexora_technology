@@ -836,7 +836,7 @@ export default function Home() {
           </div>
           <div className="pt-8 text-center text-slate-500 text-xs"
             style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-            <p className="sora">© 2026 Nexora Technology Services Pvt. Ltd. All rights reserved.</p>
+            <p className="sora">© 2025-26 Nexora Technology Services Pvt. Ltd. All rights reserved.</p>
           </div>
         </div>
       </footer>
