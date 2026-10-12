@@ -2,22 +2,43 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import logo from "@/app/Photo/Nexora-Logo.png";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/app/Photo/Nexora-Logo.png";
 
 const FLYOUT_STYLES = {
-  background: "linear-gradient(160deg, #ffffff 0%, #f0f8ff 100%)",
-  border: "1px solid rgba(30,128,216,0.2)",
-  boxShadow: "0 12px 40px rgba(26,111,196,0.2), 0 2px 8px rgba(0,0,0,0.08)",
+  background: "rgba(255, 255, 255, 0.92)",
+  backdropFilter: "blur(24px)",
+  WebkitBackdropFilter: "blur(24px)",
+  border: "1px solid rgba(255, 255, 255, 0.95)",
+  boxShadow:
+    "0 20px 45px -10px rgba(0, 81, 254, 0.15), 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(0, 81, 254, 0.06)",
 };
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const [activeSubSub, setActiveSubSub] = useState<string | null>(null);
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    let prev = false;
+    const handleScroll = () => {
+      const isPast = window.scrollY > 20;
+      if (isPast !== prev) {
+        prev = isPast;
+        setScrolled(isPast);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -43,7 +64,17 @@ export default function Navbar() {
     {
       label: "About",
       children: [
-        { name: "Our Organization", href: "/components/Organization" },
+        {
+          name: "Our Organization",
+          href: "/components/Organization",
+          sub: [
+            { name: "Overview", href: "/components/Organization" },
+            { name: "Who We Are", href: "/organization/who-we-are" },
+            { name: "Execution Model", href: "/organization/execution-model" },
+            { name: "About Nexora", href: "/organization/about-nexora" },
+            { name: "Why Nexora", href: "/organization/why-nexora" },
+          ],
+        },
         { name: "Leaders", href: "/about" },
       ],
     },
@@ -67,7 +98,6 @@ export default function Navbar() {
             },
             { name: "Cloud Services", href: "/services/cloud-solution" },
             { name: "Consulting", href: "/components/Consulting" },
-            // { name: "Cyber Security", href: "/what-we-serve/services/cyber-security" },
             { name: "Quality Assurance", href: "/services/Quality-Assurance" },
           ],
         },
@@ -87,285 +117,328 @@ export default function Navbar() {
   ];
 
   const DotAccent = () => (
-    <span
-      style={{
-        display: "inline-block",
-        width: 6,
-        height: 6,
-        borderRadius: "50%",
-        background: "linear-gradient(135deg, #1e80d8, #17b8e0)",
-        flexShrink: 0,
-      }}
-    />
+    <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#0051fe] shrink-0" />
   );
 
-  const ChevronRight = () => (
-    <svg style={{ marginLeft: "auto", opacity: 0.45 }} width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  const ChevronRightIcon = () => (
+    <svg
+      className="ml-auto opacity-40 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all duration-200"
+      width="13"
+      height="13"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
     </svg>
   );
 
   return (
-    <nav
-      ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 shadow-lg"
-      style={{
-        background: "linear-gradient(135deg, #1a6fc4 0%, #1e80d8 40%, #1a9fd4 80%, #17b8e0 100%)",
-        borderBottom: "1px solid rgba(255,255,255,0.15)",
-      }}
-    >
-      <style>{`
-        @keyframes slideDown {
-          from { opacity: 0; transform: translateY(-8px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to   { opacity: 1; }
-        }
-        .nav-link {
-          position: relative;
-          transition: all 0.3s ease;
-          color: rgba(255,255,255,0.92);
-          font-weight: 600;
-          letter-spacing: 0.01em;
-        }
-        .nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: -2px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 0;
-          height: 2px;
-          background: rgba(255,255,255,0.9);
-          border-radius: 2px;
-          transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 75%; }
-        .nav-link:hover { color: #ffffff; background: rgba(255,255,255,0.12); }
-        .dropdown-btn {
-          color: rgba(255,255,255,0.92);
-          font-weight: 600;
-          transition: all 0.3s ease;
-        }
-        .dropdown-btn:hover, .dropdown-btn.open {
-          color: #ffffff;
-          background: rgba(255,255,255,0.12);
-        }
-        .dropdown-panel { animation: slideDown 0.22s ease forwards; }
-        .flyout-panel   { animation: fadeIn 0.15s ease forwards; }
-        .d-item {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 12px 16px;
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: #334155;
-          border-bottom: 1px solid #eff6ff;
-          cursor: pointer;
-          transition: background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
-          text-decoration: none;
-          white-space: nowrap;
-        }
-        .d-item:last-child { border-bottom: none; }
-        .d-item:hover, .d-item.d-active {
-          background: linear-gradient(90deg, #dbeafe, #e0f7ff);
-          color: #1a6fc4;
-          padding-left: 20px;
-        }
-        .cta-btn {
-          background: rgba(255,255,255,0.18);
-          border: 1.5px solid rgba(255,255,255,0.55);
-          color: #ffffff;
-          font-weight: 700;
-          transition: all 0.3s ease;
-        }
-        .cta-btn:hover {
-          background: rgba(255,255,255,0.28);
-          border-color: rgba(255,255,255,0.85);
-          box-shadow: 0 4px 18px rgba(0,0,0,0.15);
-          transform: translateY(-1px);
-        }
-        .mobile-menu { animation: slideDown 0.25s ease; }
-      `}</style>
+    <header className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none">
+      <motion.nav
+        ref={navRef}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        onMouseLeave={() => {
+          setHoveredNav(null);
+        }}
+        className={`pointer-events-auto w-full max-w-6xl rounded-2xl sm:rounded-full transition-all duration-300 ${
+          scrolled
+            ? "bg-white/90 shadow-[0_16px_40px_-8px_rgba(0,81,254,0.16),0_0_0_1px_rgba(255,255,255,0.95)] backdrop-blur-2xl py-2 px-4 sm:px-6"
+            : "bg-white/80 shadow-[0_12px_36px_-6px_rgba(15,23,42,0.08),0_0_0_1px_rgba(255,255,255,0.9)] backdrop-blur-xl py-2.5 px-4 sm:px-6"
+        }`}
+      >
+        <div className="flex items-center justify-between">
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-2 shrink-0 group">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              className="relative overflow-hidden rounded-xl"
+            >
+              <Image
+                src={logo}
+                alt="Nexora Technology Logo"
+                width={135}
+                height={40}
+                className="h-9 w-auto object-contain transition-transform duration-300"
+                priority
+              />
+            </motion.div>
+          </Link>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center">
-              <Image src={logo} alt="logo" width={150} height={150} style={{ width: "150px", height: "auto" }} />
-            </Link>
-          </div>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-0.5">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-1 relative">
             {navItems.map((item) => {
+              const isActive = item.href ? pathname === item.href : false;
+              const isHovered = hoveredNav === item.label;
+              const isOpen = activeDropdown === item.label;
+
               if (!item.children) {
                 return (
-                  <Link key={item.label} href={item.href!} className="nav-link px-3 py-2 rounded-lg text-sm">
-                    {item.label}
+                  <Link
+                    key={item.label}
+                    href={item.href!}
+                    onMouseEnter={() => {
+                      setHoveredNav(item.label);
+                      setActiveDropdown(null);
+                      setActiveSubMenu(null);
+                      setActiveSubSub(null);
+                    }}
+                    className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold transition-colors duration-200 select-none ${
+                      isActive
+                        ? "text-[#0051fe] font-bold"
+                        : "text-slate-700 hover:text-[#0051fe]"
+                    }`}
+                  >
+                    {/* Magnetic floating hover pill */}
+                    {isHovered && (
+                      <motion.span
+                        layoutId="navHover"
+                        transition={{ type: "spring", stiffness: 450, damping: 32 }}
+                        className="absolute inset-0 rounded-full bg-blue-50/90 -z-10 shadow-[0_2px_8px_rgba(0,81,254,0.08)]"
+                      />
+                    )}
+
+                    <span className="relative z-10">{item.label}</span>
+
+                    {/* Active Route Indicator Bar */}
+                    {isActive && (
+                      <motion.span
+                        layoutId="activeTabUnderline"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        className="absolute bottom-[-2px] left-3 right-3 h-[2.5px] bg-[#0051fe] rounded-full shadow-[0_2px_8px_rgba(0,81,254,0.4)]"
+                      />
+                    )}
                   </Link>
                 );
               }
 
-              const isOpen = activeDropdown === item.label;
-
               return (
-                <div key={item.label} style={{ position: "relative" }}>
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => {
+                    setHoveredNav(item.label);
+                    setActiveDropdown(item.label);
+                  }}
+                  onMouseLeave={() => {
+                    setActiveDropdown(null);
+                    setActiveSubMenu(null);
+                    setActiveSubSub(null);
+                  }}
+                >
                   <button
                     onClick={() => {
                       setActiveDropdown(isOpen ? null : item.label);
                       setActiveSubMenu(null);
                       setActiveSubSub(null);
                     }}
-                    className={`dropdown-btn px-3 py-2 rounded-lg text-sm flex items-center gap-1 ${isOpen ? "open" : ""}`}
+                    className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold flex items-center gap-1.5 transition-colors duration-200 select-none ${
+                      isOpen || isHovered
+                        ? "text-[#0051fe]"
+                        : "text-slate-700 hover:text-[#0051fe]"
+                    }`}
                   >
-                    {item.label}
-                    <svg
-                      className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    {/* Magnetic floating hover pill */}
+                    {isHovered && (
+                      <motion.span
+                        layoutId="navHover"
+                        transition={{ type: "spring", stiffness: 450, damping: 32 }}
+                        className="absolute inset-0 rounded-full bg-blue-50/90 -z-10 shadow-[0_2px_8px_rgba(0,81,254,0.08)]"
+                      />
+                    )}
+
+                    <span className="relative z-10">{item.label}</span>
+                    <motion.svg
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                      className={`w-3.5 h-3.5 transition-colors ${
+                        isOpen ? "text-[#0051fe]" : "opacity-60"
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M19 9l-7 7-7-7" />
+                    </motion.svg>
                   </button>
 
-                  {/* Level-1 dropdown */}
-                  {isOpen && (
-                    <div
-                      className="dropdown-panel"
-                      style={{
-                        position: "absolute",
-                        left: 0,
-                        top: "calc(100% + 8px)",
-                        width: 200,
-                        borderRadius: 12,
-                        zIndex: 50,
-                        ...FLYOUT_STYLES,
-                      }}
-                    >
-                      {item.children.map((child, idx) => {
-                        const hasSub = "sub" in child && child.sub;
-                        const isSubOpen = activeSubMenu === child.name;
+                  {/* Level 1 Dropdown with Framer Motion */}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute left-0 top-[calc(100%+8px)] min-w-[225px] p-1.5 rounded-2xl z-50 origin-top-left"
+                        style={FLYOUT_STYLES}
+                      >
+                        {item.children.map((child, idx) => {
+                          const hasSub = "sub" in child && child.sub;
+                          const isSubOpen = activeSubMenu === child.name;
 
-                        return (
-                          <div key={idx} style={{ position: "relative" }}>
-                            {hasSub ? (
-                              <div
-                                className={`d-item ${isSubOpen ? "d-active" : ""}`}
-                                onMouseEnter={() => { setActiveSubMenu(child.name); setActiveSubSub(null); }}
-                              >
-                                <DotAccent />
-                                <span style={{ flex: 1 }}>{child.name}</span>
-                                <ChevronRight />
+                          return (
+                            <div
+                              key={idx}
+                              className="relative group/item"
+                              onMouseEnter={() => {
+                                if (hasSub) {
+                                  setActiveSubMenu(child.name);
+                                  setActiveSubSub(null);
+                                } else {
+                                  setActiveSubMenu(null);
+                                }
+                              }}
+                            >
+                              {hasSub ? (
+                                <div
+                                  className={`flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium rounded-xl mx-0.5 my-0.5 cursor-pointer transition-all duration-200 select-none ${
+                                    isSubOpen
+                                      ? "bg-gradient-to-r from-blue-50 to-indigo-50/70 text-[#0051fe] font-semibold pl-4.5 shadow-sm"
+                                      : "text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/70 hover:pl-4.5"
+                                  }`}
+                                >
+                                  <DotAccent />
+                                  <span className="flex-1">{child.name}</span>
+                                  <ChevronRightIcon />
 
-                                {/* Level-2 flyout */}
-                                {isSubOpen && (
-                                  <div
-                                    className="flyout-panel"
-                                    style={{
-                                      position: "absolute",
-                                      left: "100%",
-                                      top: 0,
-                                      width: 195,
-                                      borderRadius: 12,
-                                      zIndex: 60,
-                                      ...FLYOUT_STYLES,
-                                    }}
-                                  >
-                                    {(child as any).sub.map((subItem: any, sIdx: number) => {
-                                      const hasSubSub = "sub" in subItem && subItem.sub;
-                                      const isSubSubOpen = activeSubSub === subItem.name;
+                                  {/* Level 2 Flyout with Framer Motion */}
+                                  <AnimatePresence>
+                                    {isSubOpen && (
+                                      <motion.div
+                                        initial={{ opacity: 0, x: -8, scale: 0.97 }}
+                                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                                        exit={{ opacity: 0, x: -6, scale: 0.98 }}
+                                        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                                        className="absolute left-[calc(100%+6px)] top-0 min-w-[215px] p-1.5 rounded-2xl z-50 origin-top-left"
+                                        style={FLYOUT_STYLES}
+                                      >
+                                        {(child as any).sub.map((subItem: any, sIdx: number) => {
+                                          const hasSubSub = "sub" in subItem && subItem.sub;
+                                          const isSubSubOpen = activeSubSub === subItem.name;
 
-                                      return (
-                                        <div key={sIdx} style={{ position: "relative" }}>
-                                          {hasSubSub ? (
+                                          return (
                                             <div
-                                              className={`d-item ${isSubSubOpen ? "d-active" : ""}`}
-                                              onMouseEnter={() => setActiveSubSub(subItem.name)}
+                                              key={sIdx}
+                                              className="relative group/subitem"
+                                              onMouseEnter={() => {
+                                                if (hasSubSub) {
+                                                  setActiveSubSub(subItem.name);
+                                                } else {
+                                                  setActiveSubSub(null);
+                                                }
+                                              }}
                                             >
-                                              <DotAccent />
-                                              <span style={{ flex: 1 }}>{subItem.name}</span>
-                                              {/* Arrow points RIGHT — submenu opens right */}
-                                              <svg style={{ marginLeft: "auto", opacity: 0.45 }} width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
-
-                                              {/* Level-3 flyout — opens rightward */}
-                                              {isSubSubOpen && (
+                                              {hasSubSub ? (
                                                 <div
-                                                  className="flyout-panel"
-                                                  style={{
-                                                    position: "absolute",
-                                                    left: "100%",
-                                                    top: 0,
-                                                    width: 185,
-                                                    borderRadius: 12,
-                                                    zIndex: 70,
-                                                    ...FLYOUT_STYLES,
-                                                  }}
+                                                  className={`flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium rounded-xl mx-0.5 my-0.5 cursor-pointer transition-all duration-200 select-none ${
+                                                    isSubSubOpen
+                                                      ? "bg-gradient-to-r from-blue-50 to-indigo-50/70 text-[#0051fe] font-semibold pl-4.5 shadow-sm"
+                                                      : "text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/70 hover:pl-4.5"
+                                                  }`}
                                                 >
-                                                  {subItem.sub.map((ssItem: any, ssIdx: number) => (
-                                                    <Link
-                                                      key={ssIdx}
-                                                      href={ssItem.href}
-                                                      className="d-item"
-                                                      onClick={closeAll}
-                                                    >
-                                                      <DotAccent />
-                                                      {ssItem.name}
-                                                    </Link>
-                                                  ))}
+                                                  <DotAccent />
+                                                  <span className="flex-1">{subItem.name}</span>
+                                                  <ChevronRightIcon />
+
+                                                  {/* Level 3 Flyout */}
+                                                  <AnimatePresence>
+                                                    {isSubSubOpen && (
+                                                      <motion.div
+                                                        initial={{ opacity: 0, x: -8, scale: 0.97 }}
+                                                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                                                        exit={{ opacity: 0, x: -6, scale: 0.98 }}
+                                                        transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                                                        className="absolute left-[calc(100%+6px)] top-0 min-w-[205px] p-1.5 rounded-2xl z-50 origin-top-left"
+                                                        style={FLYOUT_STYLES}
+                                                      >
+                                                        {subItem.sub.map((ssItem: any, ssIdx: number) => (
+                                                          <Link
+                                                            key={ssIdx}
+                                                            href={ssItem.href}
+                                                            className="flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
+                                                            onClick={closeAll}
+                                                          >
+                                                            <DotAccent />
+                                                            <span>{ssItem.name}</span>
+                                                          </Link>
+                                                        ))}
+                                                      </motion.div>
+                                                    )}
+                                                  </AnimatePresence>
                                                 </div>
+                                              ) : (
+                                                <Link
+                                                  href={subItem.href}
+                                                  className="flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
+                                                  onClick={closeAll}
+                                                >
+                                                  <DotAccent />
+                                                  <span>{subItem.name}</span>
+                                                </Link>
                                               )}
                                             </div>
-                                          ) : (
-                                            <Link
-                                              href={subItem.href}
-                                              className="d-item"
-                                              onClick={closeAll}
-                                            >
-                                              <DotAccent />
-                                              {subItem.name}
-                                            </Link>
-                                          )}
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                )}
-                              </div>
-                            ) : (
-                              <Link
-                                href={child.href}
-                                className="d-item"
-                                onClick={closeAll}
-                                onMouseEnter={() => setActiveSubMenu(null)}
-                              >
-                                <DotAccent />
-                                {child.name}
-                              </Link>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
+                                          );
+                                        })}
+                                      </motion.div>
+                                    )}
+                                  </AnimatePresence>
+                                </div>
+                              ) : (
+                                <Link
+                                  href={child.href}
+                                  className="flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
+                                  onClick={closeAll}
+                                >
+                                  <DotAccent />
+                                  <span>{child.name}</span>
+                                </Link>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}
+          </div>
 
-            <Link href="/contact" className="cta-btn ml-2 px-5 py-2 rounded-full text-sm">
-              Get Started
-            </Link>
+          {/* Right CTA Button */}
+          <div className="hidden lg:flex items-center gap-3">
+            <motion.div
+              whileHover={{ scale: 1.04, y: -1 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 450, damping: 25 }}
+            >
+              <Link
+                href="/contact"
+                className="px-5 py-2.5 rounded-full bg-[#0051fe] hover:bg-[#0043d4] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-[0_4px_16px_rgba(0,81,254,0.35)] hover:shadow-[0_8px_24px_rgba(0,81,254,0.5)] transition-all duration-200 group"
+              >
+                <span>GET STARTED</span>
+                <svg
+                  className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Link>
+            </motion.div>
           </div>
 
           {/* Mobile Hamburger */}
-          <div className="md:hidden">
+          <div className="lg:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-white hover:bg-white/15 transition-colors duration-200"
+              className="p-2 rounded-xl text-slate-700 hover:text-[#0051fe] hover:bg-blue-50 transition-colors"
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -379,118 +452,137 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div
-          className="mobile-menu md:hidden px-4 pb-4 space-y-1"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.2)" }}
-        >
-          {navItems.map((item) => {
-            if (!item.children) {
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href!}
-                  onClick={closeAll}
-                  className="block px-4 py-3 rounded-lg text-sm font-semibold text-white hover:bg-white/15 transition-colors duration-200"
-                >
-                  {item.label}
-                </Link>
-              );
-            }
+        {/* Mobile Dropdown Drawer with Framer Motion */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:hidden mt-3 pt-3 border-t border-slate-100 max-h-[75vh] overflow-y-auto space-y-1 pb-2"
+            >
+              {navItems.map((item) => {
+                if (!item.children) {
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href!}
+                      onClick={closeAll}
+                      className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                }
 
-            const isExpanded = mobileExpanded === item.label;
+                const isExpanded = mobileExpanded === item.label;
 
-            return (
-              <div key={item.label}>
-                <button
-                  onClick={() => setMobileExpanded(isExpanded ? null : item.label)}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold text-white hover:bg-white/15 transition-colors duration-200"
-                >
-                  {item.label}
-                  <svg
-                    className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+                return (
+                  <div key={item.label} className="rounded-xl overflow-hidden">
+                    <button
+                      onClick={() => setMobileExpanded(isExpanded ? null : item.label)}
+                      className="w-full flex items-center justify-between px-3.5 py-2.5 text-sm font-semibold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 transition-colors"
+                    >
+                      <span>{item.label}</span>
+                      <motion.svg
+                        animate={{ rotate: isExpanded ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="w-4 h-4 text-slate-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </motion.svg>
+                    </button>
 
-                {isExpanded && (
-                  <div className="mt-1 ml-3 space-y-0.5">
-                    {item.children.map((child, idx) => {
-                      if ("sub" in child && child.sub) {
-                        return (
-                          <div key={idx}>
-                            <p className="px-4 py-2 text-xs font-bold text-blue-100 uppercase tracking-widest opacity-80">
-                              {child.name}
-                            </p>
-                            <div className="ml-3 space-y-0.5">
-                              {(child as any).sub.map((subItem: any, sIdx: number) => {
-                                if ("sub" in subItem && subItem.sub) {
-                                  return (
-                                    <div key={sIdx}>
-                                      <p className="px-4 py-1.5 text-xs font-semibold text-blue-100 opacity-70">
-                                        ↳ {subItem.name}
-                                      </p>
-                                      <div className="ml-3">
-                                        {subItem.sub.map((ssItem: any, ssIdx: number) => (
-                                          <Link
-                                            key={ssIdx}
-                                            href={ssItem.href}
-                                            onClick={closeAll}
-                                            className="block px-4 py-2 text-xs text-white/75 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
-                                          >
-                                            — {ssItem.name}
-                                          </Link>
-                                        ))}
-                                      </div>
-                                    </div>
-                                  );
-                                }
-                                return (
-                                  <Link
-                                    key={sIdx}
-                                    href={subItem.href}
-                                    onClick={closeAll}
-                                    className="block px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
-                                  >
-                                    {subItem.name}
-                                  </Link>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        );
-                      }
-                      return (
-                        <Link
-                          key={idx}
-                          href={child.href}
-                          onClick={closeAll}
-                          className="block px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="pl-3 pr-1 py-1 space-y-1 bg-slate-50/60 rounded-xl my-1 overflow-hidden"
                         >
-                          {child.name}
-                        </Link>
-                      );
-                    })}
+                          {item.children.map((child, idx) => {
+                            if ("sub" in child && child.sub) {
+                              return (
+                                <div key={idx} className="space-y-1 py-1">
+                                  <p className="px-3 text-xs font-bold text-[#0051fe] tracking-wider uppercase">
+                                    {child.name}
+                                  </p>
+                                  <div className="pl-2 space-y-1">
+                                    {(child as any).sub.map((subItem: any, sIdx: number) => {
+                                      if ("sub" in subItem && subItem.sub) {
+                                        return (
+                                          <div key={sIdx} className="space-y-1">
+                                            <p className="px-3 text-xs font-medium text-slate-500">
+                                              {subItem.name}
+                                            </p>
+                                            <div className="pl-2 space-y-0.5">
+                                              {subItem.sub.map((ssItem: any, ssIdx: number) => (
+                                                <Link
+                                                  key={ssIdx}
+                                                  href={ssItem.href}
+                                                  onClick={closeAll}
+                                                  className="block px-3 py-1.5 text-xs text-slate-600 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
+                                                >
+                                                  • {ssItem.name}
+                                                </Link>
+                                              ))}
+                                            </div>
+                                          </div>
+                                        );
+                                      }
+                                      return (
+                                        <Link
+                                          key={sIdx}
+                                          href={subItem.href}
+                                          onClick={closeAll}
+                                          className="block px-3 py-1.5 text-xs text-slate-700 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors font-medium"
+                                        >
+                                          {subItem.name}
+                                        </Link>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              );
+                            }
+                            return (
+                              <Link
+                                key={idx}
+                                href={child.href}
+                                onClick={closeAll}
+                                className="block px-3 py-2 text-xs font-medium text-slate-700 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
+                              >
+                                {child.name}
+                              </Link>
+                            );
+                          })}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                )}
-              </div>
-            );
-          })}
+                );
+              })}
 
-          <Link
-            href="/contact"
-            onClick={closeAll}
-            className="block mt-3 text-center cta-btn px-5 py-2.5 rounded-full text-sm"
-          >
-            Get Started
-          </Link>
-        </div>
-      )}
-    </nav>
+              <div className="pt-2 pb-1 px-1">
+                <Link
+                  href="/contact"
+                  onClick={closeAll}
+                  className="px-5 py-2.5 rounded-full bg-[#0051fe] hover:bg-[#0043d4] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md"
+                >
+                  GET STARTED
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </header>
   );
 }
