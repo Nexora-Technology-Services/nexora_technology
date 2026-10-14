@@ -1,677 +1,367 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import Footer from "@/app/components/Footer";
+import {
+  Sparkles,
+  Code2,
+  Cloud,
+  Cpu,
+  Layers,
+  ShieldCheck,
+  Users,
+  Handshake,
+  ArrowUpRight,
+  Mail,
+  Check,
+  Globe,
+  TrendingUp,
+} from "lucide-react";
 
 export default function CareersPage() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-  const [subscribing, setSubscribing] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  const LAUNCH_DATE = new Date("2025-11-01T00:00:00");
-
-  useEffect(() => {
-    const tick = () => {
-      const diff = LAUNCH_DATE.getTime() - Date.now();
-      if (diff <= 0) { setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return; }
-      setTimeLeft({
-        days:    Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours:   Math.floor((diff / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((diff / (1000 * 60)) % 60),
-        seconds: Math.floor((diff / 1000) % 60),
-      });
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  const handleSubscribe = async () => {
-    if (!email.trim()) return;
-    setSubscribing(true);
-    await new Promise((r) => setTimeout(r, 1600));
-    setSubscribing(false);
-    setSubscribed(true);
-    setEmail("");
-  };
-
   const roles = [
-    { dept: "Engineering",        icon: "⚙️", count: "8+",  color: "#1a6fc4" },
-    { dept: "Cloud & DevOps",     icon: "☁️", count: "5+",  color: "#1680d8" },
-    { dept: "Data & AI",          icon: "🤖", count: "6+",  color: "#178fd4" },
-    { dept: "ERP Consulting",     icon: "📊", count: "4+",  color: "#17b8e0" },
-    { dept: "Quality Assurance",  icon: "✅", count: "3+",  color: "#1a6fc4" },
-    { dept: "Talent & HR",        icon: "🤝", count: "2+",  color: "#1680d8" },
+    {
+      dept: "Engineering",
+      icon: Code2,
+      count: "8+ roles",
+      desc: "Full-stack development, distributed backend architectures, and enterprise software engineering.",
+    },
+    {
+      dept: "Cloud & DevOps",
+      icon: Cloud,
+      count: "5+ roles",
+      desc: "Multi-cloud infrastructure, automated CI/CD pipelines, Kubernetes, and site reliability.",
+    },
+    {
+      dept: "Data & AI",
+      icon: Cpu,
+      count: "6+ roles",
+      desc: "Machine learning engineering, intelligent automation, data pipelines, and analytics platforms.",
+    },
+    {
+      dept: "ERP Consulting",
+      icon: Layers,
+      count: "4+ roles",
+      desc: "Enterprise SAP, Oracle, and Microsoft Dynamics implementation and technical advisory.",
+    },
+    {
+      dept: "Quality Assurance",
+      icon: ShieldCheck,
+      count: "3+ roles",
+      desc: "Automated test suites, end-to-end performance benchmarking, and security validation.",
+    },
+    {
+      dept: "Talent & HR",
+      icon: Users,
+      count: "2+ roles",
+      desc: "People operations, technical recruiting, employer branding, and organizational development.",
+    },
   ];
 
   const values = [
     {
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-        </svg>
-      ),
-      label: "Innovation First",
+      icon: Sparkles,
+      title: "Innovation First",
+      desc: "Continuous learning, modern engineering toolkits, and real freedom to explore novel technologies.",
     },
     {
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      ),
-      label: "People-Centric",
+      icon: Handshake,
+      title: "People-Centric",
+      desc: "Empathetic leadership, transparent communication, inclusive teams, and mutual respect.",
     },
     {
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
-        </svg>
-      ),
-      label: "Remote Friendly",
+      icon: Globe,
+      title: "Remote Friendly",
+      desc: "Modern hybrid culture, flexible working arrangements, and respect for personal time.",
     },
     {
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-        </svg>
-      ),
-      label: "Fast Growth",
+      icon: TrendingUp,
+      title: "Fast Growth",
+      desc: "Clear merit-based career trajectories, leadership mentoring, and high-impact enterprise projects.",
     },
   ];
 
-  const CountBox = ({ value, label }: { value: number; label: string }) => (
-    <div className="cs-count-box">
-      <span className="cs-count-num sora">{String(value).padStart(2, "0")}</span>
-      <span className="cs-count-lbl">{label}</span>
-    </div>
-  );
-
   return (
-    <div className="min-h-screen bg-[#f4f8fd] overflow-hidden">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+    <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
+      {/* ═══════════════════════════════════════════
+          SECTION 1: HERO BANNER (DEEP ENTERPRISE BLUE)
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full pt-28 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
+        {/* Ambient Glowing Orbs */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/25 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute top-24 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
 
-        *, *::before, *::after { font-family:'DM Sans',sans-serif; box-sizing:border-box; }
-        .sora { font-family:'Sora',sans-serif; }
+        {/* Cyber Matrix Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
 
-        /* ── Animations ── */
-        @keyframes cs-fadeUp {
-          from{ opacity:0; transform:translateY(30px); }
-          to  { opacity:1; transform:translateY(0); }
-        }
-        @keyframes cs-scaleIn {
-          from{ opacity:0; transform:scale(0.90); }
-          to  { opacity:1; transform:scale(1); }
-        }
-        @keyframes cs-floatY {
-          0%,100%{ transform:translateY(0)   scale(1); }
-          50%    { transform:translateY(-20px) scale(1.04); }
-        }
-        @keyframes cs-floatY2 {
-          0%,100%{ transform:translateY(0)   scale(1); }
-          50%    { transform:translateY(-14px) scale(1.03); }
-        }
-        @keyframes cs-spinCW  { to{ transform:rotate(360deg); } }
-        @keyframes cs-spinCCW { to{ transform:rotate(-360deg); } }
-        @keyframes cs-pulse {
-          0%,100%{ box-shadow:0 0 0 0   rgba(23,184,224,0.45); }
-          50%    { box-shadow:0 0 0 12px rgba(23,184,224,0); }
-        }
-        @keyframes cs-blink {
-          0%,100%{ opacity:1;   }
-          50%    { opacity:0.15;}
-        }
-        @keyframes cs-flip {
-          from{ opacity:0; transform:translateY(-10px); }
-          to  { opacity:1; transform:translateY(0); }
-        }
-        @keyframes cs-wave {
-          0%  { transform:scale(1);   opacity:0.50; }
-          100%{ transform:scale(2.6); opacity:0; }
-        }
-        @keyframes cs-gradShift {
-          0%  { background-position:0%   50%; }
-          50% { background-position:100% 50%; }
-          100%{ background-position:0%   50%; }
-        }
-        @keyframes cs-twinkle {
-          0%,100%{ opacity:0.10; transform:scale(1); }
-          50%    { opacity:0.70; transform:scale(1.6); }
-        }
-        @keyframes cs-checkPop {
-          0% { transform:scale(0); opacity:0; }
-          70%{ transform:scale(1.25); }
-          100%{ transform:scale(1); opacity:1; }
-        }
-        @keyframes cs-lineGrow {
-          from{ width:0; }
-          to  { width:100%; }
-        }
-        @keyframes cs-badgePop {
-          0% { transform:scale(0.7) translateY(6px); opacity:0; }
-          100%{ transform:scale(1)   translateY(0);   opacity:1; }
-        }
-
-        /* ── Delay helpers ── */
-        .cs-fu  { animation:cs-fadeUp  0.72s ease both; }
-        .cs-si  { animation:cs-scaleIn 0.65s ease both; }
-        .cs-d1  { animation-delay:0.08s; } .cs-d2{ animation-delay:0.18s; }
-        .cs-d3  { animation-delay:0.30s; } .cs-d4{ animation-delay:0.42s; }
-        .cs-d5  { animation-delay:0.55s; } .cs-d6{ animation-delay:0.70s; }
-        .cs-d7  { animation-delay:0.86s; }
-
-        /* ── Gradient text ── */
-        .cs-grad {
-          background:linear-gradient(130deg,#ffffff 0%,#a5f3fc 40%,#93c5fd 100%);
-          background-size:200% auto;
-          -webkit-background-clip:text;
-          -webkit-text-fill-color:transparent;
-          background-clip:text;
-          animation:cs-gradShift 5s ease infinite;
-        }
-
-        /* ── Geo ring ── */
-        .cs-geo {
-          position:absolute; border-radius:50%;
-          border:1px solid rgba(255,255,255,0.10);
-          pointer-events:none;
-        }
-
-        /* ── Stars ── */
-        .cs-star {
-          position:absolute; border-radius:50%;
-          background:white; pointer-events:none;
-        }
-
-        /* ── Countdown ── */
-        .cs-count-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-        .cs-count-box {
-          display:flex; flex-direction:column; align-items:center;
-          width:76px; padding:12px 6px 10px;
-          border-radius:14px;
-          background:rgba(255,255,255,0.09);
-          border:1px solid rgba(255,255,255,0.18);
-          backdrop-filter:blur(10px);
-          transition:transform 0.2s;
-        }
-        .cs-count-box:hover{ transform:translateY(-5px); }
-        .cs-count-num {
-          font-size:2.1rem; font-weight:900; color:#fff;
-          line-height:1; animation:cs-flip 0.3s ease both;
-        }
-        .cs-count-lbl {
-          font-size:9px; font-weight:600; letter-spacing:0.14em;
-          text-transform:uppercase; color:rgba(165,243,252,0.80); margin-top:4px;
-        }
-        .cs-sep {
-          color:rgba(255,255,255,0.45); font-size:2rem; font-weight:700;
-          align-self:center; margin-bottom:14px;
-          animation:cs-blink 1s ease-in-out infinite;
-        }
-
-        /* ── Email bar ── */
-        .cs-email-wrap {
-          display:flex;
-          border-radius:12px;
-          overflow:hidden;
-          box-shadow:0 10px 30px rgba(0,0,0,0.20);
-          border:1.5px solid rgba(255,255,255,0.22);
-        }
-        .cs-email-input {
-          flex:1; padding:14px 20px;
-          background:rgba(255,255,255,0.10);
-          border:none; outline:none;
-          color:white; font-size:14px; min-width:0;
-          transition:background 0.25s;
-        }
-        .cs-email-input::placeholder{ color:rgba(255,255,255,0.38); }
-        .cs-email-input:focus{ background:rgba(255,255,255,0.16); }
-        .cs-email-btn {
-          padding:14px 26px;
-          background:white;
-          border:none; cursor:pointer;
-          font-family:'Sora',sans-serif; font-size:14px;
-          font-weight:700; color:#1a6fc4;
-          transition:all 0.25s ease; white-space:nowrap;
-        }
-        .cs-email-btn:hover:not(:disabled){
-          background:#f0f8ff;
-          box-shadow:inset 0 0 0 2px rgba(26,111,196,0.2);
-        }
-        .cs-email-btn:disabled{ opacity:0.7; cursor:not-allowed; }
-
-        /* ── Role chips ── */
-        .cs-role-chip {
-          display:flex; align-items:center; gap:12px;
-          padding:16px 20px; border-radius:14px;
-          background:white;
-          border:1.5px solid rgba(26,111,196,0.10);
-          transition:all 0.28s ease;
-          cursor:default;
-        }
-        .cs-role-chip:hover{
-          transform:translateY(-5px);
-          box-shadow:0 16px 44px rgba(26,111,196,0.16);
-          border-color:rgba(26,111,196,0.28);
-        }
-        .cs-role-emoji {
-          width:44px; height:44px; border-radius:12px;
-          display:flex; align-items:center; justify-content:center;
-          font-size:1.35rem; flex-shrink:0;
-          background:linear-gradient(135deg,rgba(26,111,196,0.08),rgba(23,184,224,0.08));
-        }
-        .cs-role-count {
-          font-family:'Sora',sans-serif; font-size:0.78rem; font-weight:700;
-          padding:3px 10px; border-radius:20px;
-          background:linear-gradient(135deg,rgba(26,111,196,0.10),rgba(23,184,224,0.10));
-          color:#1a6fc4; margin-left:auto; white-space:nowrap;
-        }
-
-        /* ── Value pills ── */
-        .cs-value-pill {
-          display:inline-flex; align-items:center; gap:8px;
-          padding:9px 16px; border-radius:40px;
-          background:rgba(255,255,255,0.11);
-          border:1px solid rgba(255,255,255,0.22);
-          color:white; font-size:13px; font-weight:600;
-          backdrop-filter:blur(6px);
-          transition:all 0.22s ease;
-        }
-        .cs-value-pill:hover{
-          background:rgba(255,255,255,0.20);
-          transform:translateY(-3px);
-        }
-
-        /* ── Wave ring ── */
-        .cs-wave {
-          position:absolute; border-radius:50%;
-          border:1.5px solid rgba(255,255,255,0.25);
-          animation:cs-wave 3.2s ease-out infinite;
-          pointer-events:none;
-        }
-
-        /* ── Spinner ── */
-        .cs-spinner {
-          width:17px; height:17px; border-radius:50%;
-          border:2.5px solid rgba(26,111,196,0.25);
-          border-top-color:#1a6fc4;
-          animation:cs-spinCW 0.7s linear infinite;
-          display:inline-block; flex-shrink:0;
-        }
-        .cs-check { animation:cs-checkPop 0.5s cubic-bezier(.36,.07,.19,.97) both; }
-
-        /* ── Horizontal rule ── */
-        .cs-rule {
-          height:1px; border:none;
-          background:linear-gradient(90deg,transparent,rgba(26,111,196,0.18),transparent);
-        }
-      `}</style>
-
-      {/* ════════════════════════════════
-           HERO — full-screen
-      ════════════════════════════════ */}
-      <section
-        className="relative flex flex-col items-center justify-center text-center px-4 py-16 md:py-0 overflow-hidden"
-        style={{
-          minHeight: "100vh",
-          background: "linear-gradient(150deg,#071e3d 0%,#0f3460 20%,#1a6fc4 55%,#17b8e0 100%)",
-        }}
-      >
-        {/* Stars */}
-        {[
-          { t:"9%",  l:"7%",  s:4, d:0    },
-          { t:"18%", l:"82%", s:3, d:0.7  },
-          { t:"55%", l:"93%", s:5, d:1.2  },
-          { t:"70%", l:"4%",  s:3, d:1.0  },
-          { t:"35%", l:"45%", s:4, d:1.7  },
-          { t:"80%", l:"58%", s:2, d:0.4  },
-          { t:"5%",  l:"52%", s:3, d:2.1  },
-          { t:"45%", l:"88%", s:2, d:0.9  },
-        ].map((st, i) => (
-          <div
-            key={i}
-            className="cs-star"
-            style={{
-              top:st.t, left:st.l,
-              width:st.s, height:st.s,
-              animation:`cs-twinkle ${2.5 + i * 0.3}s ease-in-out infinite ${st.d}s`,
-            }}
-          />
-        ))}
-
-        {/* Geo rings */}
-        <div className="cs-geo" style={{ width:560,height:560,top:-140,right:-160,opacity:0.10 }} />
-        <div className="cs-geo" style={{ width:320,height:320,top:40,  right:-40, opacity:0.07 }} />
-        <div className="cs-geo" style={{ width:740,height:740,bottom:-300,left:-220,opacity:0.06 }} />
-
-        {/* Spinning deco rings */}
-        <div style={{
-          position:"absolute", width:480, height:480,
-          top:"50%", left:"50%",
-          transform:"translate(-50%,-50%)",
-          borderRadius:"50%",
-          border:"1.5px dashed rgba(255,255,255,0.06)",
-          animation:"cs-spinCW 22s linear infinite",
-          pointerEvents:"none",
-        }} />
-        <div style={{
-          position:"absolute", width:680, height:680,
-          top:"50%", left:"50%",
-          transform:"translate(-50%,-50%)",
-          borderRadius:"50%",
-          border:"1px dashed rgba(255,255,255,0.04)",
-          animation:"cs-spinCCW 30s linear infinite",
-          pointerEvents:"none",
-        }} />
-
-        {/* Floating orbs */}
-        <div style={{
-          position:"absolute", width:220, height:220, borderRadius:"50%",
-          top:"-60px", left:"5%", pointerEvents:"none",
-          background:"radial-gradient(circle at 40% 40%,rgba(147,197,253,0.22),transparent 70%)",
-          animation:"cs-floatY 8s ease-in-out infinite",
-        }} />
-        <div style={{
-          position:"absolute", width:160, height:160, borderRadius:"50%",
-          bottom:"80px", right:"8%", pointerEvents:"none",
-          background:"radial-gradient(circle at 60% 60%,rgba(165,243,252,0.18),transparent 70%)",
-          animation:"cs-floatY2 10s ease-in-out infinite",
-        }} />
-        <div style={{
-          position:"absolute", width:100, height:100, borderRadius:"50%",
-          top:"30%", right:"18%", pointerEvents:"none",
-          background:"radial-gradient(circle,rgba(255,255,255,0.09),transparent 70%)",
-          animation:"cs-floatY 6s ease-in-out infinite reverse",
-        }} />
-
-        {/* Centre icon + wave rings */}
-        <div style={{ position:"relative", display:"inline-flex", alignItems:"center", justifyContent:"center", marginBottom:32 }}>
-          {[0,1,2].map(i => (
-            <div
-              key={i}
-              className="cs-wave"
-              style={{ width:86, height:86, top:"50%", left:"50%",
-                transform:"translate(-50%,-50%)", animationDelay:`${i * 1.05}s` }}
-            />
-          ))}
-          <div
-            className="cs-fu cs-si"
-            style={{
-              width:70, height:70, borderRadius:"22px",
-              background:"rgba(255,255,255,0.13)",
-              border:"1.5px solid rgba(255,255,255,0.26)",
-              backdropFilter:"blur(14px)",
-              display:"flex", alignItems:"center", justifyContent:"center",
-              color:"white", position:"relative", zIndex:10,
-              boxShadow:"0 16px 44px rgba(0,0,0,0.24),inset 0 1px 0 rgba(255,255,255,0.22)",
-            }}
+        <div className="max-w-7xl mx-auto relative z-10 w-full text-center">
+          {/* Eyebrow Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-[11px] font-bold uppercase tracking-widest mb-6 backdrop-blur-md shadow-sm select-none"
           >
-            {/* Rocket / careers icon */}
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7}
-                d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7}
-                d="M12 8v4l3 3" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7}
-                d="M8 12a4 4 0 018 0" />
-            </svg>
-          </div>
-        </div>
+            <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
+            <span>Nexora Technology Services — Careers</span>
+          </motion.div>
 
-        {/* Badge */}
-        <div
-          className="cs-fu cs-d1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
-          style={{
-            background:"rgba(255,255,255,0.10)",
-            border:"1px solid rgba(255,255,255,0.22)",
-            backdropFilter:"blur(8px)",
-            animation:"cs-badgePop 0.6s ease both 0.1s",
-          }}
-        >
-          <span style={{
-            width:7, height:7, borderRadius:"50%",
-            background:"#a5f3fc", display:"inline-block", flexShrink:0,
-            animation:"cs-pulse 2s ease-in-out infinite",
-          }} />
-          <span className="sora text-cyan-100 text-xs font-semibold tracking-[0.16em] uppercase">
-            Nexora Technology Services — Careers
-          </span>
-        </div>
-
-        {/* Headline — single row */}
-        <h1
-          className="sora cs-fu cs-d2 font-black leading-none mb-5 whitespace-nowrap"
-          style={{ fontSize:"clamp(2rem,6.5vw,4.8rem)", lineHeight:1.08 }}
-        >
-          <span className="cs-grad">Your Next </span>
-          <span style={{ color:"white" }}>Big Move.</span>
-        </h1>
-
-        {/* Subheadline */}
-        <p
-          className="cs-fu cs-d3 text-blue-100 max-w-lg leading-relaxed mb-8"
-          style={{ fontSize:"clamp(0.92rem,2.2vw,1.07rem)", opacity:0.83 }}
-        >
-          Our Careers portal is almost ready. We're bringing together the best
-          open roles, company culture, and hiring experience — all in one place.
-        </p>
-
-        {/* Value pills */}
-        <div className="cs-fu cs-d3 flex flex-wrap gap-2.5 justify-center mb-10">
-          {values.map((v, i) => (
-            <div key={i} className="cs-value-pill">
-              <span style={{ color:"#a5f3fc" }}>{v.icon}</span>
-              {v.label}
-            </div>
-          ))}
-        </div>
-
-        {/* Countdown */}
-        {/* <div className="cs-fu cs-d4 mb-10">
-          <p className="sora text-xs uppercase tracking-[0.18em] text-cyan-200 mb-4 font-semibold">
-            Launching In
-          </p>
-          <div className="cs-count-row">
-            <CountBox value={timeLeft.days}    label="Days"    />
-            <span className="cs-sep">:</span>
-            <CountBox value={timeLeft.hours}   label="Hours"   />
-            <span className="cs-sep">:</span>
-            <CountBox value={timeLeft.minutes} label="Minutes" />
-            <span className="cs-sep">:</span>
-            <CountBox value={timeLeft.seconds} label="Seconds" />
-          </div>
-        </div> */}
-
-        {/* Email subscribe */}
-        {/* <div className="cs-fu cs-d5 w-full max-w-md mb-3">
-          {subscribed ? (
-            <div
-              className="cs-check flex items-center justify-center gap-3 py-4 px-6 rounded-xl"
-              style={{
-                background:"rgba(255,255,255,0.11)",
-                border:"1px solid rgba(255,255,255,0.24)",
-              }}
-            >
-              <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="#a5f3fc" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-              </svg>
-              <span className="sora text-white font-semibold text-sm">
-                Subscribed! We'll alert you when we go live.
-              </span>
-            </div>
-          ) : (
-            <div className="cs-email-wrap">
-              <input
-                type="email"
-                className="cs-email-input"
-                placeholder="Your work email — get notified first"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && !subscribing && handleSubscribe()}
-              />
-              <button
-                className="cs-email-btn"
-                onClick={handleSubscribe}
-                disabled={subscribing || !email.trim()}
-              >
-                {subscribing ? (
-                  <span className="flex items-center gap-2">
-                    <span className="cs-spinner" />
-                    <span>Saving…</span>
-                  </span>
-                ) : "Notify Me →"}
-              </button>
-            </div>
-          )}
-          <p className="text-blue-200 text-xs mt-2.5 text-center" style={{ opacity:0.60 }}>
-            One launch email. No marketing lists. Unsubscribe anytime.
-          </p>
-        </div> */}
-
-        {/* Scroll hint */}
-        {/* <a
-          href="#roles"
-          className="cs-fu cs-d6 mt-6 flex flex-col items-center gap-1.5 text-xs uppercase tracking-widest font-semibold"
-          style={{ color:"rgba(165,243,252,0.55)", textDecoration:"none", transition:"color 0.2s" }}
-          onMouseEnter={e => (e.currentTarget.style.color = "rgba(165,243,252,1)")}
-          onMouseLeave={e => (e.currentTarget.style.color = "rgba(165,243,252,0.55)")}
-        >
-          <span>Explore Open Departments</span>
-          <svg
-            className="w-4 h-4"
-            style={{ animation:"cs-floatY 2s ease-in-out infinite" }}
-            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          {/* Headline (No Gradient for Text: White with Cyan Accent) */}
+          <motion.h1
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.08 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.12] mb-6 font-heading max-w-4xl mx-auto"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-          </svg>
-        </a> */}
-      </section>
+            Your Next <br className="hidden sm:inline" />
+            <span className="text-cyan-200">Big Move.</span>
+          </motion.h1>
 
-      {/* ════════════════════════════════
-           ROLES PREVIEW
-      ════════════════════════════════ */}
-      <section id="roles" className="max-w-5xl mx-auto px-4 py-16">
-     
-        {/* <div className="text-center mb-12 cs-fu">
-          <p className="sora text-xs uppercase tracking-[0.16em] text-blue-400 font-semibold mb-2">
-            Open Positions
-          </p>
-          <h2 className="sora text-3xl md:text-4xl text-[#1e3a5f] font-extrabold mb-3">
-            Departments Hiring Soon
-          </h2>
-          <p className="text-slate-500 max-w-md mx-auto text-sm leading-relaxed">
-            Roles across engineering, cloud, data, consulting, and more are opening
-            up when the portal goes live.
-          </p>
-        </div> */}
-
-        {/* Role chips grid */}
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          {roles.map((r, i) => (
-            <div key={i} className={`cs-role-chip cs-fu cs-d${Math.min(i + 2, 7)}`}>
-              <div className="cs-role-emoji">{r.icon}</div>
-              <div style={{ flex:1 }}>
-                <p className="sora text-[#1e3a5f] font-bold text-sm">{r.dept}</p>
-                <p className="text-slate-400 text-xs mt-0.5">Positions opening soon</p>
-              </div>
-              <span className="cs-role-count">{r.count} roles</span>
-            </div>
-          ))}
-        </div> */}
-
-        <hr className="cs-rule" />
-      </section>
-
-      {/* ════════════════════════════════
-           CTA BANNER
-      ════════════════════════════════ */}
-      <section className="max-w-5xl mx-auto px-4 pb-16">
-        <div
-          className="rounded-2xl px-5 py-8 md:px-8 md:py-12 text-center cs-si"
-          style={{
-            background:"linear-gradient(135deg,#0f3460 0%,#1a6fc4 45%,#17b8e0 100%)",
-            boxShadow:"0 22px 60px rgba(26,111,196,0.32)",
-            position:"relative", overflow:"hidden",
-          }}
-        >
-          {/* Subtle background orb */}
-          <div style={{
-            position:"absolute", width:300, height:300, borderRadius:"50%",
-            top:-80, right:-60, pointerEvents:"none",
-            background:"radial-gradient(circle,rgba(165,243,252,0.10),transparent 70%)",
-          }} />
-
-          <p className="sora text-xs uppercase tracking-[0.16em] text-cyan-200 font-semibold mb-2">
-            Don't Want to Wait?
-          </p>
-          <h3 className="sora text-2xl md:text-3xl text-white font-extrabold mb-3">
-            Send Us Your CV Now
-          </h3>
-          <p
-            className="text-blue-100 text-sm max-w-md mx-auto leading-relaxed mb-8"
-            style={{ opacity:0.85 }}
+          {/* Subheadline */}
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.16 }}
+            className="text-base sm:text-lg text-blue-100 leading-relaxed font-normal opacity-95 max-w-2xl mx-auto mb-8"
           >
-            Reach out to our talent team directly. We review every application and
-            will match you to a role when the portal opens.
-          </p>
+            Our Careers portal is almost ready. We&apos;re bringing together the best open roles, company
+            culture, and hiring experience — all in one place.
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            {/* Email link */}
+          {/* Value Pills with Lucide Icons */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.22 }}
+            className="flex flex-wrap gap-2.5 sm:gap-3 justify-center max-w-2xl mx-auto mb-12"
+          >
+            {values.map((v) => {
+              const Icon = v.icon;
+              return (
+                <div
+                  key={v.title}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-semibold text-white transition-all shadow-sm"
+                >
+                  <Icon className="w-4 h-4 text-cyan-300 shrink-0" />
+                  <span>{v.title}</span>
+                </div>
+              );
+            })}
+          </motion.div>
+
+          {/* Hero Action CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.28 }}
+            className="flex flex-wrap items-center justify-center gap-4 pt-2"
+          >
             <a
-              href="mailto:hr@nexoratechnolpogy.co.in"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm sora font-semibold"
-              style={{
-                background:"rgba(255,255,255,0.15)",
-                border:"1.5px solid rgba(255,255,255,0.30)",
-                color:"white", textDecoration:"none",
-                transition:"all 0.25s ease",
-              }}
-              onMouseEnter={e=>{(e.currentTarget as HTMLElement).style.background="rgba(255,255,255,0.25)";(e.currentTarget as HTMLElement).style.transform="translateY(-2px)";}}
-              onMouseLeave={e=>{(e.currentTarget as HTMLElement).style.background="rgba(255,255,255,0.15)";(e.currentTarget as HTMLElement).style.transform="translateY(0)";}}
+              href="mailto:hr@nexoratechnology.co.in"
+              className="px-8 py-3.5 rounded-full bg-white text-[#0051fe] hover:bg-blue-50 font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              <span style={{ wordBreak: "break-all" }}>hr@nexoratechnolpogy.co.in</span>
+              <Mail className="w-4 h-4 text-[#0051fe]" />
+              <span>Send Your CV</span>
             </a>
 
-            {/* Contact link */}
-            <a
+            <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm sora font-bold"
-              style={{
-                background:"white", color:"#1a6fc4",
-                textDecoration:"none", transition:"all 0.25s ease",
-              }}
-              onMouseEnter={e=>{(e.currentTarget as HTMLElement).style.boxShadow="0 10px 30px rgba(0,0,0,0.18)";(e.currentTarget as HTMLElement).style.transform="translateY(-2px)";}}
-              onMouseLeave={e=>{(e.currentTarget as HTMLElement).style.boxShadow="none";(e.currentTarget as HTMLElement).style.transform="translateY(0)";}}
+              className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
             >
-              Contact Us
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
+              <span>Contact Talent Team</span>
+              <ArrowUpRight className="w-4 h-4 text-cyan-300" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 2: DEPARTMENTS HIRING SOON (COMMENTED OUT)
+      ═══════════════════════════════════════════ */}
+      {/*
+      <section
+        id="roles"
+        className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#eaf2fc] via-[#f0f6fd] to-[#e4eefb] border-y border-blue-200/60 relative overflow-hidden"
+      >
+        <div className="pointer-events-none absolute -top-10 right-10 w-96 h-96 bg-[#0051fe]/10 rounded-full blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-10 left-10 w-96 h-96 bg-sky-400/15 rounded-full blur-3xl" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
+              <Briefcase className="w-3.5 h-3.5 text-[#0051fe]" />
+              <span>Open Positions</span>
+            </div>
+
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
+              Departments <span className="text-[#0051fe]">Hiring Soon</span>
+            </h2>
+
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              Roles across engineering, cloud, data, consulting, and more are opening up when the portal goes live.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            {roles.map((r) => {
+              const IconComponent = r.icon;
+              return (
+                <div
+                  key={r.dept}
+                  className="group relative bg-white rounded-2xl p-6 sm:p-7 border border-blue-100 hover:border-[#0051fe]/50 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 overflow-hidden flex flex-col justify-between hover:-translate-y-1 cursor-pointer"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-[#0051fe] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left z-10" />
+
+                  <div>
+                    <div className="flex items-center justify-between gap-4 mb-5">
+                      <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0051fe] group-hover:bg-[#0051fe] group-hover:border-[#0051fe] group-hover:text-white group-hover:scale-105 transition-all duration-300 shadow-xs shrink-0">
+                        <IconComponent className="w-6 h-6 stroke-[1.8]" />
+                      </div>
+                      <span className="font-heading font-bold text-xs px-3 py-1.5 rounded-full bg-blue-50 text-[#0051fe] border border-blue-200/80 whitespace-nowrap shadow-xs">
+                        {r.count}
+                      </span>
+                    </div>
+
+                    <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#0051fe] transition-colors mb-2">
+                      {r.dept}
+                    </h3>
+
+                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                      {r.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+                    <span className="inline-flex items-center gap-1.5 text-slate-500">
+                      <Activity className="w-3.5 h-3.5 text-[#0051fe]" />
+                      Positions opening soon
+                    </span>
+                    <span className="font-heading font-semibold text-[#0051fe] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                      Explore
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      */}
+
+      {/* ═══════════════════════════════════════════
+          SECTION 3: VALUES & WORK CULTURE (CRISP CANVAS)
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#f8fafc] relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#0051fe]" />
+              <span>Life @ Nexora</span>
+            </div>
+
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
+              Built for People Who <span className="text-[#0051fe]">Build</span>
+            </h2>
+
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              At Nexora, we invest in our people as much as our enterprise technologies. Here is the foundation of our work culture.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
+            {values.map((v) => {
+              const Icon = v.icon;
+              return (
+                <div
+                  key={v.title}
+                  className="group relative bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/80 hover:border-blue-300 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between hover:-translate-y-1 cursor-pointer"
+                >
+                  {/* Smooth and Slow Top Accent Bar (duration-700 ease-in-out) */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-[#0051fe] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left z-10" />
+
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0051fe] group-hover:bg-[#0051fe] group-hover:border-[#0051fe] group-hover:text-white group-hover:scale-105 transition-all duration-300 shadow-xs mb-5">
+                      <Icon className="w-5 h-5 stroke-[1.8]" />
+                    </div>
+
+                    <h3 className="font-heading text-lg font-bold text-slate-900 group-hover:text-[#0051fe] transition-colors mb-2.5">
+                      {v.title}
+                    </h3>
+
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      {v.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 mt-6 border-t border-slate-100 flex items-center text-xs font-semibold text-[#0051fe]">
+                    <Check className="w-3.5 h-3.5 mr-1.5 text-[#0051fe]" />
+                    <span>Nexora Standard</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════
-           FOOTER
-      ════════════════════════════════ */}
-      <footer
-        className="py-8 px-4 text-center"
-        style={{
-          background:"linear-gradient(135deg,#071e3d,#0f3460)",
-          color:"rgba(255,255,255,0.50)", fontSize:"13px",
-        }}
-      >
-        <p className="sora">© 2026 Nexora Technology Services Pvt. Ltd. All rights reserved.</p>
-      </footer>
+      {/* ═══════════════════════════════════════════
+          SECTION 4: INSET-ROUNDED CTA BANNER
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f8fafc] to-[#eaf2fc]/60">
+        <div className="max-w-6xl mx-auto">
+          {/* Inset Rounded Card */}
+          <div className="relative rounded-3xl sm:rounded-[36px] p-8 sm:p-12 lg:p-16 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white shadow-[0_20px_60px_-15px_rgba(0,81,254,0.45)] border border-blue-400/30 text-center">
+            {/* Ambient Background Aura Lights */}
+            <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-400/25 rounded-full blur-3xl z-0" />
+            <div className="pointer-events-none absolute -bottom-24 right-10 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl z-0" />
+
+            {/* Cyber Matrix Grid Pattern */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none z-0" />
+
+            <div className="relative z-10 max-w-3xl mx-auto">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/30 text-xs font-bold uppercase tracking-wider text-cyan-200 mb-5 backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
+                <span>Don&apos;t Want to Wait?</span>
+              </span>
+
+              {/* Headline with No Gradient */}
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-heading tracking-tight mb-5 leading-tight">
+                Send Us Your <br />
+                <span className="text-cyan-200">CV Now</span>
+              </h2>
+
+              <p className="text-blue-100 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10 font-normal max-w-2xl mx-auto opacity-95">
+                Reach out to our talent team directly. We review every application and will match you to a role when the portal opens.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <a
+                  href="mailto:hr@nexoratechnology.co.in"
+                  className="px-8 py-3.5 rounded-full bg-white text-[#0051fe] hover:bg-blue-50 font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <Mail className="w-4 h-4 text-[#0051fe]" />
+                  <span>hr@nexoratechnology.co.in</span>
+                </a>
+
+                <Link
+                  href="/contact"
+                  className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <span>Contact Us</span>
+                  <ArrowUpRight className="w-4 h-4 text-cyan-300" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          GLOBAL SHARED FOOTER
+      ═══════════════════════════════════════════ */}
+      <Footer />
     </div>
   );
 }

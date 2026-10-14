@@ -1,457 +1,1118 @@
 "use client";
 
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import SpotlightCard from "@/app/components/ui/SpotlightCard";
+import Footer from "@/app/components/Footer";
 import img1 from "@/app/Photo/img 1.jpg";
 import img2 from "@/app/Photo/img 2.jpg";
 import img3 from "@/app/Photo/img 3.jpg";
+import {
+  Settings2,
+  Code2,
+  ArrowUpCircle,
+  Globe,
+  ShieldCheck,
+  CheckCircle2,
+  ArrowRight,
+  ArrowUpRight,
+  Sparkles,
+  Workflow,
+  TrendingUp,
+  BarChart3,
+  Users,
+  Factory,
+  Building2,
+  Gauge,
+  Boxes,
+  Lock,
+  ChevronLeft,
+  ChevronRight,
+  Activity,
+} from "lucide-react";
 
-const services = [
+// Core ERP Service Pillars
+interface ServicePillar {
+  id: string;
+  stepNumber: string;
+  title: string;
+  subtitle: string;
+  badge: string;
+  icon: React.ElementType;
+  content: string[];
+  capabilities: string[];
+  metrics: string;
+}
+
+const erpServices: ServicePillar[] = [
   {
-    icon: "⚙️",
+    id: "implementation",
+    stepNumber: "01",
     title: "Implementation",
+    subtitle: "End-to-End Enterprise System Deployment",
+    badge: "Core Service",
+    icon: Settings2,
     content: [
       "ERP Implementation helps organizations streamline and automate their business processes by integrating various functions such as finance, HR, inventory, procurement, sales, and operations into a single centralized system.",
       "A successful ERP implementation improves operational efficiency, enhances data accuracy, enables real-time reporting, and supports better decision-making across the organization.",
     ],
+    capabilities: [
+      "Multi-Department Business Process Integration",
+      "Unified Central Data Repository & Master Data Management",
+      "Automated End-to-End Operational Workflows",
+      "Real-Time Executive BI & Reporting Dashboards",
+    ],
+    metrics: "40% Faster Cross-Department Workflow Execution",
   },
   {
-    icon: "🧩",
+    id: "custom-development",
+    stepNumber: "02",
     title: "Custom Development",
+    subtitle: "Tailor-Made Modules & Specialized Extensions",
+    badge: "High Flexibility",
+    icon: Code2,
     content: [
       "ERP Custom Development enables businesses to build tailored ERP solutions that align perfectly with their unique workflows, operational requirements, and industry-specific processes. Unlike standard ERP systems, custom ERP development provides flexibility to add personalized modules, automate complex tasks, integrate third-party applications, and scale as the business grows.",
       "Our ERP custom development services focus on designing user-friendly, secure, and scalable solutions that improve efficiency, enhance productivity, and provide real-time business insights. From finance and inventory management to HR, CRM, and reporting dashboards, we develop customized ERP applications that help organizations streamline operations and achieve better business performance.",
     ],
+    capabilities: [
+      "Custom Workflow Automation & Specialized Business Logic",
+      "Enterprise REST / GraphQL & Legacy Third-Party API Integration",
+      "Modular Microservices & Scalable Cloud Micro-Frontends",
+      "Role-Based Access Control (RBAC) & Custom Governance Portals",
+    ],
+    metrics: "100% Fit to Unique Industry Operating Workflows",
   },
   {
-    icon: "⬆️",
-    title: "Upgrade",
+    id: "upgrade",
+    stepNumber: "03",
+    title: "Upgrade & Modernization",
+    subtitle: "Legacy Migration to Modern Cloud Platforms",
+    badge: "Performance & Security",
+    icon: ArrowUpCircle,
     content: [
       "ERP Upgrade services help organizations modernize their existing ERP systems with the latest features, improved performance, enhanced security, and better user experience. Upgrading an ERP system ensures compatibility with current technologies, improves operational efficiency, and enables businesses to leverage advanced capabilities such as automation, analytics, cloud integration, and real-time reporting.",
       "Our ERP upgrade solutions focus on seamless migration, minimal business disruption, data integrity, and optimized system performance. We help businesses transition smoothly from legacy systems to upgraded platforms while ensuring scalability, reliability, and improved productivity to support future business growth.",
     ],
+    capabilities: [
+      "Zero-Downtime Data Migration & Schema Harmonization",
+      "Legacy Monolith to Cloud-Native Architecture Transition",
+      "Latest Security Patching & Strict Compliance Enforcement",
+      "User Experience & Modern Mobile-Responsive Interface Overhaul",
+    ],
+    metrics: "Zero Business Disruption & 99.9% Data Integrity",
   },
   {
-    icon: "🌐",
+    id: "global-rollout",
+    stepNumber: "04",
     title: "Global Rollout",
+    subtitle: "Multi-Region, Multi-Currency Standardization",
+    badge: "Multi-Country Scale",
+    icon: Globe,
     content: [
       "ERP Global Rollout services help organizations successfully deploy and standardize ERP systems across multiple locations, regions, and business units worldwide. A global ERP rollout ensures consistent business processes, centralized data management, regulatory compliance, and improved collaboration across international operations.",
       "Our ERP global rollout approach focuses on strategic planning, localization, multi-country compliance, seamless data migration, user training, and change management to ensure smooth implementation across global teams. We help businesses achieve operational consistency, enhanced visibility, and scalable growth through efficient and well-managed ERP deployment strategies.",
     ],
+    capabilities: [
+      "Multi-Currency, Multi-Language & Regional Tax Localization",
+      "Standardized Corporate Global Operating Template",
+      "Cross-Border Compliance (GDPR, SOC2, Local Statutory Laws)",
+      "Comprehensive Change Management & Multi-Tier User Enablement",
+    ],
+    metrics: "20+ Country Multi-Entity Standardization Capability",
   },
   {
-    icon: "🛡️",
-    title: "Support",
+    id: "support",
+    stepNumber: "05",
+    title: "Support & Managed Services",
+    subtitle: "24/7 SLA-Backed Maintenance & Optimization",
+    badge: "Mission-Critical SLA",
+    icon: ShieldCheck,
     content: [
       "ERP Support services ensure the smooth functioning, maintenance, and continuous improvement of ERP systems to help businesses operate efficiently without disruptions. Effective ERP support helps organizations resolve technical issues quickly, optimize system performance, manage updates, and ensure users can maximize the value of the ERP platform.",
       "Our ERP support solutions include system monitoring, troubleshooting, performance optimization, user assistance, bug fixing and ongoing maintenance with agreed SLAs. We provide reliable and proactive support to ensure business continuity, improved productivity, and seamless ERP operations tailored to evolving business needs.",
     ],
+    capabilities: [
+      "24/7/365 Proactive Telemetry & Automated System Health Monitoring",
+      "Strict SLA-Backed Incident Resolution (L1, L2 & L3 Engineering)",
+      "Continuous Performance Tuning & Database Index Optimization",
+      "Quarterly Feature Enhancements & Proactive Release Management",
+    ],
+    metrics: "15-Minute Critical Incident SLA Response Time",
   },
 ];
 
+// Enterprise Functional Modules
+const erpModules = [
+  {
+    title: "Financial Management & Accounting",
+    desc: "Automated general ledger, accounts payable/receivable, multi-currency cash flow, audit trails, and instant financial closing.",
+    icon: Building2,
+    badge: "Finance & Treasury",
+  },
+  {
+    title: "Supply Chain & Inventory",
+    desc: "Real-time stock tracking across distributed warehouses, automated procurement reordering, vendor scorecards, and logistics routing.",
+    icon: Boxes,
+    badge: "SCM & Logistics",
+  },
+  {
+    title: "Human Capital Management (HCM)",
+    desc: "End-to-end employee lifecycle, global payroll processing, biometric attendance, talent acquisition, and compliance management.",
+    icon: Users,
+    badge: "HR & Workforce",
+  },
+  {
+    title: "Manufacturing & Production (MES)",
+    desc: "Bill of materials (BOM), shop-floor job card tracking, machine capacity planning, quality inspection gates, and scrap reduction.",
+    icon: Factory,
+    badge: "Industry 4.0",
+  },
+  {
+    title: "CRM & Sales Operations",
+    desc: "Unified customer pipelines, quote-to-cash acceleration, automated recurring billing, discount governance, and omnichannel tracking.",
+    icon: TrendingUp,
+    badge: "Commercial Growth",
+  },
+  {
+    title: "Business Intelligence & Analytics",
+    desc: "Executive telemetry dashboards, predictive forecasting models, KPI trend discovery, and automated regulatory reporting.",
+    icon: BarChart3,
+    badge: "Executive Insights",
+  },
+];
+
+// Implementation Methodology Steps
+const methodologySteps = [
+  {
+    step: "01",
+    phase: "Discovery & Blueprint",
+    desc: "Deep-dive business process mapping, gap analysis, stakeholder interviews, and future-state enterprise architecture definition.",
+  },
+  {
+    step: "02",
+    phase: "System Architecture & Design",
+    desc: "Data modeling, security governance frameworks, infrastructure sizing, and detailed functional design specifications.",
+  },
+  {
+    step: "03",
+    phase: "Agile Build & Customization",
+    desc: "Configuring core modules, developing bespoke extensions, building integration adapters, and automated testing pipelines.",
+  },
+  {
+    step: "04",
+    phase: "Data Migration & Validation",
+    desc: "Legacy data sanitization, test cutovers, user acceptance testing (UAT), security penetration tests, and dry runs.",
+  },
+  {
+    step: "05",
+    phase: "Global Go-Live & Hypercare",
+    desc: "Seamless production cutover, executive command center supervision, end-user enablement, and dedicated 24/7 hypercare support.",
+  },
+];
+
+// Enterprise Platforms Supported
+const platformsSupported = [
+  { name: "SAP S/4HANA & ECC", tag: "Enterprise Core" },
+  { name: "Microsoft Dynamics 365", tag: "Cloud Ecosystem" },
+  { name: "Oracle NetSuite", tag: "High-Growth Cloud" },
+  { name: "Odoo Enterprise", tag: "Modular Agile" },
+  { name: "Custom Cloud ERP", tag: "Proprietary Architecture" },
+];
+
 export default function ERPService() {
+  const [activeTab, setActiveTab] = useState<string>("implementation");
+
+  const currentIndex = erpServices.findIndex((s) => s.id === activeTab);
+  const selectedService = erpServices[currentIndex >= 0 ? currentIndex : 0];
+
+  const handlePrev = () => {
+    const prevIndex = (currentIndex - 1 + erpServices.length) % erpServices.length;
+    setActiveTab(erpServices[prevIndex].id);
+  };
+
+  const handleNext = () => {
+    const nextIndex = (currentIndex + 1) % erpServices.length;
+    setActiveTab(erpServices[nextIndex].id);
+  };
+
   return (
-    <div className="min-h-screen bg-[#f4f8fd] flex flex-col">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
-        * { font-family: 'DM Sans', sans-serif; }
-        .sora { font-family: 'Sora', sans-serif; }
+    <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
 
-        @keyframes fadeLeft {
-          from { opacity: 0; transform: translateX(-28px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeRight {
-          from { opacity: 0; transform: translateX(28px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float {
-          0%,100% { transform: translateY(0); }
-          50%      { transform: translateY(-10px); }
-        }
-        @keyframes rotateSlow {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-        @keyframes diagonalFloat {
-          0%,100% { transform: translate(0,0); }
-          50%      { transform: translate(5px,-8px); }
-        }
+      {/* ═══════════════════════════════════════════
+          HERO SECTION — ENTERPRISE ERP SOLUTIONS
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full pt-28 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
+        
+        {/* Ambient Glowing Orbs */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/25 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute top-20 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
 
-        .fade-left  { animation: fadeLeft  0.75s ease both; }
-        .fade-right { animation: fadeRight 0.75s ease both; }
-        .fade-up    { animation: fadeUp    0.75s ease both; }
+        {/* Cyber Matrix Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
 
-        .d1{animation-delay:0.05s} .d2{animation-delay:0.13s}
-        .d3{animation-delay:0.21s} .d4{animation-delay:0.29s}
-        .d5{animation-delay:0.37s}
+        <div className="max-w-7xl mx-auto relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column: Hero Narrative */}
+            <div className="lg:col-span-7 text-left">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-[11px] font-bold uppercase tracking-widest mb-5 backdrop-blur-md shadow-sm select-none"
+              >
+                <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
+                <span>NEXORA TECHNOLOGY • APPLICATION SERVICES</span>
+              </motion.div>
 
-        .geo-ring {
-          position: absolute; border-radius: 50%;
-          border: 1px solid rgba(255,255,255,0.12);
-        }
-        .deco-ring {
-          position: absolute; border-radius: 50%;
-          border: 1.5px dashed rgba(26,111,196,0.18);
-          animation: rotateSlow 18s linear infinite;
-        }
-        .orb-float   { animation: float 6s ease-in-out infinite; }
-        .orb-float-2 { animation: float 8s ease-in-out infinite reverse; }
+              <motion.h1
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.08 }}
+                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.12] mb-5 font-heading"
+              >
+                Enterprise Resource <br />
+                <span className="text-[#67e8f9] drop-shadow-sm">
+                  Planning (ERP) Solutions
+                </span>
+              </motion.h1>
 
-        .section-label {
-          display: inline-flex; align-items: center; gap: 7px;
-          padding: 5px 14px; border-radius: 50px;
-          background: rgba(26,111,196,0.08);
-          border: 1px solid rgba(26,111,196,0.15);
-          font-size: 11.5px; font-weight: 700; color: #1a6fc4;
-          text-transform: uppercase; letter-spacing: 0.1em;
-          font-family: 'Sora', sans-serif; margin-bottom: 14px;
-        }
-        .section-label::before {
-          content: ''; width: 6px; height: 6px; border-radius: 50%;
-          background: linear-gradient(135deg, #1a6fc4, #17b8e0);
-        }
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.16 }}
+                className="text-sm sm:text-base text-blue-100 leading-relaxed font-normal opacity-95 max-w-2xl mb-4"
+              >
+                At Nexora Technology Services Pvt Ltd, we architect and deliver end-to-end ERP solutions —
+                spanning greenfield implementation, custom bespoke development, high-security upgrades,
+                multi-country global rollouts, and proactive 24/7 managed support.
+              </motion.p>
 
-        .dot-row { display: flex; align-items: center; gap: 6px; margin-bottom: 18px; }
-        .dot-row span { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #1a6fc4, #17b8e0); }
-        .dot-row span:nth-child(2) { opacity: 0.5; }
-        .dot-row span:nth-child(3) { opacity: 0.25; }
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.22 }}
+                className="text-xs sm:text-sm text-blue-200/90 leading-relaxed font-normal max-w-2xl mb-8"
+              >
+                We empower enterprises to eliminate operational silos, harmonize distributed master data,
+                automate critical workflows across finance, supply chain, HR, and manufacturing, and establish
+                a single source of truth for intelligent, rapid decision-making.
+              </motion.p>
 
-        /* Service cards */
-        .svc-card {
-          background: white; border-radius: 22px;
-          border: 1.5px solid #e8f0fb;
-          transition: all 0.32s cubic-bezier(0.4,0,0.2,1);
-          position: relative; overflow: hidden;
-        }
-        .svc-card::after {
-          content: ''; position: absolute;
-          left: 0; top: 0; bottom: 0; width: 4px;
-          background: linear-gradient(180deg, #1a6fc4, #17b8e0);
-          transform: scaleY(0); transform-origin: top;
-          transition: transform 0.35s ease;
-        }
-        .svc-card:hover::after { transform: scaleY(1); }
-        .svc-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 22px 60px rgba(26,111,196,0.13);
-          border-color: rgba(26,111,196,0.2);
-        }
-        .svc-icon {
-          width: 56px; height: 56px; border-radius: 16px;
-          background: linear-gradient(135deg, #eef4fd, #daeeff);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 26px; flex-shrink: 0;
-          transition: transform 0.3s ease;
-        }
-        .svc-card:hover .svc-icon { transform: scale(1.08) rotate(-4deg); }
-
-        /* Image stack */
-        .img-main {
-          border-radius: 22px; overflow: hidden;
-          box-shadow: 0 24px 65px rgba(26,111,196,0.22);
-          position: relative; z-index: 2;
-        }
-        .img-accent {
-          border-radius: 16px; overflow: hidden;
-          box-shadow: 0 12px 35px rgba(26,111,196,0.18);
-          position: absolute; z-index: 3; border: 3px solid white;
-        }
-        .float-badge {
-          position: absolute; background: white;
-          border-radius: 14px; padding: 10px 16px;
-          box-shadow: 0 8px 30px rgba(26,111,196,0.2);
-          z-index: 4; border: 1px solid rgba(26,111,196,0.1);
-          animation: diagonalFloat 4s ease-in-out infinite;
-        }
-
-        .cta-btn {
-          display: inline-flex; align-items: center; gap: 7px;
-          padding: 13px 28px; border-radius: 50px;
-          font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700;
-          transition: all 0.3s ease; text-decoration: none; cursor: pointer; border: none;
-        }
-      `}</style>
-
-      {/* ═══════════════════════════════
-          HERO
-      ═══════════════════════════════ */}
-      <section
-        className="relative overflow-hidden py-14 md:py-24 px-4"
-        style={{ background: "linear-gradient(135deg, #1a6fc4 0%, #1e80d8 45%, #1a9fd4 80%, #17b8e0 100%)" }}
-      >
-        <div className="geo-ring" style={{ width: 440, height: 440, top: -140, right: -90, opacity: 0.15 }} />
-        <div className="geo-ring" style={{ width: 240, height: 240, top: 40, right: 90, opacity: 0.09 }} />
-        <div className="geo-ring" style={{ width: 560, height: 560, bottom: -260, left: -120, opacity: 0.07 }} />
-        <div className="orb-float absolute top-10 right-1/3 w-28 h-28 rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, #7dd3fc, transparent)" }} />
-        <div className="orb-float-2 absolute bottom-6 right-20 w-16 h-16 rounded-full opacity-15"
-          style={{ background: "radial-gradient(circle, #a5f3fc, transparent)" }} />
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-            {/* Left */}
-            <div>
-              <p className="fade-left sora text-xs tracking-[0.22em] text-cyan-200 uppercase mb-3 d1" style={{ fontWeight: 600 }}>
-                Nexora Technology Services Pvt Ltd
-              </p>
-              <h1 className="fade-left sora text-4xl md:text-5xl text-white mb-5 leading-tight d2" style={{ fontWeight: 800 }}>
-                Enterprise Resource<br />
-                <span style={{ color: "#a5f3fc" }}>Planning (ERP)</span>
-              </h1>
-              <p className="fade-left text-blue-100 text-base leading-relaxed max-w-lg mb-8 d3" style={{ opacity: 0.9 }}>
-                End-to-end ERP services — from implementation and custom development to upgrades,
-                global rollout, and ongoing support — designed to transform how your business operates.
-              </p>
-              <div className="fade-up d4 flex flex-wrap gap-4">
-                <Link href="/contact" className="cta-btn"
-                  style={{ background: "white", color: "#1a6fc4", boxShadow: "0 8px 28px rgba(0,0,0,0.15)" }}>
-                  Get Started
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.28 }}
+                className="flex flex-wrap items-center gap-3.5"
+              >
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white text-[#0051fe] hover:bg-blue-50 shadow-md shadow-black/15 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  Schedule ERP Consultation
+                  <ArrowRight className="w-4 h-4 text-[#0051fe]" />
                 </Link>
-                <Link href="/contact" className="cta-btn text-white"
-                  style={{ background: "rgba(255,255,255,0.12)", border: "1.5px solid rgba(255,255,255,0.4)" }}>
-                  Free Consultation
+
+                <a
+                  href="#erp-services"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  Explore Service Pillars
+                  <ArrowUpRight className="w-4 h-4 text-cyan-300" />
+                </a>
+              </motion.div>
+            </div>
+
+            {/* Right Column: Live Enterprise ERP Telemetry HUD */}
+            <div className="lg:col-span-5">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="rounded-2xl border border-white/20 bg-white/10 p-5 sm:p-6 backdrop-blur-xl shadow-2xl relative overflow-hidden"
+              >
+                {/* HUD Header */}
+                <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-300" />
+                    </span>
+                    <span className="font-heading font-bold text-xs uppercase tracking-wider text-white">
+                      ERP Enterprise Command Center
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-white/15 text-cyan-200 border border-white/20">
+                    Live Status: Optimal
+                  </span>
+                </div>
+
+                {/* System Nodes Health */}
+                <div className="grid grid-cols-2 gap-3 mb-5">
+                  <div className="p-3 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm">
+                    <div className="flex items-center justify-between text-[11px] text-blue-200 mb-1">
+                      <span>Ledger Sync</span>
+                      <span className="text-cyan-300 font-bold">100%</span>
+                    </div>
+                    <div className="w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
+                      <div className="bg-gradient-to-r from-cyan-400 to-sky-300 h-full w-full rounded-full" />
+                    </div>
+                    <span className="text-[10px] text-blue-100/70 mt-1 block">Real-time reconciling</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm">
+                    <div className="flex items-center justify-between text-[11px] text-blue-200 mb-1">
+                      <span>Global Nodes</span>
+                      <span className="text-emerald-300 font-bold">Active</span>
+                    </div>
+                    <div className="w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
+                      <div className="bg-gradient-to-r from-emerald-400 to-teal-300 h-full w-[96%] rounded-full" />
+                    </div>
+                    <span className="text-[10px] text-blue-100/70 mt-1 block">Multi-region routed</span>
+                  </div>
+                </div>
+
+                {/* Live Event Stream */}
+                <div className="space-y-2.5 font-mono text-[11px]">
+                  <div className="flex items-center justify-between p-2.5 rounded-lg bg-black/20 border border-white/10 text-blue-100">
+                    <span className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-300" />
+                      Supply Chain Order Dispatch
+                    </span>
+                    <span className="text-cyan-300 text-[10px]">99.98% SLA</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2.5 rounded-lg bg-black/20 border border-white/10 text-blue-100">
+                    <span className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300" />
+                      Global Multi-Currency Batch
+                    </span>
+                    <span className="text-emerald-300 text-[10px]">Zero Discrepancy</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2.5 rounded-lg bg-black/20 border border-white/10 text-blue-100">
+                    <span className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-300" />
+                      Automated Compliance Audit
+                    </span>
+                    <span className="text-cyan-300 text-[10px]">SOC2 Verified</span>
+                  </div>
+                </div>
+
+                {/* Bottom Platform Pills */}
+                <div className="mt-5 pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-2 text-[10px] text-blue-100">
+                  <span className="font-sans font-semibold text-white/90">Ecosystem:</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {platformsSupported.slice(0, 3).map((plat) => (
+                      <span key={plat.name} className="px-2 py-0.5 rounded-md bg-white/15 border border-white/20 text-cyan-200">
+                        {plat.name.split(" ")[0]}
+                      </span>
+                    ))}
+                    <span className="px-2 py-0.5 rounded-md bg-white/15 border border-white/20 text-cyan-200">+More</span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 1: OVERVIEW & IMAGE SHOWCASE
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left Content */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5 text-[#0051fe]" />
+                <span>Our Strategic Value</span>
+              </div>
+
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                Complete ERP Solutions <br />
+                <span className="text-[#0051fe]">
+                  Tailored to Your Enterprise
+                </span>
+              </h2>
+
+              <p className="text-slate-600 text-base leading-relaxed">
+                From initial assessment and systems architecture to multi-country rollout and long-term proactive support,
+                Nexora delivers enterprise-grade ERP services that streamline operations, unify fragmented data silos,
+                and empower leadership with actionable business intelligence.
+              </p>
+
+              <div className="space-y-3.5 pt-2">
+                {[
+                  "Single unified partner managing your full software lifecycle from kickoff to scaling",
+                  "Deep statutory expertise in multi-entity compliance, tax regulations, and localization",
+                  "Enterprise-grade security adhering to ISO, SOC2, and global data privacy standards",
+                  "Modular design enabling step-by-step digital transformation without operational risk",
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-blue-50 border border-blue-200/60 flex items-center justify-center text-[#0051fe] flex-shrink-0 mt-0.5">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-slate-700 text-sm font-medium leading-relaxed">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-4 pt-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-[#0051fe] hover:bg-[#0041cb] text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  Consult an ERP Architect
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </Link>
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-slate-100 hover:bg-slate-200 text-slate-800 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  About Nexora
                 </Link>
               </div>
             </div>
 
-            {/* Right: service name pills */}
-            <div className="fade-right hidden lg:flex flex-col gap-3 d2">
-              {services.map((s, i) => (
-                <div key={i} className="flex items-center gap-4 rounded-2xl px-5 py-3"
-                  style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.18)", backdropFilter: "blur(10px)" }}>
-                  <span className="text-2xl">{s.icon}</span>
-                  <p className="sora text-white text-sm" style={{ fontWeight: 700 }}>{s.title}</p>
-                  <div className="ml-auto w-5 h-5 rounded-full flex items-center justify-center"
-                    style={{ background: "rgba(255,255,255,0.15)" }}>
-                    <svg className="w-3 h-3 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                    </svg>
+            {/* Right Images Composite */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative mx-auto max-w-md lg:max-w-none pt-4 pb-10 sm:pb-14 sm:pr-8">
+                
+                {/* Ambient glow behind images */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/15 to-cyan-500/15 rounded-3xl blur-2xl -z-10" />
+
+                {/* Primary Large Image */}
+                <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white shadow-2xl bg-white aspect-[4/3] w-full max-w-lg mx-auto">
+                  <Image
+                    src={img1}
+                    alt="Nexora Enterprise ERP Systems & Implementation"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+                  
+                  {/* Floating badge inside main image placed at top so bottom accent image NEVER blocks it */}
+                  <div className="absolute top-4 left-4 right-4 p-3.5 sm:p-4 rounded-xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg text-slate-900 z-10">
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <p className="font-heading font-bold text-[11px] text-[#0051fe] uppercase tracking-wider">
+                          Enterprise Orchestration
+                        </p>
+                        <p className="font-heading font-bold text-xs sm:text-sm text-slate-900">
+                          Unified Real-Time Business Data
+                        </p>
+                      </div>
+                      <span className="px-2.5 py-1 rounded-full bg-blue-100 text-[#0051fe] text-[10px] sm:text-[11px] font-bold flex-shrink-0">
+                        Full Lifecycle
+                      </span>
+                    </div>
                   </div>
                 </div>
+
+                {/* Secondary Accent Image: Floating Bottom Left */}
+                <div className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-6 w-40 sm:w-52 aspect-[4/3] rounded-2xl overflow-hidden border-4 border-white shadow-2xl hidden sm:block z-20">
+                  <Image
+                    src={img2}
+                    alt="ERP Custom Development & Integration"
+                    fill
+                    className="object-cover"
+                    sizes="200px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white text-[11px] font-heading font-semibold">
+                    Custom Workflows
+                  </div>
+                </div>
+
+                {/* Tertiary Accent Image: Floating Top Right */}
+                <div className="absolute -top-4 -right-2 sm:-top-6 sm:-right-4 w-32 sm:w-44 aspect-[4/3] rounded-2xl overflow-hidden border-4 border-white shadow-2xl hidden sm:block z-20">
+                  <Image
+                    src={img3}
+                    alt="ERP 24/7 Managed Services & Global Rollout"
+                    fill
+                    className="object-cover"
+                    sizes="180px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white text-[11px] font-heading font-semibold">
+                    24/7 Support SLAs
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 2: THE 5 CORE SERVICE PILLARS
+          Active Pillar Spotlight Showcase with Dual Arrows
+      ═══════════════════════════════════════════ */}
+      {/* ═══════════════════════════════════════════
+          SECTION 2: THE 5 CORE SERVICE PILLARS
+          Fully Mobile-Optimized Active Pillar Showcase
+      ═══════════════════════════════════════════ */}
+      <section id="erp-services" className="py-12 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 bg-[#f0f5fc] border-t border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-3 sm:mb-4">
+              <Workflow className="w-3.5 h-3.5 text-[#0051fe]" />
+              <span>Full Lifecycle Capabilities</span>
+            </div>
+
+            <h2 className="font-heading text-2xl sm:text-4xl lg:text-5xl font-black text-[#0051fe] tracking-tight leading-tight mb-3 sm:mb-4">
+              Our Core ERP Service Pillars
+            </h2>
+
+            <p className="text-slate-600 text-xs sm:text-base leading-relaxed max-w-2xl mx-auto">
+              Comprehensive ERP engineering services engineered to support every milestone of your enterprise technology evolution — from greenfield deployment to continuous innovation.
+            </p>
+          </div>
+
+          {/* Mobile Top Navigation & Status Bar */}
+          <div className="flex sm:hidden items-center justify-between gap-2 mb-3 bg-white/95 backdrop-blur-md px-3 py-2 rounded-2xl border border-slate-200/90 shadow-sm">
+            <div className="flex items-center gap-2">
+              <span className="font-heading font-black text-xs text-[#0051fe] bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
+                {selectedService.stepNumber} / 05
+              </span>
+              <span className="font-heading font-bold text-xs text-slate-800 truncate max-w-[150px]">
+                {selectedService.title}
+              </span>
+            </div>
+
+            {/* Micro Dots */}
+            <div className="flex items-center gap-1">
+              {erpServices.map((svc) => (
+                <button
+                  key={svc.id}
+                  onClick={() => setActiveTab(svc.id)}
+                  aria-label={`Jump to ${svc.title}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    activeTab === svc.id ? "w-4 bg-[#0051fe]" : "w-1.5 bg-slate-300"
+                  }`}
+                />
               ))}
             </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════
-          INTRO + IMAGES
-      ═══════════════════════════════ */}
-      <section className="py-10 md:py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
-
-          {/* Left: text */}
-          <div className="flex-1 fade-left">
-            <div className="section-label">Our ERP Services</div>
-            <div className="dot-row"><span /><span /><span /></div>
-            <h2 className="sora text-3xl md:text-4xl text-[#1e3a5f] mb-5 leading-snug" style={{ fontWeight: 800 }}>
-              Complete ERP Solutions<br />
-              <span style={{ background: "linear-gradient(90deg,#1a6fc4,#17b8e0)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Tailored to Your Business
-              </span>
-            </h2>
-            <p className="text-slate-600 text-base leading-relaxed mb-6">
-              From first implementation to global deployment and long-term support, Nexora delivers
-              enterprise-grade ERP services that streamline operations, unify data, and power smarter
-              decisions across your entire organization.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/contact" className="cta-btn"
-                style={{ background: "linear-gradient(135deg,#1a6fc4,#17b8e0)", color: "white", boxShadow: "0 6px 22px rgba(26,111,196,0.35)" }}>
-                Talk to an Expert <span>→</span>
-              </Link>
-              <Link href="/about" className="cta-btn"
-                style={{ color: "#1a6fc4", border: "2px solid rgba(26,111,196,0.25)", background: "transparent" }}>
-                About Us
-              </Link>
-            </div>
           </div>
 
-          {/* Right: images */}
-          <div className="img-stack-wrapper flex-1 fade-right relative flex justify-center overflow-hidden" style={{ minHeight: 280 }}>
-            <div className="deco-ring" style={{ width: 380, height: 380, top: "50%", left: "50%", transform: "translate(-50%,-50%)" }} />
-            <div className="deco-ring" style={{ width: 270, height: 270, top: "50%", left: "50%", transform: "translate(-50%,-50%)", animationDirection: "reverse", opacity: 0.55 }} />
+          {/* Active Pillar Spotlight Showcase Container */}
+          <div className="relative flex items-center sm:gap-4 lg:gap-6 mb-6 sm:mb-10">
+            
+            {/* Desktop Left Switch Arrow */}
+            <button
+              onClick={handlePrev}
+              aria-label="Previous ERP service pillar"
+              className="hidden sm:flex flex-shrink-0 w-11 h-11 lg:w-13 lg:h-13 rounded-full bg-white hover:bg-blue-50 text-[#0051fe] border border-slate-200/90 hover:border-blue-400 shadow-md hover:shadow-lg items-center justify-center transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 z-20"
+            >
+              <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
+            </button>
 
-            <div className="img-main" style={{ width: 360, height: 280, marginTop: 40 }}>
-              <Image src={img1} alt="ERP Services" fill style={{ objectFit: "cover" }} />
-            </div>
-            <div className="img-accent" style={{ width: 190, height: 140, bottom: 10, left: "3%" }}>
-              <Image src={img2} alt="ERP Implementation" fill style={{ objectFit: "cover" }} />
-            </div>
-            <div className="img-accent" style={{ width: 160, height: 118, top: 0, right: "2%" }}>
-              <Image src={img3} alt="ERP Support" fill style={{ objectFit: "cover" }} />
+            {/* Center Showcase Card: 100% width on Mobile, no side button squeeze */}
+            <div className="w-full sm:flex-1 min-w-0">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedService.id}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -16 }}
+                  transition={{ duration: 0.28 }}
+                >
+                  <SpotlightCard
+                    spotlightColor="rgba(0, 81, 254, 0.16)"
+                    borderColor="rgba(0, 81, 254, 0.35)"
+                    className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-10 border border-slate-200 shadow-xl overflow-hidden relative"
+                  >
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start lg:items-center">
+                      
+                      {/* Left Column of Card */}
+                      <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+                        <div className="flex items-center gap-2.5 sm:gap-3">
+                          <span className="font-heading font-black text-xl sm:text-2xl text-[#0051fe]">
+                            {selectedService.stepNumber}
+                          </span>
+                          <span className="h-4 w-px bg-slate-300" />
+                          <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-blue-50 border border-blue-200 text-[#0051fe] font-heading font-bold text-[11px] sm:text-xs uppercase tracking-wider">
+                            {selectedService.badge}
+                          </span>
+                        </div>
+
+                        <div>
+                          <h3 className="font-heading text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight mb-1 sm:mb-2">
+                            {selectedService.title}
+                          </h3>
+                          <p className="text-xs sm:text-sm font-semibold text-[#0051fe]">
+                            {selectedService.subtitle}
+                          </p>
+                        </div>
+
+                        <div className="space-y-2.5 sm:space-y-3 text-slate-600 text-xs sm:text-sm leading-relaxed">
+                          {selectedService.content.map((paragraph, pIdx) => (
+                            <p key={pIdx}>{paragraph}</p>
+                          ))}
+                        </div>
+
+                        <div className="pt-1 sm:pt-2">
+                          <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-blue-50/90 text-[11px] sm:text-xs font-semibold text-[#0051fe] border border-blue-100">
+                            <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#0051fe] flex-shrink-0" />
+                            <span>Key Impact: {selectedService.metrics}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right Column of Card: Core Capabilities Checklist */}
+                      <div className="lg:col-span-5 bg-gradient-to-br from-[#f8fafc] to-blue-50/60 p-4 sm:p-6 lg:p-7 rounded-xl sm:rounded-2xl border border-blue-100 space-y-3 sm:space-y-4 w-full">
+                        <div className="flex items-center gap-2 font-heading font-bold text-xs sm:text-sm text-slate-900 border-b border-blue-200/60 pb-2.5 sm:pb-3">
+                          <selectedService.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#0051fe] flex-shrink-0" />
+                          <span>Key Strategic Deliverables</span>
+                        </div>
+
+                        <div className="space-y-2.5 sm:space-y-3">
+                          {selectedService.capabilities.map((cap, cIdx) => (
+                            <div key={cIdx} className="flex items-start gap-2 sm:gap-2.5">
+                              <CheckCircle2 className="w-4 h-4 text-[#0051fe] flex-shrink-0 mt-0.5" />
+                              <span className="text-xs sm:text-sm text-slate-700 font-medium leading-snug">
+                                {cap}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="pt-3 sm:pt-4 border-t border-blue-200/60">
+                          <Link
+                            href="/contact"
+                            className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 rounded-xl font-heading font-bold text-xs sm:text-sm bg-[#0051fe] hover:bg-[#0041cb] text-white shadow-md transition-all duration-200 cursor-pointer"
+                          >
+                            Request Quote for {selectedService.title}
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+
+                    </div>
+                  </SpotlightCard>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            {/* <div className="float-badge" style={{ bottom: 62, right: "5%", animationDelay: "1.2s" }}>
-              <p className="sora text-xs font-bold text-[#1a6fc4] mb-0.5">500+ Projects</p>
-              <p className="text-slate-500 text-[11px]">Delivered Globally</p>
-            </div> */}
-            <div className="float-badge"
-              style={{ top: 20, left: "5%", animationDelay: "0.6s", background: "linear-gradient(135deg,#1a6fc4,#17b8e0)" }}>
-              <p className="sora text-xs font-bold text-white mb-0.5">End-to-End</p>
-              <p className="text-cyan-100 text-[11px]">ERP Services</p>
-            </div>
+            {/* Desktop Right Switch Arrow */}
+            <button
+              onClick={handleNext}
+              aria-label="Next ERP service pillar"
+              className="hidden sm:flex flex-shrink-0 w-11 h-11 lg:w-13 lg:h-13 rounded-full bg-white hover:bg-blue-50 text-[#0051fe] border border-slate-200/90 hover:border-blue-400 shadow-md hover:shadow-lg items-center justify-center transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 z-20"
+            >
+              <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
+            </button>
+
           </div>
-        </div>
-      </section>
 
-      {/* ═══════════════════════════════
-          SERVICES — alternating layout
-      ═══════════════════════════════ */}
-      <section className="py-10 md:py-20 px-4 bg-[#f4f8fd]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10 md:mb-14 fade-up">
-            <div className="section-label" style={{ margin: "0 auto 14px" }}>What We Offer</div>
-            <h2 className="sora text-3xl md:text-4xl text-[#1e3a5f]" style={{ fontWeight: 800 }}>
-              Our ERP Service Areas
-            </h2>
-            <p className="text-slate-500 mt-3 text-sm max-w-xl mx-auto leading-relaxed">
-              Comprehensive ERP services that cover every stage of your enterprise technology journey.
-            </p>
+          {/* Mobile Bottom Thumb Navigation Controls */}
+          <div className="flex sm:hidden items-center justify-between gap-3 mb-6">
+            <button
+              onClick={handlePrev}
+              aria-label="Previous ERP service pillar"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl bg-white text-[#0051fe] border border-slate-200/90 shadow-sm active:bg-blue-50 font-heading font-bold text-xs cursor-pointer"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>Previous Pillar</span>
+            </button>
+            <button
+              onClick={handleNext}
+              aria-label="Next ERP service pillar"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl bg-[#0051fe] text-white shadow-sm active:bg-[#0041cb] font-heading font-bold text-xs cursor-pointer"
+            >
+              <span>Next Pillar</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
 
-          <div className="flex flex-col gap-5">
-            {services.map((svc, i) => (
-              <div key={svc.title} className={`svc-card fade-up d${(i % 5) + 1}`}>
-                <div className="flex flex-col md:flex-row gap-5 p-5 md:p-8 items-start">
-                  {/* Icon + title */}
-                  <div className="flex-shrink-0 flex flex-col items-center md:items-start gap-3 w-full md:w-48">
-                    <div className="svc-icon">{svc.icon}</div>
-                    <h3 className="sora text-lg text-[#1e3a5f] leading-snug text-center md:text-left" style={{ fontWeight: 800 }}>
+          {/* Horizontal Swipeable Track on Mobile / 5-Column Grid on Desktop */}
+          <div className="flex gap-2.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-2 pt-1 -mx-3.5 px-3.5 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-4 snap-x">
+            {erpServices.map((svc) => {
+              const IconComp = svc.icon;
+              const isSelected = activeTab === svc.id;
+              return (
+                <div
+                  key={svc.id}
+                  onClick={() => setActiveTab(svc.id)}
+                  className={`snap-start flex-shrink-0 w-[170px] sm:w-auto p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between ${
+                    isSelected
+                      ? "bg-white border-[#0051fe] shadow-lg shadow-blue-500/10 ring-2 ring-[#0051fe]/20"
+                      : "bg-white/80 border-slate-200/80 hover:border-blue-300 hover:bg-white shadow-sm"
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2.5 sm:mb-3">
+                      <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center ${isSelected ? "bg-[#0051fe] text-white" : "bg-blue-50 text-[#0051fe]"}`}>
+                        <IconComp className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </div>
+                      <span className="font-heading font-bold text-xs text-slate-400">
+                        {svc.stepNumber}
+                      </span>
+                    </div>
+                    <h4 className="font-heading font-bold text-xs sm:text-sm text-slate-900 mb-0.5 sm:mb-1 truncate sm:whitespace-normal">
                       {svc.title}
+                    </h4>
+                    <p className="text-[10px] sm:text-[11px] text-slate-500 line-clamp-2">
+                      {svc.subtitle}
+                    </p>
+                  </div>
+                  <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-[#0051fe]">
+                    <span>{isSelected ? "Active" : "View"}</span>
+                    <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 3: ENTERPRISE FUNCTIONAL MODULES
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
+        <div className="max-w-7xl mx-auto">
+          
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4">
+              <Boxes className="w-3.5 h-3.5 text-[#0051fe]" />
+              <span>Full Functional Coverage</span>
+            </div>
+
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-[#0051fe] tracking-tight leading-tight mb-4">
+              ERP Functional Modules We Implement
+            </h2>
+
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              Seamlessly integrating each critical department of your organization to eliminate communication barriers, redundant data entry, and procedural bottlenecks.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {erpModules.map((mod, idx) => {
+              const ModIcon = mod.icon;
+              return (
+                <SpotlightCard
+                  key={idx}
+                  spotlightColor="rgba(0, 81, 254, 0.14)"
+                  borderColor="rgba(0, 81, 254, 0.3)"
+                  className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0051fe] group-hover:scale-105 group-hover:bg-[#0051fe] group-hover:text-white transition-all duration-300">
+                        <ModIcon className="w-6 h-6" />
+                      </div>
+                      <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 text-[11px] font-bold">
+                        {mod.badge}
+                      </span>
+                    </div>
+
+                    <h3 className="font-heading font-black text-lg text-slate-900 mb-2 group-hover:text-[#0051fe] transition-colors">
+                      {mod.title}
                     </h3>
-                    <div className="hidden md:block w-8 h-0.5 rounded-full"
-                      style={{ background: "linear-gradient(90deg,#1a6fc4,#17b8e0)" }} />
+
+                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                      {mod.desc}
+                    </p>
                   </div>
 
-                  {/* Vertical divider */}
-                  <div className="hidden md:block w-px self-stretch"
-                    style={{ background: "linear-gradient(180deg, transparent, #e8f0fb 20%, #e8f0fb 80%, transparent)" }} />
-
-                  {/* Content */}
-                  <div className="flex-1 flex flex-col gap-3">
-                    {svc.content.map((para, j) => (
-                      <p key={j} className="text-slate-600 text-sm leading-relaxed">{para}</p>
-                    ))}
+                  <div className="mt-5 pt-4 border-t border-slate-100 flex items-center gap-1 text-xs font-bold text-[#0051fe]">
+                    <span>Standardized &amp; Customized</span>
+                    <CheckCircle2 className="w-3.5 h-3.5" />
                   </div>
+                </SpotlightCard>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 4: IMPLEMENTATION METHODOLOGY
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 via-[#0a1e3d] to-slate-950 text-white relative overflow-hidden">
+        
+        {/* Ambient Lights */}
+        <div className="pointer-events-none absolute top-0 right-1/4 w-96 h-96 bg-[#0051fe]/20 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl z-0" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-4 backdrop-blur-md">
+              <Activity className="w-3.5 h-3.5 text-cyan-300" />
+              <span>Predictable Delivery</span>
+            </div>
+
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+              Proven 5-Stage Implementation Roadmap
+            </h2>
+
+            <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed">
+              We eliminate ERP delivery risks through a structured, transparent, and battle-tested delivery framework with quantifiable gates at every milestone.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-6 relative">
+            {methodologySteps.map((step, idx) => (
+              <div
+                key={idx}
+                className="bg-white/10 border border-white/15 rounded-2xl p-5 sm:p-6 backdrop-blur-md relative flex flex-col justify-between hover:bg-white/15 hover:border-cyan-300/40 transition-all duration-300 group"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-heading font-black text-2xl text-cyan-300 group-hover:scale-110 transition-transform">
+                      {step.step}
+                    </span>
+                    <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                  </div>
+
+                  <h3 className="font-heading font-bold text-sm sm:text-base text-white mb-2 leading-snug">
+                    {step.phase}
+                  </h3>
+
+                  <p className="text-xs text-blue-200/80 leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-white/10 text-[10px] uppercase font-mono tracking-wider text-cyan-200 font-semibold">
+                  Phase 0{idx + 1} Gate
                 </div>
               </div>
             ))}
           </div>
+
+          {/* Supported Platforms Banner */}
+          <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <p className="font-heading font-bold text-base text-white">
+                  Cross-Platform ERP Ecosystem Competency
+                </p>
+                <p className="text-xs text-blue-200/80">
+                  Certified architectural advisory and delivery across tier-1 and open-source stacks
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2.5">
+                {platformsSupported.map((plat) => (
+                  <div
+                    key={plat.name}
+                    className="px-3.5 py-1.5 rounded-xl bg-white/10 border border-white/15 text-xs text-white font-heading font-semibold hover:bg-white/20 transition-colors"
+                  >
+                    <span>{plat.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* ═══════════════════════════════
-          SECOND IMAGE STRIP
-      ═══════════════════════════════ */}
-      <section className="py-10 md:py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
+      {/* ═══════════════════════════════════════════
+          SECTION 5: WHY PARTNER WITH NEXORA
+          Second Image Showcase + Differentiators
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left Differentiators */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#0051fe]" />
+                <span>Why Nexora ERP</span>
+              </div>
 
-          {/* Left: points */}
-          <div className="flex-1 fade-left">
-            <div className="section-label">Why Nexora ERP</div>
-            <div className="dot-row"><span /><span /><span /></div>
-            <h2 className="sora text-3xl md:text-4xl text-[#1e3a5f] mb-8 leading-snug" style={{ fontWeight: 800 }}>
-              A Trusted Partner<br />
-              <span style={{ background: "linear-gradient(90deg,#1a6fc4,#17b8e0)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Across the ERP Lifecycle
-              </span>
-            </h2>
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                A Trusted Partner Across the <br />
+                <span className="text-[#0051fe]">
+                  Entire ERP Lifecycle
+                </span>
+              </h2>
 
-            <div className="flex flex-col gap-5">
-              {[
-                { icon: "✅", title: "Single Partner, Full Lifecycle", desc: "From implementation through support — one team that knows your system inside out." },
-                { icon: "🌍", title: "Global Reach, Local Expertise", desc: "Multi-country rollout capabilities with localization, compliance, and regional best practices." },
-                { icon: "🔒", title: "Secure & Scalable", desc: "Every solution is built with enterprise-grade security and designed to scale as you grow." },
-                // { icon: "📈", title: "Proven Results", desc: "500+ successful ERP projects across industries with measurable improvements in efficiency and ROI." },
-              ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 items-start">
-                  <div className="flex-shrink-0 rounded-2xl flex items-center justify-center text-xl"
-                    style={{ width: 46, height: 46, background: "linear-gradient(135deg,#eef4fd,#daeeff)" }}>
-                    {icon}
-                  </div>
-                  <div>
-                    <p className="sora text-[#1e3a5f] font-bold text-sm mb-1">{title}</p>
-                    <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                We combine deep technical engineering with robust functional domain knowledge to ensure your enterprise technology investment drives sustained competitive advantage.
+              </p>
+
+              <div className="space-y-4 pt-2">
+                {[
+                  {
+                    icon: Workflow,
+                    title: "Single Partner, Full Lifecycle",
+                    desc: "From blueprinting through 24/7 post-launch support — one unified engineering pod that understands your unique workflows inside and out.",
+                  },
+                  {
+                    icon: Globe,
+                    title: "Global Reach, Local Statutory Expertise",
+                    desc: "Multi-country rollout expertise ensuring seamless regional tax localization, multi-currency reporting, and statutory compliance.",
+                  },
+                  {
+                    icon: Lock,
+                    title: "Enterprise Security & High Availability",
+                    desc: "Hardened infrastructure architectures built with role-based governance, automated data encryption, and 99.98% availability SLAs.",
+                  },
+                  {
+                    icon: Gauge,
+                    title: "Transparent Timelines & Quantifiable ROI",
+                    desc: "Rigorous milestone-based accountability, predictable budgetary controls, and measurable efficiency gains across operational divisions.",
+                  },
+                ].map((item, idx) => {
+                  const ItemIcon = item.icon;
+                  return (
+                    <div key={idx} className="flex items-start gap-4 p-4 rounded-xl hover:bg-blue-50/50 transition-colors">
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-200/60 flex items-center justify-center text-[#0051fe] flex-shrink-0 mt-0.5">
+                        <ItemIcon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="font-heading font-bold text-sm text-slate-900 mb-1">
+                          {item.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Images Composite 2 */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative mx-auto max-w-md lg:max-w-none pt-4 pb-10 sm:pb-14 sm:pr-8">
+                
+                <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/15 to-cyan-500/15 rounded-3xl blur-2xl -z-10" />
+
+                {/* Primary Large Image */}
+                <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white shadow-2xl bg-white aspect-[4/3] w-full max-w-lg mx-auto">
+                  <Image
+                    src={img3}
+                    alt="Global Enterprise ERP Rollout and Implementation Support"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+                  
+                  {/* Floating Card inside main image placed at top so bottom card NEVER blocks it */}
+                  <div className="absolute top-4 left-4 right-4 p-3.5 sm:p-4 rounded-xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg text-slate-900 z-10">
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <p className="font-heading font-bold text-[11px] text-[#0051fe] uppercase tracking-wider">
+                          Global Standard
+                        </p>
+                        <p className="font-heading font-bold text-xs sm:text-sm text-slate-900">
+                          Multi-Country Rollout Excellence
+                        </p>
+                      </div>
+                      <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 text-[10px] sm:text-[11px] font-bold flex-shrink-0">
+                        99.9% Uptime
+                      </span>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Right: images */}
-          <div className="img-stack-wrapper flex-1 fade-right relative flex justify-center overflow-hidden" style={{ minHeight: 260 }}>
-            <div className="deco-ring" style={{ width: 340, height: 340, top: "50%", left: "50%", transform: "translate(-50%,-50%)" }} />
+                {/* Floating Card Top Right */}
+                <div className="absolute -top-4 -right-2 sm:-top-6 sm:-right-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xl hidden sm:block max-w-[190px] z-20">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-xs font-heading font-bold text-slate-900">12+ Years</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500">
+                    Enterprise technology engineering &amp; ERP architecture
+                  </p>
+                </div>
 
-            <div className="img-main" style={{ width: 340, height: 260, marginTop: 50 }}>
-              <Image src={img3} alt="ERP global rollout" fill style={{ objectFit: "cover" }} />
-            </div>
-            <div className="img-accent" style={{ width: 175, height: 130, top: 0, right: "4%" }}>
-              <Image src={img2} alt="ERP upgrade" fill style={{ objectFit: "cover" }} />
-            </div>
-            <div className="img-accent" style={{ width: 155, height: 115, bottom: 20, left: "4%" }}>
-              <Image src={img1} alt="ERP support" fill style={{ objectFit: "cover" }} />
+                {/* Floating Card Bottom Left */}
+                <div className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-6 p-3.5 sm:p-4 rounded-2xl bg-[#0051fe] text-white shadow-2xl hidden sm:block max-w-[210px] z-20">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Sparkles className="w-4 h-4 text-cyan-300" />
+                    <span className="text-xs font-heading font-bold text-white">Tailored Delivery</span>
+                  </div>
+                  <p className="text-[11px] text-blue-100">
+                    Guaranteed zero business disruption throughout transition
+                  </p>
+                </div>
+
+              </div>
             </div>
 
-            {/* <div className="float-badge" style={{ top: 14, left: "6%", animationDelay: "0.8s" }}>
-              <p className="sora text-xs font-bold text-[#1a6fc4] mb-0.5">12+ Years</p>
-              <p className="text-slate-500 text-[11px]">ERP Expertise</p>
-            </div> */}
-            {/* <div className="float-badge"
-              style={{ bottom: 30, right: "5%", animationDelay: "1.4s", background: "linear-gradient(135deg,#1a6fc4,#17b8e0)" }}>
-              <p className="sora text-xs font-bold text-white mb-0.5">20+ Countries</p>
-              <p className="text-cyan-100 text-[11px]">Global Rollouts</p>
-            </div> */}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════
-          CTA
-      ═══════════════════════════════ */}
-      <section
-        className="py-12 md:py-20 px-4 relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #0a1e3d 0%, #1a6fc4 60%, #17b8e0 100%)" }}
-      >
-        <div className="geo-ring" style={{ width: 300, height: 300, top: -100, right: -60, opacity: 0.12 }} />
-        <div className="geo-ring" style={{ width: 200, height: 200, bottom: -80, left: -40, opacity: 0.09 }} />
-        <div className="orb-float absolute top-8 left-1/4 w-24 h-24 rounded-full opacity-15"
-          style={{ background: "radial-gradient(circle, #7dd3fc, transparent)" }} />
+      {/* ═══════════════════════════════════════════
+          SECTION 6: PRE-FOOTER CALL TO ACTION (CTA)
+          Light Blue Background & Reduced Padding
+      ═══════════════════════════════════════════ */}
+      <section className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-blue-50/70 border-t border-blue-200/60">
+        
+        {/* Ambient Subtle Glows */}
+        <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-blue-200/40 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute -bottom-16 right-10 w-72 h-72 bg-sky-200/40 rounded-full blur-3xl z-0" />
 
-        <div className="max-w-3xl mx-auto text-center relative z-10 fade-up">
-          <p className="sora text-xs tracking-[0.22em] text-cyan-300 uppercase mb-3 font-semibold">
-            Ready to Transform?
-          </p>
-          <h2 className="sora text-3xl md:text-5xl text-white mb-5 leading-tight" style={{ fontWeight: 800 }}>
-            Let&apos;s Build Your<br />
-            <span style={{ color: "#a5f3fc" }}>ERP Success Story</span>
+        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-[#0051fe] text-xs font-bold uppercase tracking-wider shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-[#0051fe]" />
+            <span>Ready for Next-Gen Operations?</span>
+          </div>
+
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            Let&apos;s Build Your <br />
+            <span className="text-[#0051fe]">
+              Enterprise ERP Success Story
+            </span>
           </h2>
-          <p className="text-blue-200 text-base leading-relaxed mb-10 max-w-xl mx-auto" style={{ opacity: 0.88 }}>
-            Partner with Nexora for end-to-end ERP services that deliver real results — from your
-            first implementation to global scale and beyond.
+
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+            Partner with Nexora Technology Services for end-to-end ERP solutions that deliver measurable results —
+            from your initial discovery and blueprinting to global multi-region scale and beyond.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact" className="cta-btn"
-              style={{ color: "#1a6fc4", background: "white", boxShadow: "0 8px 28px rgba(0,0,0,0.2)" }}>
-              Get in Touch <span>→</span>
+
+          <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-[#0051fe] hover:bg-[#0041cb] text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+            >
+              Get in Touch with an Expert
+              <ArrowRight className="w-4 h-4 text-white" />
             </Link>
-            <Link href="/about" className="cta-btn text-white"
-              style={{ background: "rgba(255,255,255,0.12)", border: "2px solid rgba(255,255,255,0.3)" }}>
-              About Us
+
+            <Link
+              href="/organization/execution-model"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+            >
+              Explore Our Execution Model
+              <ArrowUpRight className="w-4 h-4 text-[#0051fe]" />
             </Link>
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════
+          GLOBAL SHARED FOOTER
+      ═══════════════════════════════════════════ */}
+      <Footer />
+
     </div>
   );
 }

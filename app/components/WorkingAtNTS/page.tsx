@@ -1,788 +1,718 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import Footer from "@/app/components/Footer";
+import {
+  Sparkles,
+  HeartHandshake,
+  GraduationCap,
+  Award,
+  BookOpen,
+  Laptop,
+  HeartPulse,
+  Rocket,
+  Coins,
+  Users,
+  CheckCircle2,
+  ArrowRight,
+  ArrowUpRight,
+  Mail,
+  Check,
+  Activity,
+  Briefcase,
+  ShieldCheck,
+  Target,
+  Zap,
+  Coffee,
+  Code2,
+} from "lucide-react";
 
 export default function WorkingAtNTSPage() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-  const [subscribing, setSubscribing] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [activePerks, setActivePerks] = useState<number | null>(null);
+  /* ── Core Cultural Pillars ── */
+  const culturalPillars = [
+    {
+      icon: Sparkles,
+      title: "Innovation with Freedom",
+      desc: "We empower engineers and consultants to explore novel tech, challenge conventional thinking, and architect solutions with genuine creative autonomy.",
+      metric: "Open Tech Stacks",
+    },
+    {
+      icon: HeartHandshake,
+      title: "People-First Empathy",
+      desc: "Flat communication hierarchies, approachable leadership, and deep mutual respect. We treat human well-being as our highest organizational benchmark.",
+      metric: "Zero Gatekeeping",
+    },
+    {
+      icon: GraduationCap,
+      title: "Continuous Upskilling",
+      desc: "Annual learning stipends, sponsored certifications (AWS, SAP, Azure, GCP), and internal study pods to help you stay ahead of industry curves.",
+      metric: "Funded Certifications",
+    },
+    {
+      icon: Award,
+      title: "Meritocracy & Recognition",
+      desc: "Clear career ladders, frequent performance reviews, and spot awards. Contributions are recognized visibly without tenure bottlenecks.",
+      metric: "Fast-Track Growth",
+    },
+  ];
 
-  const LAUNCH_DATE = new Date("2025-10-01T00:00:00");
-
-  useEffect(() => {
-    const tick = () => {
-      const diff = LAUNCH_DATE.getTime() - Date.now();
-      if (diff <= 0) { setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return; }
-      setTimeLeft({
-        days:    Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours:   Math.floor((diff / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((diff / (1000 * 60)) % 60),
-        seconds: Math.floor((diff / 1000) % 60),
-      });
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  const handleSubscribe = async () => {
-    if (!email.trim()) return;
-    setSubscribing(true);
-    await new Promise((r) => setTimeout(r, 1600));
-    setSubscribing(false);
-    setSubscribed(true);
-    setEmail("");
-  };
-
-  /* ── Perks data ── */
+  /* ── Comprehensive Perks & Benefits ── */
   const perks = [
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-      ),
-      title: "Learning & Growth",
-      desc: "Access to premium courses, certifications, conference sponsorships, and a personal L&D budget to fuel your career.",
-      color: "#1a6fc4",
+      icon: BookOpen,
+      title: "Learning & Growth Stipend",
+      desc: "Access to premium courses, global tech conference sponsorships, books, and guaranteed budgets dedicated solely to your professional evolution.",
+      tag: "Career Advancement",
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      ),
-      title: "Collaborative Culture",
-      desc: "Flat hierarchy, open-door leadership, cross-functional teams, and a culture built on trust, transparency, and inclusion.",
-      color: "#1680d8",
+      icon: Laptop,
+      title: "Modern Flexible & Hybrid Work",
+      desc: "Work-life balance that respects your personal time. Enjoy flexible working models, core collaboration windows, and home workspace support.",
+      tag: "Flexibility First",
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
-        </svg>
-      ),
-      title: "Flexible Work",
-      desc: "Hybrid-friendly schedules, remote-first days, and policies designed to respect your work–life balance.",
-      color: "#178fd4",
+      icon: HeartPulse,
+      title: "Health & Comprehensive Wellness",
+      desc: "All-inclusive medical, dental, and health coverage for you and your family, paired with dedicated wellness days and mental health support.",
+      tag: "Full Family Coverage",
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
-      ),
-      title: "Health & Wellness",
-      desc: "Comprehensive medical, dental & vision coverage for you and your family, plus mental wellness support.",
-      color: "#17b8e0",
+      icon: Rocket,
+      title: "High-Impact Global Projects",
+      desc: "Build mission-critical ERP platforms, cloud transformations, and AI applications that reshape operations for global enterprises.",
+      tag: "Enterprise Impact",
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-            d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      ),
-      title: "High-Impact Projects",
-      desc: "Work on enterprise ERP, cloud, AI, and digital transformation initiatives that shape real businesses globally.",
-      color: "#1a6fc4",
+      icon: Coins,
+      title: "Competitive Compensation & Rewards",
+      desc: "Market-leading salary structures, performance bonuses, transparent salary bands, and annual increments matching industry benchmarks.",
+      tag: "Transparent Bands",
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      title: "Competitive Rewards",
-      desc: "Market-beating salaries, performance bonuses, equity participation, and transparent compensation bands.",
-      color: "#1680d8",
+      icon: Users,
+      title: "Vibrant Community & Socials",
+      desc: "Hackathons, team retreats, celebratory milestones, sports leagues, and casual hangouts that turn colleagues into lifelong friends.",
+      tag: "Culture & Camaraderie",
     },
   ];
 
-  /* ── Timeline ── */
-  const timeline = [
-    { step: "01", label: "Apply", desc: "Submit your profile — quick, no lengthy forms." },
-    { step: "02", label: "Chat",  desc: "A friendly call with our talent team." },
-    { step: "03", label: "Assess",desc: "A practical challenge relevant to your role." },
-    { step: "04", label: "Offer", desc: "Fast decisions, transparent timelines, zero ghosting." },
+  /* ── Transparent Hiring Steps ── */
+  const hiringSteps = [
+    {
+      step: "01",
+      title: "Apply or Connect",
+      desc: "Share your CV or portfolio with our talent team. We review every profile with care within 48 hours — no tedious 10-page application forms.",
+      badge: "Quick Review",
+    },
+    {
+      step: "02",
+      title: "Conversational Sync",
+      desc: "A relaxed, 30-minute dialogue with our talent team to discuss your aspirations, work style, and see if our missions align.",
+      badge: "Human-Centric",
+    },
+    {
+      step: "03",
+      title: "Practical Deep-Dive",
+      desc: "A hands-on, realistic challenge or architecture discussion directly relevant to the role. No outdated whiteboard trivia.",
+      badge: "Role-Relevant",
+    },
+    {
+      step: "04",
+      title: "Offer & Welcome",
+      desc: "Transparent offer package, swift decisions, zero ghosting, and a dedicated buddy to ensure a smooth onboarding experience.",
+      badge: "Fast Decision",
+    },
   ];
 
-  const CountBox = ({ value, label }: { value: number; label: string }) => (
-    <div className="count-box">
-      <span className="count-num sora">{String(value).padStart(2, "0")}</span>
-      <span className="count-label">{label}</span>
-    </div>
-  );
+  /* ── Workplace Highlights ── */
+  const workplaceHighlights = [
+    {
+      icon: Code2,
+      title: "Engineering Craftsmanship",
+      desc: "From clean code reviews to automated CI/CD pipelines and microservices, our technical standard is built for scalability and elegance.",
+      highlight: "Modern Tech Standards",
+    },
+    {
+      icon: Target,
+      title: "Autonomous Ownership",
+      desc: "We trust our squads to take ownership of end-to-end deliverables without micromanagement, fostering pride in what we ship.",
+      highlight: "High Trust Culture",
+    },
+    {
+      icon: Zap,
+      title: "Velocity & Agility",
+      desc: "Decisions move quickly. Cross-functional collaboration between engineering, consulting, and product teams keeps momentum high.",
+      highlight: "Frictionless Workflow",
+    },
+  ];
+
+  /* ── Hero Stats ── */
+  const heroStats = [
+    {
+      label: "Team Members",
+      value: "250+",
+      sub: "Engineers & Consultants",
+      icon: Users,
+      color: "from-blue-500/20 to-cyan-500/20",
+      border: "border-cyan-300/30",
+      text: "text-cyan-300",
+    },
+    {
+      label: "Retention Rate",
+      value: "98%",
+      sub: "Long-term career tenure",
+      icon: ShieldCheck,
+      color: "from-sky-500/20 to-blue-500/20",
+      border: "border-sky-300/30",
+      text: "text-sky-300",
+    },
+    {
+      label: "Growth & Innovation",
+      value: "12+ Yrs",
+      sub: "Consistent market expansion",
+      icon: Rocket,
+      color: "from-cyan-500/20 to-blue-500/20",
+      border: "border-cyan-300/30",
+      text: "text-cyan-300",
+    },
+    {
+      label: "Equal Opportunity",
+      value: "100%",
+      sub: "Inclusive meritocracy",
+      icon: HeartHandshake,
+      color: "from-blue-500/20 to-sky-500/20",
+      border: "border-blue-300/30",
+      text: "text-cyan-200",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-[#f4f8fd] font-sans overflow-hidden">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+    <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
+      {/* ═══════════════════════════════════════════
+          SECTION 1: HERO BANNER (DEEP ENTERPRISE BLUE)
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full pt-28 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
+        {/* Ambient Glowing Orbs */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/25 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute top-24 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
 
-        * { font-family: 'DM Sans', sans-serif; box-sizing: border-box; }
-        .sora { font-family: 'Sora', sans-serif; }
+        {/* Cyber Matrix Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
 
-        /* ── Keyframes ── */
-        @keyframes fadeUp {
-          from { opacity:0; transform:translateY(28px); }
-          to   { opacity:1; transform:translateY(0); }
-        }
-        @keyframes fadeLeft {
-          from { opacity:0; transform:translateX(-30px); }
-          to   { opacity:1; transform:translateX(0); }
-        }
-        @keyframes scaleIn {
-          from { opacity:0; transform:scale(0.91); }
-          to   { opacity:1; transform:scale(1); }
-        }
-        @keyframes floatA {
-          0%,100%{ transform:translateY(0)    scale(1); }
-          50%    { transform:translateY(-22px) scale(1.05); }
-        }
-        @keyframes floatB {
-          0%,100%{ transform:translateY(0)    scale(1) rotate(0deg); }
-          50%    { transform:translateY(-15px) scale(1.03) rotate(8deg); }
-        }
-        @keyframes floatC {
-          0%,100%{ transform:translateY(0)    scale(1); }
-          50%    { transform:translateY(-10px) scale(1.04); }
-        }
-        @keyframes spinCW  { from{transform:rotate(0deg);}  to{transform:rotate(360deg);}  }
-        @keyframes spinCCW { from{transform:rotate(360deg);}to{transform:rotate(0deg);}    }
-        @keyframes pulseGlow {
-          0%,100%{ box-shadow:0 0 0 0   rgba(30,128,216,0.40); }
-          50%    { box-shadow:0 0 0 14px rgba(30,128,216,0); }
-        }
-        @keyframes waveOut {
-          0%  { transform:scale(1);   opacity:0.55; }
-          100%{ transform:scale(2.4); opacity:0; }
-        }
-        @keyframes countFlip {
-          from{ transform:translateY(-8px); opacity:0; }
-          to  { transform:translateY(0);    opacity:1; }
-        }
-        @keyframes dotBlink {
-          0%,100%{ opacity:1;   }
-          50%    { opacity:0.18;}
-        }
-        @keyframes gradShift {
-          0%  { background-position:0%   50%; }
-          50% { background-position:100% 50%; }
-          100%{ background-position:0%   50%; }
-        }
-        @keyframes twinkle {
-          0%,100%{ opacity:0.12; transform:scale(1); }
-          50%    { opacity:0.75; transform:scale(1.5); }
-        }
-        @keyframes checkPop {
-          0% { transform:scale(0); opacity:0; }
-          70%{ transform:scale(1.2); }
-          100%{ transform:scale(1); opacity:1; }
-        }
-        @keyframes progressFill {
-          from{ width:0; }
-          to  { width:var(--w); }
-        }
-        @keyframes slideRight {
-          from{ opacity:0; transform:translateX(20px); }
-          to  { opacity:1; transform:translateX(0); }
-        }
-
-        /* ── Utility classes ── */
-        .fade-up  { animation:fadeUp   0.75s ease both; }
-        .fade-left{ animation:fadeLeft 0.75s ease both; }
-        .scale-in { animation:scaleIn  0.65s ease both; }
-        .d1{ animation-delay:0.10s; } .d2{ animation-delay:0.20s; }
-        .d3{ animation-delay:0.32s; } .d4{ animation-delay:0.44s; }
-        .d5{ animation-delay:0.56s; } .d6{ animation-delay:0.70s; }
-        .d7{ animation-delay:0.85s; } .d8{ animation-delay:1.00s; }
-
-        /* ── Gradient headline ── */
-        .grad-text {
-          background: linear-gradient(135deg,#a5f3fc 0%,#ffffff 45%,#bfdbfe 100%);
-          background-size:200% auto;
-          -webkit-background-clip:text;
-          -webkit-text-fill-color:transparent;
-          background-clip:text;
-          animation:gradShift 5s ease infinite;
-        }
-
-        /* ── Geo ring ── */
-        .geo-ring {
-          position:absolute; border-radius:50%;
-          border:1px solid rgba(255,255,255,0.11);
-          pointer-events:none;
-        }
-
-        /* ── Spinning deco rings ── */
-        .ring-cw  { animation:spinCW  20s linear infinite; }
-        .ring-ccw { animation:spinCCW 28s linear infinite; }
-
-        /* ── Stars ── */
-        .star{ position:absolute; border-radius:50%; background:white; pointer-events:none; }
-
-        /* ── Countdown ── */
-        .count-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-        .count-box{
-          display:flex; flex-direction:column; align-items:center; justify-content:center;
-          width:78px; padding:13px 8px 11px;
-          border-radius:14px;
-          background:rgba(255,255,255,0.10);
-          border:1px solid rgba(255,255,255,0.20);
-          backdrop-filter:blur(8px);
-          transition:transform 0.2s ease;
-        }
-        .count-box:hover{ transform:translateY(-4px); }
-        .count-num{
-          font-size:2.1rem; font-weight:800; color:#fff;
-          line-height:1; animation:countFlip 0.35s ease both;
-        }
-        .count-label{
-          font-size:9.5px; font-weight:600; letter-spacing:0.13em;
-          text-transform:uppercase; color:rgba(165,243,252,0.82); margin-top:4px;
-        }
-        .count-sep{
-          color:rgba(255,255,255,0.48); font-size:2rem; font-weight:700;
-          align-self:center; margin-bottom:14px;
-          animation:dotBlink 1s ease-in-out infinite;
-        }
-
-        /* ── Subscribe ── */
-        .notify-input{
-          flex:1; padding:12px 18px;
-          border-radius:10px 0 0 10px;
-          border:2px solid rgba(255,255,255,0.22);
-          background:rgba(255,255,255,0.10);
-          color:white; font-size:14px; outline:none; min-width:0;
-          transition:border-color 0.25s, background 0.25s;
-        }
-        .notify-input::placeholder{ color:rgba(255,255,255,0.42); }
-        .notify-input:focus{
-          border-color:rgba(255,255,255,0.55);
-          background:rgba(255,255,255,0.16);
-        }
-        .notify-btn{
-          padding:12px 22px;
-          border-radius:0 10px 10px 0;
-          border:2px solid rgba(255,255,255,0.35); border-left:none;
-          background:rgba(255,255,255,0.20);
-          color:white; font-family:'Sora',sans-serif;
-          font-size:14px; font-weight:700;
-          cursor:pointer; white-space:nowrap;
-          transition:all 0.25s ease;
-        }
-        .notify-btn:hover:not(:disabled){ background:rgba(255,255,255,0.30); }
-        .notify-btn:disabled{ opacity:0.7; cursor:not-allowed; }
-
-        /* ── Perk cards ── */
-        .perk-card{
-          background:white; border-radius:18px; padding:26px 22px;
-          border:1.5px solid rgba(26,111,196,0.10);
-          cursor:default; position:relative; overflow:hidden;
-          transition:all 0.30s ease;
-        }
-        .perk-card::after{
-          content:''; position:absolute; inset:0; border-radius:18px;
-          background:linear-gradient(135deg,rgba(30,128,216,0.05),rgba(23,184,224,0.05));
-          opacity:0; transition:opacity 0.3s;
-        }
-        .perk-card:hover::after{ opacity:1; }
-        .perk-card:hover{
-          transform:translateY(-7px);
-          box-shadow:0 22px 55px rgba(26,111,196,0.17),0 4px 14px rgba(0,0,0,0.06);
-          border-color:rgba(30,128,216,0.24);
-        }
-        .perk-card.active{
-          transform:translateY(-5px);
-          box-shadow:0 18px 48px rgba(26,111,196,0.22);
-          border-color:rgba(30,128,216,0.35);
-        }
-        .perk-icon{
-          width:50px; height:50px; border-radius:14px;
-          background:linear-gradient(135deg,#1a6fc4,#17b8e0);
-          display:flex; align-items:center; justify-content:center;
-          color:white; margin-bottom:15px; flex-shrink:0;
-        }
-
-        /* ── Timeline ── */
-        .tl-step{
-          display:flex; align-items:flex-start; gap:18px;
-          padding:18px 22px; border-radius:16px;
-          background:rgba(255,255,255,0.09);
-          border:1px solid rgba(255,255,255,0.16);
-          transition:background 0.25s, transform 0.25s;
-        }
-        .tl-step:hover{
-          background:rgba(255,255,255,0.16);
-          transform:translateX(6px);
-        }
-        .tl-num{
-          font-family:'Sora',sans-serif; font-size:1.8rem; font-weight:800;
-          color:rgba(255,255,255,0.18); line-height:1; flex-shrink:0; width:48px;
-        }
-
-        /* ── Stat chips ── */
-        .stat-chip{
-          display:flex; flex-direction:column; align-items:center;
-          padding:18px 24px; border-radius:16px;
-          background:rgba(255,255,255,0.10);
-          border:1px solid rgba(255,255,255,0.20);
-          backdrop-filter:blur(8px);
-          transition:transform 0.2s;
-        }
-        .stat-chip:hover{ transform:translateY(-4px); }
-        .stat-val{
-          font-family:'Sora',sans-serif; font-size:2rem; font-weight:800;
-          color:white; line-height:1.1;
-        }
-        .stat-lbl{
-          font-size:11px; font-weight:600; letter-spacing:0.10em;
-          text-transform:uppercase; color:rgba(165,243,252,0.80); margin-top:4px;
-        }
-
-        /* ── Ring spinner ── */
-        .ring-spinner{
-          width:18px; height:18px; border-radius:50%;
-          border:2.5px solid rgba(255,255,255,0.30);
-          border-top-color:white;
-          animation:spinCW 0.7s linear infinite;
-          display:inline-block;
-        }
-        .check-anim{ animation:checkPop 0.5s cubic-bezier(.36,.07,.19,.97) both; }
-
-        /* ── Wave rings ── */
-        .wave-ring{
-          position:absolute; border-radius:50%;
-          border:1.5px solid rgba(255,255,255,0.28);
-          animation:waveOut 3s ease-out infinite;
-          pointer-events:none;
-        }
-
-        /* ── Mobile fixes ── */
-        @media (max-width: 480px) {
-          .count-box { width: 62px !important; padding: 10px 4px 8px !important; }
-          .count-num { font-size: 1.7rem !important; }
-          .count-sep { font-size: 1.6rem !important; }
-          .notify-input { padding: 11px 14px; }
-          .notify-btn   { padding: 11px 14px; }
-        }
-      `}</style>
-
-      {/* ══════════════ HERO ══════════════ */}
-      <section
-        className="relative overflow-hidden flex flex-col items-center text-center px-4 py-14 md:py-24"
-        style={{
-          background:"linear-gradient(140deg,#0d2d55 0%,#1a6fc4 30%,#1e80d8 60%,#17b8e0 100%)",
-          minHeight:"100vh",
-        }}
-      >
-        {/* Stars */}
-        {[
-          { top:"12%", left:"8%",  s:4, d:0    },
-          { top:"22%", left:"78%", s:3, d:0.6  },
-          { top:"58%", left:"90%", s:5, d:1.1  },
-          { top:"72%", left:"6%",  s:3, d:0.9  },
-          { top:"38%", left:"48%", s:4, d:1.6  },
-          { top:"82%", left:"62%", s:2, d:0.4  },
-          { top:"6%",  left:"55%", s:3, d:2.0  },
-        ].map((st, i) => (
-          <div
-            key={i}
-            className="star"
-            style={{
-              top:st.top, left:st.left,
-              width:st.s, height:st.s,
-              animation:`twinkle ${2.4 + i * 0.35}s ease-in-out infinite ${st.d}s`,
-            }}
-          />
-        ))}
-
-        {/* Geo rings */}
-        <div className="geo-ring" style={{ width:540,height:540,top:-130,right:-150,opacity:0.11 }} />
-        <div className="geo-ring" style={{ width:300,height:300,top:50,right:-30,opacity:0.08 }} />
-        <div className="geo-ring" style={{ width:720,height:720,bottom:-280,left:-200,opacity:0.07 }} />
-
-        {/* Spinning deco rings */}
-        <div className="ring-cw absolute pointer-events-none" style={{
-          width:460,height:460,top:"50%",left:"50%",
-          transform:"translate(-50%,-50%)",
-          borderRadius:"50%",border:"1.5px dashed rgba(255,255,255,0.07)",
-        }} />
-        <div className="ring-ccw absolute pointer-events-none" style={{
-          width:650,height:650,top:"50%",left:"50%",
-          transform:"translate(-50%,-50%)",
-          borderRadius:"50%",border:"1px dashed rgba(255,255,255,0.04)",
-        }} />
-
-        {/* Floating orbs */}
-        <div style={{
-          position:"absolute",width:210,height:210,borderRadius:"50%",
-          top:"-50px",left:"6%",pointerEvents:"none",
-          background:"radial-gradient(circle at 40% 40%,rgba(165,243,252,0.20),transparent 70%)",
-          animation:"floatA 8s ease-in-out infinite",
-        }} />
-        <div style={{
-          position:"absolute",width:170,height:170,borderRadius:"50%",
-          bottom:"70px",right:"9%",pointerEvents:"none",
-          background:"radial-gradient(circle at 60% 60%,rgba(191,219,254,0.18),transparent 70%)",
-          animation:"floatB 10s ease-in-out infinite",
-        }} />
-        <div style={{
-          position:"absolute",width:95,height:95,borderRadius:"50%",
-          top:"32%",right:"22%",pointerEvents:"none",
-          background:"radial-gradient(circle,rgba(255,255,255,0.11),transparent 70%)",
-          animation:"floatC 6s ease-in-out infinite reverse",
-        }} />
-
-        {/* Centre icon + wave rings */}
-        <div style={{ position:"relative",display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:32 }}>
-          {[0,1,2].map(i => (
-            <div
-              key={i}
-              className="wave-ring"
-              style={{ width:88,height:88,top:"50%",left:"50%",
-                transform:"translate(-50%,-50%)",animationDelay:`${i * 1.0}s` }}
-            />
-          ))}
-          <div
-            className="fade-up scale-in"
-            style={{
-              width:72,height:72,borderRadius:"20px",position:"relative",zIndex:10,
-              background:"rgba(255,255,255,0.14)",
-              border:"1.5px solid rgba(255,255,255,0.28)",
-              backdropFilter:"blur(12px)",
-              display:"flex",alignItems:"center",justifyContent:"center",color:"white",
-              boxShadow:"0 12px 40px rgba(0,0,0,0.22),inset 0 1px 0 rgba(255,255,255,0.22)",
-            }}
-          >
-            {/* Briefcase icon */}
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </div>
-        </div>
-
-        {/* Eyebrow badge */}
-        <div
-          className="fade-up d1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5"
-          style={{
-            background:"rgba(255,255,255,0.11)",
-            border:"1px solid rgba(255,255,255,0.24)",
-            backdropFilter:"blur(8px)",
-          }}
-        >
-          <span style={{
-            width:7,height:7,borderRadius:"50%",background:"#a5f3fc",
-            display:"inline-block",flexShrink:0,
-            animation:"pulseGlow 2s ease-in-out infinite",
-          }} />
-          <span className="sora text-cyan-100 text-xs font-semibold tracking-widest uppercase">
-            Life @ Nexora Technology Services
-          </span>
-        </div>
-
-        {/* Headline */}
-        <h1
-          className="sora fade-up d2 font-extrabold leading-none mb-5"
-          style={{ fontSize:"clamp(2.6rem,8vw,5.5rem)", maxWidth:720, lineHeight:1.08 }}
-        >
-          <span className="grad-text">Working</span>
-          <br />
-          <span style={{ color:"white" }}>@ NTS</span>
-        </h1>
-
-        {/* Sub */}
-        <p
-          className="fade-up d3 text-blue-100 max-w-lg leading-relaxed mb-10"
-          style={{ fontSize:"clamp(0.9rem,2vw,1.05rem)", opacity:0.84 }}
-        >
-          We're crafting an immersive window into life at Nexora — culture, perks,
-          real stories from our team, and everything that makes NTS a place where
-          <em style={{ color:"#a5f3fc",fontStyle:"normal",fontWeight:600 }}> careers</em> truly grow.
-        </p>
-
-        {/* Stats row */}
-        {/* <div className="fade-up d3 flex flex-wrap gap-4 justify-center mb-10">
-          {[
-            { val:"200+", lbl:"Team Members" },
-            { val:"12+",  lbl:"Years of Growth" },
-            { val:"98%",  lbl:"Retention Rate" },
-            { val:"30+",  lbl:"Open Roles Soon" },
-          ].map((s, i) => (
-            <div key={i} className="stat-chip">
-              <span className="stat-val">{s.val}</span>
-              <span className="stat-lbl">{s.lbl}</span>
-            </div>
-          ))}
-        </div> */}
-
-        {/* Countdown */}
-        <div className="fade-up d4 mb-10">
-          <p className="sora text-xs uppercase tracking-[0.18em] text-cyan-300 mb-4 font-semibold">
-            Page Launches In
-          </p>
-          <div className="count-row">
-            <CountBox value={timeLeft.days}    label="Days"    />
-            <span className="count-sep">:</span>
-            <CountBox value={timeLeft.hours}   label="Hours"   />
-            <span className="count-sep">:</span>
-            <CountBox value={timeLeft.minutes} label="Minutes" />
-            <span className="count-sep">:</span>
-            <CountBox value={timeLeft.seconds} label="Seconds" />
-          </div>
-        </div>
-
-        {/* Email subscribe */}
-        <div className="fade-up d5 w-full max-w-md mb-6">
-          {subscribed ? (
-            <div
-              className="check-anim flex items-center justify-center gap-3 py-3.5 px-6 rounded-xl"
-              style={{ background:"rgba(255,255,255,0.12)", border:"1px solid rgba(255,255,255,0.25)" }}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="#a5f3fc" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-              </svg>
-              <span className="sora text-white font-semibold text-sm">
-                You're in — we'll notify you at launch!
-              </span>
-            </div>
-          ) : (
-            <div className="flex" style={{ filter:"drop-shadow(0 8px 24px rgba(0,0,0,0.18))" }}>
-              <input
-                type="email"
-                className="notify-input"
-                placeholder="Your email for launch updates"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && !subscribing && handleSubscribe()}
-              />
-              <button
-                className="notify-btn"
-                onClick={handleSubscribe}
-                disabled={subscribing || !email.trim()}
+        <div className="max-w-7xl mx-auto relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            {/* Left Column: Hero Narrative */}
+            <div className="lg:col-span-7 text-left">
+              {/* Eyebrow Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-[11px] font-bold uppercase tracking-widest mb-6 backdrop-blur-md shadow-sm select-none"
               >
-                {subscribing ? (
-                  <span className="flex items-center gap-2">
-                    <span className="ring-spinner" /> Joining…
+                <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
+                <span>Life &amp; Culture @ Nexora Technology Services</span>
+              </motion.div>
+
+              {/* Headline (No Gradient for Text: White with Cyan Accent) */}
+              <motion.h1
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.08 }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.12] mb-6 font-heading"
+              >
+                Working <br />
+                <span className="text-cyan-200">@ NTS</span>
+              </motion.h1>
+
+              {/* Subheadline */}
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.16 }}
+                className="text-base sm:text-lg text-blue-100 leading-relaxed font-normal opacity-95 max-w-2xl mb-8"
+              >
+                We are building an environment where talented minds thrive, curiosity is celebrated, and careers
+                accelerate. Explore our workplace culture, employee benefits, and what makes NTS a truly rewarding
+                place to build your future.
+              </motion.p>
+
+              {/* Highlights Chips */}
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.22 }}
+                className="flex flex-wrap gap-2.5 sm:gap-3 mb-10"
+              >
+                {["Collaborative Pods", "Hybrid Flexibility", "Continuous Upskilling", "Enterprise Scale"].map(
+                  (chip) => (
+                    <div
+                      key={chip}
+                      className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-semibold text-white transition-all shadow-sm"
+                    >
+                      <Check className="w-4 h-4 text-cyan-300 shrink-0" />
+                      <span>{chip}</span>
+                    </div>
+                  )
+                )}
+              </motion.div>
+
+              {/* Hero Action CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.28 }}
+                className="flex flex-wrap items-center gap-4"
+              >
+                <Link
+                  href="/components/Careers"
+                  className="px-8 py-3.5 rounded-full bg-white text-[#0051fe] hover:bg-blue-50 font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <Briefcase className="w-4 h-4 text-[#0051fe]" />
+                  <span>Explore Careers</span>
+                </Link>
+
+                <a
+                  href="mailto:hr@nexoratechnology.co.in"
+                  className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <Mail className="w-4 h-4 text-cyan-300" />
+                  <span>Send Your CV</span>
+                </a>
+              </motion.div>
+            </div>
+
+            {/* Right Column: Workplace Culture HUD */}
+            <div className="lg:col-span-5">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="rounded-3xl border border-white/20 bg-white/10 p-6 sm:p-7 backdrop-blur-xl shadow-2xl relative overflow-hidden"
+              >
+                {/* HUD Header */}
+                <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-300" />
+                    </span>
+                    <span className="font-heading font-bold text-xs uppercase tracking-wider text-white">
+                      Life @ Nexora Insights
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-white/15 text-cyan-200 border border-white/20 flex items-center gap-1.5">
+                    <Activity className="w-3 h-3 text-cyan-300" />
+                    People First
                   </span>
-                ) : "Notify Me"}
-              </button>
+                </div>
+
+                {/* Stat Cards */}
+                <div className="space-y-3 mb-5">
+                  {heroStats.map((s, i) => {
+                    const StatIcon = s.icon;
+                    return (
+                      <div
+                        key={i}
+                        className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex items-center gap-4 transition-all hover:bg-white/15"
+                      >
+                        <div
+                          className={`w-11 h-11 rounded-xl bg-gradient-to-br ${s.color} border ${s.border} flex items-center justify-center shrink-0 ${s.text}`}
+                        >
+                          <StatIcon className="w-5 h-5" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-blue-200 text-[11px] uppercase tracking-wider font-medium">
+                            {s.label}
+                          </p>
+                          <p className="font-heading text-white font-extrabold text-lg sm:text-xl">
+                            {s.value}
+                          </p>
+                        </div>
+                        <span className="text-cyan-200 text-[11px] bg-white/10 px-2.5 py-1 rounded-md border border-white/15 text-right max-w-[140px] leading-tight">
+                          {s.sub}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* HUD Footer Status */}
+                <div className="pt-3 border-t border-white/15 flex items-center justify-between text-[11px] text-blue-100/90">
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-300" />
+                    Recognized Tech Workplace
+                  </span>
+                  <span className="font-mono text-cyan-300">Nexora Benchmark</span>
+                </div>
+              </motion.div>
             </div>
-          )}
-          <p className="text-blue-200 text-xs mt-2.5 opacity-68">
-            One email at launch, zero spam — unsubscribe anytime.
-          </p>
-        </div>
-
-        {/* Divider */}
-        <div
-          className="fade-up d6"
-          style={{
-            width:60,height:3,borderRadius:2,margin:"0 auto 36px",
-            background:"linear-gradient(90deg,rgba(165,243,252,0.5),rgba(255,255,255,0.15))",
-          }}
-        />
-
-        {/* Scroll cue */}
-        <a
-          href="#perks"
-          className="fade-up d7 flex flex-col items-center gap-1.5 text-xs uppercase tracking-widest font-semibold"
-          style={{ color:"rgba(165,243,252,0.65)",textDecoration:"none",transition:"color 0.2s" }}
-          onMouseEnter={e => (e.currentTarget.style.color = "rgba(165,243,252,1)")}
-          onMouseLeave={e => (e.currentTarget.style.color = "rgba(165,243,252,0.65)")}
-        >
-          <span>Explore What Awaits</span>
-          <svg className="w-4 h-4" style={{ animation:"floatA 2s ease-in-out infinite" }}
-            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-          </svg>
-        </a>
-      </section>
-
-      {/* ══════════════ PERKS ══════════════ */}
-      <section id="perks" className="max-w-6xl mx-auto px-4 py-10 md:py-16">
-        <div className="text-center mb-8 md:mb-12 fade-up">
-          <p className="sora text-xs uppercase tracking-[0.16em] text-blue-400 font-semibold mb-2">
-            Why NTS?
-          </p>
-          <h2 className="sora text-3xl md:text-4xl text-[#1e3a5f] font-extrabold mb-3">
-            Built for People Who Build
-          </h2>
-          <p className="text-slate-500 max-w-xl mx-auto text-sm leading-relaxed">
-            At Nexora we invest in our people as much as our products. Here's a glimpse of
-            what life at NTS looks like.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {perks.map((p, i) => (
-            <div
-              key={i}
-              className={`perk-card fade-up d${Math.min(i + 2, 8)} ${activePerks === i ? "active" : ""}`}
-              onMouseEnter={() => setActivePerks(i)}
-              onMouseLeave={() => setActivePerks(null)}
-            >
-              <div className="perk-icon" style={{ background:`linear-gradient(135deg,${p.color},#17b8e0)` }}>
-                {p.icon}
-              </div>
-              <h3 className="sora text-[#1e3a5f] font-bold text-base mb-2">{p.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{p.desc}</p>
-
-              {/* Coming soon chip */}
-              <div
-                className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
-                style={{
-                  background:"linear-gradient(135deg,rgba(26,111,196,0.07),rgba(23,184,224,0.07))",
-                  border:"1px solid rgba(26,111,196,0.18)",
-                  color:"#1a6fc4",
-                }}
-              >
-                <span style={{
-                  width:6,height:6,borderRadius:"50%",background:"#17b8e0",
-                  display:"inline-block",flexShrink:0,
-                  animation:"pulseGlow 2s ease-in-out infinite",
-                }} />
-                Details Coming Soon
-              </div>
-            </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* ══════════════ HIRING PROCESS ══════════════ */}
-      <section
-        className="py-10 md:py-16 px-4"
-        style={{
-          background:"linear-gradient(135deg,#0f3460 0%,#1a6fc4 40%,#17b8e0 100%)",
-        }}
-      >
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12 fade-up">
-            <p className="sora text-xs uppercase tracking-[0.16em] text-cyan-300 font-semibold mb-2">
-              Our Process
-            </p>
-            <h2 className="sora text-3xl md:text-4xl text-white font-extrabold mb-3">
-              How We Hire
+      {/* ═══════════════════════════════════════════
+          SECTION 2: CULTURE CODE & PILLARS (DISTINCT BLUE BACKGROUND)
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#eaf2fc] via-[#f0f6fd] to-[#e4eefb] border-y border-blue-200/60 relative overflow-hidden">
+        {/* Soft Ambient Glows */}
+        <div className="pointer-events-none absolute -top-10 right-10 w-96 h-96 bg-[#0051fe]/10 rounded-full blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-10 left-10 w-96 h-96 bg-sky-400/15 rounded-full blur-3xl" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#0051fe]" />
+              <span>Our Culture Code</span>
+            </div>
+
+            {/* Headline (No Gradient for Text: Dark with Primary Blue Accent) */}
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
+              The Principles That <span className="text-[#0051fe]">Drive Us</span>
             </h2>
-            <p className="text-blue-100 max-w-md mx-auto text-sm leading-relaxed" style={{ opacity:0.82 }}>
-              Straightforward, respectful, and human. No black-box algorithms — just honest
-              conversations with the people you'll be working with.
+
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              We believe great engineering and enterprise innovation start with the people behind the solutions.
+              Here is how we collaborate, lead, and grow together every single day.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {timeline.map((t, i) => (
-              <div key={i} className={`tl-step fade-up d${i + 2}`}>
-                <span className="tl-num">{t.step}</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
+            {culturalPillars.map((p) => {
+              const PillarIcon = p.icon;
+              return (
+                <div
+                  key={p.title}
+                  className="group relative bg-white rounded-2xl p-6 sm:p-7 border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 overflow-hidden flex flex-col justify-between hover:-translate-y-1 cursor-pointer"
+                >
+                  {/* Smooth and Slow Top Accent Bar (duration-700 ease-in-out) */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-[#0051fe] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left z-10" />
+
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0051fe] group-hover:bg-[#0051fe] group-hover:border-[#0051fe] group-hover:text-white group-hover:scale-105 transition-all duration-300 shadow-xs mb-5">
+                      <PillarIcon className="w-5 h-5 stroke-[1.8]" />
+                    </div>
+
+                    <h3 className="font-heading text-lg font-bold text-slate-900 group-hover:text-[#0051fe] transition-colors mb-2.5">
+                      {p.title}
+                    </h3>
+
+                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                      {p.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span className="font-semibold text-[#0051fe]">{p.metric}</span>
+                    <CheckCircle2 className="w-4 h-4 text-[#0051fe]" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 3: PERKS & BENEFITS (BLUE TINT BACKGROUND)
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f4f8fe] via-[#edf4fc] to-[#f0f6fd] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
+              <Award className="w-3.5 h-3.5 text-[#0051fe]" />
+              <span>Employee Benefits</span>
+            </div>
+
+            {/* Headline (No Gradient for Text) */}
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
+              Built for People Who <span className="text-[#0051fe]">Build</span>
+            </h2>
+
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              We invest in your comfort, career, and long-term well-being with industry-leading benefits designed
+              for modern technology professionals.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            {perks.map((p) => {
+              const PerkIcon = p.icon;
+              return (
+                <div
+                  key={p.title}
+                  className="group relative bg-white rounded-2xl p-6 sm:p-7 border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 overflow-hidden flex flex-col justify-between hover:-translate-y-1 cursor-pointer"
+                >
+                  {/* Smooth and Slow Top Accent Bar (duration-700 ease-in-out) */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-[#0051fe] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left z-10" />
+
+                  <div>
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0051fe] group-hover:bg-[#0051fe] group-hover:border-[#0051fe] group-hover:text-white group-hover:scale-105 transition-all duration-300 shadow-xs">
+                        <PerkIcon className="w-6 h-6 stroke-[1.8]" />
+                      </div>
+                      <span className="text-[11px] font-bold font-mono px-3 py-1 rounded-full bg-blue-50 text-[#0051fe] border border-blue-200/80">
+                        {p.tag}
+                      </span>
+                    </div>
+
+                    <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#0051fe] transition-colors mb-2.5">
+                      {p.title}
+                    </h3>
+
+                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                      {p.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-100 flex items-center text-xs font-semibold text-[#0051fe]">
+                    <Check className="w-3.5 h-3.5 mr-1.5 text-[#0051fe]" />
+                    <span>Included for All NTS Team Members</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 4: OUR HIRING JOURNEY (DEEP ROYAL BLUE BACKGROUND)
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#0a2558] via-[#0041cb] to-[#0051fe] text-white border-y border-blue-400/30 relative overflow-hidden shadow-xl">
+        {/* Ambient Lights */}
+        <div className="pointer-events-none absolute -top-20 left-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute -bottom-20 right-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl z-0" />
+
+        {/* Matrix Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/30 text-cyan-200 text-xs font-bold uppercase tracking-wider mb-4 backdrop-blur-md">
+              <Briefcase className="w-3.5 h-3.5 text-cyan-300" />
+              <span>Hiring Experience</span>
+            </div>
+
+            {/* Headline (No Gradient for Text) */}
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">
+              How We <span className="text-cyan-200">Hire</span>
+            </h2>
+
+            <p className="text-blue-100 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto opacity-90">
+              Straightforward, respectful, and human. No black-box algorithms or endless loops — just authentic
+              conversations with the people you will actually work with.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {hiringSteps.map((step) => (
+              <div
+                key={step.step}
+                className="group relative rounded-2xl p-6 sm:p-7 bg-white/10 hover:bg-white/15 border border-white/20 hover:border-cyan-300/50 backdrop-blur-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 cursor-pointer overflow-hidden shadow-lg"
+              >
+                {/* Smooth and Slow Top Accent Bar for Dark Card (duration-700 ease-in-out) */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-cyan-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left z-10" />
+
                 <div>
-                  <h4 className="sora text-white font-bold text-base mb-1">{t.label}</h4>
-                  <p className="text-blue-100 text-sm leading-relaxed" style={{ opacity:0.80 }}>{t.desc}</p>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-heading font-black text-3xl sm:text-4xl text-cyan-200/80 group-hover:text-cyan-200 transition-colors">
+                      {step.step}
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-white/15 text-cyan-100 border border-white/20">
+                      {step.badge}
+                    </span>
+                  </div>
+
+                  <h3 className="font-heading text-lg font-bold text-white group-hover:text-cyan-100 transition-colors mb-2">
+                    {step.title}
+                  </h3>
+
+                  <p className="text-blue-100 text-xs sm:text-sm leading-relaxed opacity-85">
+                    {step.desc}
+                  </p>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-white/15 flex items-center text-xs text-cyan-200/90 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-cyan-300" />
+                  <span>Transparent Milestone</span>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* CTA inside process section */}
-          <div className="text-center mt-10 fade-up d6">
-            <div
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full"
-              style={{
-                background:"rgba(255,255,255,0.10)",
-                border:"1px solid rgba(255,255,255,0.22)",
-              }}
-            >
-              <span style={{
-                width:7,height:7,borderRadius:"50%",background:"#a5f3fc",
-                display:"inline-block",animation:"pulseGlow 2s ease-in-out infinite",
-              }} />
-              <span className="sora text-cyan-100 text-xs font-semibold tracking-widest uppercase">
-                Open Roles Available Soon
-              </span>
+          {/* Hiring CTA Banner Substrip */}
+          <div className="mt-12 text-center">
+            <div className="inline-flex flex-wrap items-center justify-center gap-3 px-6 py-3 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md text-xs sm:text-sm text-blue-100">
+              <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
+              <span>Have a question about our interview process?</span>
+              <a
+                href="mailto:hr@nexoratechnology.co.in"
+                className="text-white font-bold underline hover:text-cyan-200 transition-colors"
+              >
+                Contact HR directly
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════ CONTACT / CTA BANNER ══════════════ */}
-      <section className="max-w-5xl mx-auto px-4 py-10 md:py-16">
-        <div
-          className="rounded-2xl px-5 py-8 md:px-8 md:py-10 text-center scale-in"
-          style={{
-            background:"linear-gradient(135deg,#1a6fc4 0%,#1e80d8 50%,#17b8e0 100%)",
-            boxShadow:"0 20px 60px rgba(26,111,196,0.30)",
-          }}
-        >
-          <p className="sora text-xs uppercase tracking-[0.16em] text-cyan-200 font-semibold mb-2">
-            Can't Wait?
-          </p>
-          <h3 className="sora text-2xl md:text-3xl text-white font-extrabold mb-3">
-            Talk to Our Talent Team
-          </h3>
-          <p
-            className="text-blue-100 text-sm max-w-md mx-auto leading-relaxed mb-7"
-            style={{ opacity:0.85 }}
-          >
-            If you'd like to explore opportunities before the careers portal goes live,
-            our team is happy to hear from you directly.
-          </p>
+      {/* ═══════════════════════════════════════════
+          SECTION 5: WORKPLACE EXPERIENCE (SOFT SKY-BLUE BACKGROUND)
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#e8f2fc] via-[#f1f6fd] to-[#f8fafc] border-b border-blue-200/50 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            {/* Left Column */}
+            <div className="lg:col-span-5 space-y-5">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-[#0051fe] text-xs font-bold uppercase tracking-wider shadow-xs">
+                <Coffee className="w-3.5 h-3.5 text-[#0051fe]" />
+                <span>Workplace Atmosphere</span>
+              </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="mailto:careers@nexora.com"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm sora"
-              style={{
-                background:"rgba(255,255,255,0.17)",
-                border:"1.5px solid rgba(255,255,255,0.34)",
-                color:"white",textDecoration:"none",
-                transition:"all 0.25s ease",
-              }}
-              onMouseEnter={e=>{(e.currentTarget as HTMLElement).style.background="rgba(255,255,255,0.27)";(e.currentTarget as HTMLElement).style.transform="translateY(-2px)";}}
-              onMouseLeave={e=>{(e.currentTarget as HTMLElement).style.background="rgba(255,255,255,0.17)";(e.currentTarget as HTMLElement).style.transform="translateY(0)";}}
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              hr@nexoratechnology.co.in
-            </a>
+              {/* Headline (No Gradient for Text) */}
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                Where Every Voice <br />
+                <span className="text-[#0051fe]">Matters</span>
+              </h2>
 
-            <a
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm sora"
-              style={{
-                background:"white",color:"#1a6fc4",
-                textDecoration:"none",transition:"all 0.25s ease",
-              }}
-              onMouseEnter={e=>{(e.currentTarget as HTMLElement).style.boxShadow="0 8px 28px rgba(0,0,0,0.16)";(e.currentTarget as HTMLElement).style.transform="translateY(-2px)";}}
-              onMouseLeave={e=>{(e.currentTarget as HTMLElement).style.boxShadow="none";(e.currentTarget as HTMLElement).style.transform="translateY(0)";}}
-            >
-              Contact Us
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                At Nexora, culture is not a slide deck — it is the sum of daily interactions between teams who love
+                crafting enterprise technology. We remove friction so you can focus on building work you are proud of.
+              </p>
+
+              <div className="pt-2 space-y-3">
+                {[
+                  "Bi-weekly tech lightning talks & cross-functional demos",
+                  "Direct mentorship pairing with seasoned domain architects",
+                  "Structured compensation reviews with clear milestone criteria",
+                  "Celebration of individual achievements and team milestones",
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-[#0051fe] shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-4">
+                <Link
+                  href="/components/Careers"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-[#0051fe] hover:bg-[#0041cb] text-white shadow-md shadow-[#0051fe]/25 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  View Open Roles
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: 3 Feature Cards */}
+            <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+              {workplaceHighlights.map((w) => {
+                const WIcon = w.icon;
+                return (
+                  <div
+                    key={w.title}
+                    className="group relative bg-white rounded-2xl p-6 sm:p-7 border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 overflow-hidden flex flex-col sm:flex-row items-start sm:items-center gap-5 hover:-translate-y-1 cursor-pointer"
+                  >
+                    {/* Smooth and Slow Top Accent Bar (duration-700 ease-in-out) */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-[#0051fe] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left z-10" />
+
+                    <div className="w-14 h-14 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0051fe] group-hover:bg-[#0051fe] group-hover:border-[#0051fe] group-hover:text-white group-hover:scale-105 transition-all duration-300 shadow-xs shrink-0">
+                      <WIcon className="w-6 h-6 stroke-[1.8]" />
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                        <h3 className="font-heading text-lg font-bold text-slate-900 group-hover:text-[#0051fe] transition-colors">
+                          {w.title}
+                        </h3>
+                        <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#0051fe] border border-blue-200/80">
+                          {w.highlight}
+                        </span>
+                      </div>
+                      <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                        {w.desc}
+                      </p>
+                    </div>
+
+                    <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-[#0051fe] group-hover:translate-x-1 transition-all shrink-0 hidden sm:block" />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════ FOOTER ══════════════ */}
-      <footer
-        className="py-8 px-4 text-center"
-        style={{
-          background:"linear-gradient(135deg,#0f3460,#1a4f8c)",
-          color:"rgba(255,255,255,0.55)",fontSize:"13px",
-        }}
-      >
-        <p className="sora">© 2024 Nexora Technology Services Pvt. Ltd. All rights reserved.</p>
-      </footer>
+      {/* ═══════════════════════════════════════════
+          SECTION 6: INSET-ROUNDED CTA BANNER
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f8fafc] to-[#eaf2fc]/60">
+        <div className="max-w-6xl mx-auto">
+          {/* Inset Rounded Card */}
+          <div className="relative rounded-3xl sm:rounded-[36px] p-8 sm:p-12 lg:p-16 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white shadow-[0_20px_60px_-15px_rgba(0,81,254,0.45)] border border-blue-400/30 text-center">
+            {/* Ambient Background Aura Lights */}
+            <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-400/25 rounded-full blur-3xl z-0" />
+            <div className="pointer-events-none absolute -bottom-24 right-10 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl z-0" />
+
+            {/* Cyber Matrix Grid Pattern */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none z-0" />
+
+            <div className="relative z-10 max-w-3xl mx-auto">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/30 text-xs font-bold uppercase tracking-wider text-cyan-200 mb-5 backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
+                <span>Ready for Your Next Career Step?</span>
+              </span>
+
+              {/* Headline with No Gradient */}
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-heading tracking-tight mb-5 leading-tight">
+                Join the Builders at <br />
+                <span className="text-cyan-200">Nexora Technology</span>
+              </h2>
+
+              <p className="text-blue-100 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10 font-normal max-w-2xl mx-auto opacity-95">
+                Whether you are an enterprise consultant, full-stack engineer, cloud architect, or talent specialist,
+                there is a space for your skills and ambitions at NTS. Reach out to our talent team today.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <a
+                  href="mailto:hr@nexoratechnology.co.in"
+                  className="px-8 py-3.5 rounded-full bg-white text-[#0051fe] hover:bg-blue-50 font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <Mail className="w-4 h-4 text-[#0051fe]" />
+                  <span>Send Your CV</span>
+                </a>
+
+                <Link
+                  href="/components/Careers"
+                  className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <span>Explore Careers</span>
+                  <ArrowUpRight className="w-4 h-4 text-cyan-300" />
+                </Link>
+
+                <Link
+                  href="/contact"
+                  className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <span>Contact HR</span>
+                  <ArrowRight className="w-4 h-4 text-cyan-300" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          GLOBAL SHARED FOOTER
+      ═══════════════════════════════════════════ */}
+      <Footer />
     </div>
   );
 }

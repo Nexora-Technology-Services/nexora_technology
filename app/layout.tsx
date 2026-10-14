@@ -29,7 +29,6 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-scroll-behavior="smooth"
       className={`${plusJakartaSans.variable} ${sora.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">

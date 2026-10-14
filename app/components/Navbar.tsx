@@ -57,7 +57,12 @@ export default function Navbar() {
     setActiveSubMenu(null);
     setActiveSubSub(null);
     setMobileMenuOpen(false);
+    setHoveredNav(null);
   };
+
+  useEffect(() => {
+    closeAll();
+  }, [pathname]);
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -71,14 +76,13 @@ export default function Navbar() {
             { name: "Overview", href: "/components/Organization" },
             { name: "Who We Are", href: "/organization/who-we-are" },
             { name: "Execution Model", href: "/organization/execution-model" },
-            { name: "About Nexora", href: "/organization/about-nexora" },
             { name: "Why Nexora", href: "/organization/why-nexora" },
+            { name: "Media & Investors", href: "/components/Media" },
           ],
         },
         { name: "Leaders", href: "/about" },
       ],
     },
-    { label: "Media & Investors", href: "/components/Media" },
     {
       label: "What We Serve",
       children: [
@@ -87,7 +91,7 @@ export default function Navbar() {
           name: "Services",
           href: "/what-we-serve/services",
           sub: [
-            { name: "Data & AI", href: "/dataAi" },
+            { name: "Data & AI", href: "/services/dataAi" },
             {
               name: "Application Services",
               href: "/what-we-serve/services/application-services",
@@ -117,19 +121,19 @@ export default function Navbar() {
   ];
 
   const DotAccent = () => (
-    <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#0051fe] shrink-0" />
+    <span className="inline-block w-2 h-2 rounded-full bg-[#0051fe] shrink-0 shadow-[0_0_8px_rgba(0,81,254,0.35)]" />
   );
 
   const ChevronRightIcon = () => (
     <svg
-      className="ml-auto opacity-40 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all duration-200"
-      width="13"
-      height="13"
+      className="ml-auto opacity-50 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all duration-200"
+      width="14"
+      height="14"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
     >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.8} d="M9 5l7 7-7 7" />
     </svg>
   );
 
@@ -143,7 +147,7 @@ export default function Navbar() {
         onMouseLeave={() => {
           setHoveredNav(null);
         }}
-        className={`pointer-events-auto w-full max-w-6xl rounded-2xl sm:rounded-full transition-all duration-300 ${
+        className={`pointer-events-auto w-full max-w-6xl xl:max-w-7xl rounded-2xl sm:rounded-full transition-all duration-300 ${
           scrolled
             ? "bg-white/90 shadow-[0_16px_40px_-8px_rgba(0,81,254,0.16),0_0_0_1px_rgba(255,255,255,0.95)] backdrop-blur-2xl py-2 px-4 sm:px-6"
             : "bg-white/80 shadow-[0_12px_36px_-6px_rgba(15,23,42,0.08),0_0_0_1px_rgba(255,255,255,0.9)] backdrop-blur-xl py-2.5 px-4 sm:px-6"
@@ -151,7 +155,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between">
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0 group">
+          <Link href="/" onClick={closeAll} className="flex items-center gap-2 shrink-0 group">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.96 }}
@@ -170,7 +174,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1 relative">
+          <div className="hidden lg:flex items-center space-x-1 xl:space-x-1.5 relative">
             {navItems.map((item) => {
               const isActive = item.href ? pathname === item.href : false;
               const isHovered = hoveredNav === item.label;
@@ -187,29 +191,35 @@ export default function Navbar() {
                       setActiveSubMenu(null);
                       setActiveSubSub(null);
                     }}
-                    className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold transition-colors duration-200 select-none ${
+                    onClick={closeAll}
+                    className={`relative px-3.5 xl:px-4 py-2 rounded-full text-[15px] font-bold tracking-[-0.01em] transition-colors duration-200 select-none ${
                       isActive
-                        ? "text-[#0051fe] font-bold"
-                        : "text-slate-700 hover:text-[#0051fe]"
+                        ? "text-[#0051fe] font-extrabold"
+                        : "text-slate-800 hover:text-[#0051fe]"
                     }`}
                   >
-                    {/* Magnetic floating hover pill */}
-                    {isHovered && (
-                      <motion.span
-                        layoutId="navHover"
-                        transition={{ type: "spring", stiffness: 450, damping: 32 }}
-                        className="absolute inset-0 rounded-full bg-blue-50/90 -z-10 shadow-[0_2px_8px_rgba(0,81,254,0.08)]"
-                      />
-                    )}
+                    {/* Floating hover pill */}
+                    <AnimatePresence>
+                      {isHovered && (
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.15, ease: "easeOut" }}
+                          className="absolute inset-0 rounded-full bg-blue-50/90 -z-10 shadow-[0_2px_8px_rgba(0,81,254,0.08)] pointer-events-none"
+                        />
+                      )}
+                    </AnimatePresence>
 
                     <span className="relative z-10">{item.label}</span>
 
                     {/* Active Route Indicator Bar */}
                     {isActive && (
                       <motion.span
-                        layoutId="activeTabUnderline"
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                        className="absolute bottom-[-2px] left-3 right-3 h-[2.5px] bg-[#0051fe] rounded-full shadow-[0_2px_8px_rgba(0,81,254,0.4)]"
+                        initial={{ opacity: 0, scaleX: 0.8 }}
+                        animate={{ opacity: 1, scaleX: 1 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute bottom-[-2px] left-3.5 right-3.5 h-[3px] bg-[#0051fe] rounded-full shadow-[0_2px_8px_rgba(0,81,254,0.4)]"
                       />
                     )}
                   </Link>
@@ -236,33 +246,37 @@ export default function Navbar() {
                       setActiveSubMenu(null);
                       setActiveSubSub(null);
                     }}
-                    className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold flex items-center gap-1.5 transition-colors duration-200 select-none ${
+                    className={`relative px-3.5 xl:px-4 py-2 rounded-full text-[15px] font-bold tracking-[-0.01em] flex items-center gap-1.5 transition-colors duration-200 select-none ${
                       isOpen || isHovered
                         ? "text-[#0051fe]"
-                        : "text-slate-700 hover:text-[#0051fe]"
+                        : "text-slate-800 hover:text-[#0051fe]"
                     }`}
                   >
-                    {/* Magnetic floating hover pill */}
-                    {isHovered && (
-                      <motion.span
-                        layoutId="navHover"
-                        transition={{ type: "spring", stiffness: 450, damping: 32 }}
-                        className="absolute inset-0 rounded-full bg-blue-50/90 -z-10 shadow-[0_2px_8px_rgba(0,81,254,0.08)]"
-                      />
-                    )}
+                    {/* Floating hover pill */}
+                    <AnimatePresence>
+                      {isHovered && (
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.15, ease: "easeOut" }}
+                          className="absolute inset-0 rounded-full bg-blue-50/90 -z-10 shadow-[0_2px_8px_rgba(0,81,254,0.08)] pointer-events-none"
+                        />
+                      )}
+                    </AnimatePresence>
 
                     <span className="relative z-10">{item.label}</span>
                     <motion.svg
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                      className={`w-3.5 h-3.5 transition-colors ${
-                        isOpen ? "text-[#0051fe]" : "opacity-60"
+                      className={`w-4 h-4 transition-colors ${
+                        isOpen ? "text-[#0051fe]" : "opacity-70"
                       }`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M19 9l-7 7-7-7" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.6} d="M19 9l-7 7-7-7" />
                     </motion.svg>
                   </button>
 
@@ -274,7 +288,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 6, scale: 0.97 }}
                         transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute left-0 top-[calc(100%+8px)] min-w-[225px] p-1.5 rounded-2xl z-50 origin-top-left"
+                        className="absolute left-0 top-[calc(100%+8px)] min-w-[245px] p-2 rounded-2xl z-50 origin-top-left"
                         style={FLYOUT_STYLES}
                       >
                         {item.children.map((child, idx) => {
@@ -296,10 +310,10 @@ export default function Navbar() {
                             >
                               {hasSub ? (
                                 <div
-                                  className={`flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium rounded-xl mx-0.5 my-0.5 cursor-pointer transition-all duration-200 select-none ${
+                                  className={`flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold rounded-xl mx-0.5 my-0.5 cursor-pointer transition-all duration-200 select-none ${
                                     isSubOpen
-                                      ? "bg-gradient-to-r from-blue-50 to-indigo-50/70 text-[#0051fe] font-semibold pl-4.5 shadow-sm"
-                                      : "text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/70 hover:pl-4.5"
+                                      ? "bg-gradient-to-r from-blue-50 to-indigo-50/70 text-[#0051fe] pl-4.5 shadow-sm"
+                                      : "text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/70 hover:pl-4.5"
                                   }`}
                                 >
                                   <DotAccent />
@@ -314,7 +328,7 @@ export default function Navbar() {
                                         animate={{ opacity: 1, x: 0, scale: 1 }}
                                         exit={{ opacity: 0, x: -6, scale: 0.98 }}
                                         transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                                        className="absolute left-[calc(100%+6px)] top-0 min-w-[215px] p-1.5 rounded-2xl z-50 origin-top-left"
+                                        className="absolute left-[calc(100%+6px)] top-0 min-w-[240px] p-2 rounded-2xl z-50 origin-top-left"
                                         style={FLYOUT_STYLES}
                                       >
                                         {(child as any).sub.map((subItem: any, sIdx: number) => {
@@ -335,10 +349,10 @@ export default function Navbar() {
                                             >
                                               {hasSubSub ? (
                                                 <div
-                                                  className={`flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium rounded-xl mx-0.5 my-0.5 cursor-pointer transition-all duration-200 select-none ${
+                                                  className={`flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold rounded-xl mx-0.5 my-0.5 cursor-pointer transition-all duration-200 select-none ${
                                                     isSubSubOpen
-                                                      ? "bg-gradient-to-r from-blue-50 to-indigo-50/70 text-[#0051fe] font-semibold pl-4.5 shadow-sm"
-                                                      : "text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/70 hover:pl-4.5"
+                                                      ? "bg-gradient-to-r from-blue-50 to-indigo-50/70 text-[#0051fe] pl-4.5 shadow-sm"
+                                                      : "text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/70 hover:pl-4.5"
                                                   }`}
                                                 >
                                                   <DotAccent />
@@ -353,14 +367,14 @@ export default function Navbar() {
                                                         animate={{ opacity: 1, x: 0, scale: 1 }}
                                                         exit={{ opacity: 0, x: -6, scale: 0.98 }}
                                                         transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                                                        className="absolute left-[calc(100%+6px)] top-0 min-w-[205px] p-1.5 rounded-2xl z-50 origin-top-left"
+                                                        className="absolute left-[calc(100%+6px)] top-0 min-w-[230px] p-2 rounded-2xl z-50 origin-top-left"
                                                         style={FLYOUT_STYLES}
                                                       >
                                                         {subItem.sub.map((ssItem: any, ssIdx: number) => (
                                                           <Link
                                                             key={ssIdx}
                                                             href={ssItem.href}
-                                                            className="flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
+                                                            className="flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
                                                             onClick={closeAll}
                                                           >
                                                             <DotAccent />
@@ -374,7 +388,7 @@ export default function Navbar() {
                                               ) : (
                                                 <Link
                                                   href={subItem.href}
-                                                  className="flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
+                                                  className="flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
                                                   onClick={closeAll}
                                                 >
                                                   <DotAccent />
@@ -391,7 +405,7 @@ export default function Navbar() {
                               ) : (
                                 <Link
                                   href={child.href}
-                                  className="flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] font-medium text-slate-700 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
+                                  className="flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
                                   onClick={closeAll}
                                 >
                                   <DotAccent />
@@ -418,7 +432,8 @@ export default function Navbar() {
             >
               <Link
                 href="/contact"
-                className="px-5 py-2.5 rounded-full bg-[#0051fe] hover:bg-[#0043d4] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-[0_4px_16px_rgba(0,81,254,0.35)] hover:shadow-[0_8px_24px_rgba(0,81,254,0.5)] transition-all duration-200 group"
+                onClick={closeAll}
+                className="px-5 py-2.5 rounded-full bg-[#0051fe] hover:bg-[#0043d4] text-white text-[13px] font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-[0_4px_16px_rgba(0,81,254,0.35)] hover:shadow-[0_8px_24px_rgba(0,81,254,0.5)] transition-all duration-200 group"
               >
                 <span>GET STARTED</span>
                 <svg
@@ -470,7 +485,7 @@ export default function Navbar() {
                       key={item.label}
                       href={item.href!}
                       onClick={closeAll}
-                      className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 transition-colors"
+                      className="block px-3.5 py-2.5 rounded-xl text-base font-bold text-slate-900 hover:text-[#0051fe] hover:bg-blue-50/80 transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -483,7 +498,7 @@ export default function Navbar() {
                   <div key={item.label} className="rounded-xl overflow-hidden">
                     <button
                       onClick={() => setMobileExpanded(isExpanded ? null : item.label)}
-                      className="w-full flex items-center justify-between px-3.5 py-2.5 text-sm font-semibold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 transition-colors"
+                      className="w-full flex items-center justify-between px-3.5 py-2.5 text-base font-bold text-slate-900 hover:text-[#0051fe] hover:bg-blue-50/80 transition-colors"
                     >
                       <span>{item.label}</span>
                       <motion.svg
@@ -511,7 +526,7 @@ export default function Navbar() {
                             if ("sub" in child && child.sub) {
                               return (
                                 <div key={idx} className="space-y-1 py-1">
-                                  <p className="px-3 text-xs font-bold text-[#0051fe] tracking-wider uppercase">
+                                  <p className="px-3 text-[13px] font-extrabold text-[#0051fe] tracking-wider uppercase">
                                     {child.name}
                                   </p>
                                   <div className="pl-2 space-y-1">
@@ -519,7 +534,7 @@ export default function Navbar() {
                                       if ("sub" in subItem && subItem.sub) {
                                         return (
                                           <div key={sIdx} className="space-y-1">
-                                            <p className="px-3 text-xs font-medium text-slate-500">
+                                            <p className="px-3 text-xs font-bold text-slate-600">
                                               {subItem.name}
                                             </p>
                                             <div className="pl-2 space-y-0.5">
@@ -528,7 +543,7 @@ export default function Navbar() {
                                                   key={ssIdx}
                                                   href={ssItem.href}
                                                   onClick={closeAll}
-                                                  className="block px-3 py-1.5 text-xs text-slate-600 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
+                                                  className="block px-3 py-1.5 text-sm font-semibold text-slate-700 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
                                                 >
                                                   • {ssItem.name}
                                                 </Link>
@@ -542,7 +557,7 @@ export default function Navbar() {
                                           key={sIdx}
                                           href={subItem.href}
                                           onClick={closeAll}
-                                          className="block px-3 py-1.5 text-xs text-slate-700 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors font-medium"
+                                          className="block px-3 py-1.5 text-sm font-bold text-slate-800 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
                                         >
                                           {subItem.name}
                                         </Link>
@@ -557,7 +572,7 @@ export default function Navbar() {
                                 key={idx}
                                 href={child.href}
                                 onClick={closeAll}
-                                className="block px-3 py-2 text-xs font-medium text-slate-700 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
+                                className="block px-3 py-2 text-sm font-bold text-slate-800 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
                               >
                                 {child.name}
                               </Link>
@@ -574,7 +589,7 @@ export default function Navbar() {
                 <Link
                   href="/contact"
                   onClick={closeAll}
-                  className="px-5 py-2.5 rounded-full bg-[#0051fe] hover:bg-[#0043d4] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md"
+                  className="px-5 py-2.5 rounded-full bg-[#0051fe] hover:bg-[#0043d4] text-white text-[13px] font-extrabold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md"
                 >
                   GET STARTED
                 </Link>

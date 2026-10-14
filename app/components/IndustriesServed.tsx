@@ -1,311 +1,513 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import SpotlightCard from "@/app/components/ui/SpotlightCard";
+import Footer from "@/app/components/Footer";
 import img1 from "@/app/Photo/img 1.jpg";
 import img2 from "@/app/Photo/img 2.jpg";
 import img3 from "@/app/Photo/img 3.jpg";
+import {
+  Landmark,
+  Factory,
+  ShoppingCart,
+  Tv,
+  Zap,
+  Truck,
+  Plane,
+  ShieldCheck,
+  CheckCircle2,
+  ArrowRight,
+  ArrowUpRight,
+  Sparkles,
+  Cpu,
+  Layers,
+  Globe2,
+  Activity,
+  Server,
+  Workflow,
+} from "lucide-react";
 
-const industries = [
+interface IndustryItem {
+  id: string;
+  category: "finance" | "industrial" | "consumer" | "all";
+  icon: typeof Landmark;
+  title: string;
+  badge: string;
+  code: string;
+  summary: string;
+  desc: string;
+  capabilities: string[];
+  metrics: string;
+}
+
+const industries: IndustryItem[] = [
   {
-    icon: "🏦",
+    id: "bfsi",
+    category: "finance",
+    icon: Landmark,
     title: "Banking & Financial Services",
     badge: "BFSI",
-    desc: "Delivering secure, compliant, and scalable technology solutions for banks, insurance providers, and financial institutions.",
+    code: "FIN-01",
+    summary: "Secure, compliant, and ultra-low latency fintech infrastructures.",
+    desc: "Delivering mission-critical, SOC2 and PCI-DSS compliant technology solutions for global retail banks, institutional lenders, payment gateways, and asset managers.",
+    capabilities: [
+      "Core Banking Modernization & Microservices",
+      "Real-Time Fraud Detection & AML Pipelines",
+      "PCI-DSS Level 1 & SOC2 Compliance Engineering",
+      "Algorithmic Risk Scoring & Open Banking APIs",
+    ],
+    metrics: "99.999% Fault-Tolerant Uptime",
   },
   {
-    icon: "🏭",
-    title: "Manufacturing",
-    badge: null,
-    desc: "Streamlining production, inventory, supply chain, and operations through integrated ERP and automation solutions.",
+    id: "manufacturing",
+    category: "industrial",
+    icon: Factory,
+    title: "Manufacturing & Industry 4.0",
+    badge: "MFG 4.0",
+    code: "IND-02",
+    summary: "Intelligent automation and connected shop-floor telemetry.",
+    desc: "Streamlining enterprise production lines, inventory orchestration, and automated supply chains through SAP/Oracle integrations, edge computing, and real-time ERP analytics.",
+    capabilities: [
+      "Smart Factory IoT & Edge Sensor Telemetry",
+      "Predictive Asset Maintenance & Digital Twins",
+      "Next-Gen ERP & MES Production Orchestration",
+      "Automated Supply Chain Inventory Synchronization",
+    ],
+    metrics: "35% Average OEE Improvement",
   },
   {
-    icon: "🛒",
-    title: "Retail & E-Commerce",
-    badge: null,
-    desc: "Empowering retailers and online businesses with unified commerce platforms, analytics, and customer experience solutions.",
+    id: "retail",
+    category: "consumer",
+    icon: ShoppingCart,
+    title: "Retail & Omnichannel E-Commerce",
+    badge: "RETAIL",
+    code: "COM-03",
+    summary: "High-conversion headless storefronts and unified commerce.",
+    desc: "Empowering hyper-growth retailers and enterprise online marketplaces with composable headless commerce architectures, sub-second checkout speeds, and AI personalization.",
+    capabilities: [
+      "Headless & Composable Commerce Stacks",
+      "AI-Powered Dynamic Pricing & Recommendation Engines",
+      "Unified Multi-Channel Inventory & Order Management",
+      "Sub-Second Mobile Storefronts with Edge Caching",
+    ],
+    metrics: "2.4x Faster Cart Conversion",
   },
   {
-    icon: "💻",
-    title: "Hi Tech and Media",
-    badge: null,
-    desc: "Supporting technology companies and media organizations with agile development, data insights, and digital transformation.",
+    id: "hitech",
+    category: "finance",
+    icon: Tv,
+    title: "Hi-Tech, Media & Streaming",
+    badge: "HI-TECH",
+    code: "MED-04",
+    summary: "Low-latency media distribution and multi-tenant SaaS engineering.",
+    desc: "Supporting digital-native technology companies, streaming networks, and SaaS providers with hyper-scalable cloud pipelines, CDN orchestration, and high-concurrency architectures.",
+    capabilities: [
+      "Low-Latency Video Streaming & Content Delivery",
+      "Multi-Tenant SaaS Platforms with Automated Tenant Isolation",
+      "Data Lakehouse Architectures & Real-Time Telemetry",
+      "Agile CI/CD Pipelines with Automated Testing Pods",
+    ],
+    metrics: "< 50ms Edge Video Latency",
   },
   {
-    icon: "⚡",
-    title: "Energy & Utilities",
-    badge: null,
-    desc: "Driving efficiency and compliance in energy production, distribution, and utility management through smart technology.",
+    id: "energy",
+    category: "industrial",
+    icon: Zap,
+    title: "Energy & Smart Utilities",
+    badge: "ENERGY",
+    code: "ENG-05",
+    summary: "Resilient grid monitoring, smart metering, and ESG compliance.",
+    desc: "Driving operational resilience and environmental compliance in energy generation, distribution, and municipal utility management through smart metering data ingestion and IoT networks.",
+    capabilities: [
+      "Smart Meter Data Ingestion & High-Throughput Analytics",
+      "Renewable Grid Asset Monitoring & Fault Prediction",
+      "Automated ESG Reporting & Regulatory Compliance",
+      "Field Service Mobility & Workforce Dispatch Tools",
+    ],
+    metrics: "Millions of Sensor Events/Sec",
   },
   {
-    icon: "🚚",
+    id: "logistics",
+    category: "industrial",
+    icon: Truck,
     title: "Logistics & Supply Chain",
-    badge: null,
-    desc: "Optimizing end-to-end logistics operations, fleet management, and supply chain visibility with real-time data solutions.",
+    badge: "LOGISTICS",
+    code: "SCM-06",
+    summary: "End-to-end cargo visibility, fleet tracking, and automated routing.",
+    desc: "Optimizing multi-modal freight transport, warehouse management (WMS), and cross-border customs clearing with real-time GPS telemetry, route AI, and dynamic dispatching.",
+    capabilities: [
+      "Dynamic Route Optimization & Fuel Economy AI",
+      "WMS & TMS Enterprise Integration Hubs",
+      "Real-Time Cold-Chain & Asset Telematics Tracking",
+      "Automated Manifest Documentation & Customs Portals",
+    ],
+    metrics: "18% Logistics Route Cost Savings",
   },
   {
-    icon: "✈️",
-    title: "Aviation",
-    badge: null,
-    desc: "Providing specialized IT services for the aviation sector including operations management, passenger systems, and compliance tools.",
+    id: "aviation",
+    category: "industrial",
+    icon: Plane,
+    title: "Aviation & Aerospace Operations",
+    badge: "AVIATION",
+    code: "AVN-07",
+    summary: "Critical flight operations, passenger portals, and ICAO compliance.",
+    desc: "Providing high-reliability IT services for commercial airlines, ground handling providers, and airport operators including crew scheduling, passenger processing, and maintenance compliance.",
+    capabilities: [
+      "High-Availability Flight Scheduling & Dispatch Systems",
+      "Next-Gen Passenger Processing & Self-Service Kiosks",
+      "FAA / ICAO Regulatory Audit & Maintenance Logging",
+      "Baggage Tracking & Ground Operations Coordination",
+    ],
+    metrics: "100% Mission-Critical Reliability",
   },
 ];
 
+const enterprisePillars = [
+  {
+    icon: ShieldCheck,
+    title: "Zero-Trust Security & Compliance",
+    desc: "Rigorous SOC2 Type II, ISO 27001, HIPAA, and PCI-DSS compliance integrated directly into our infrastructure blueprints.",
+  },
+  {
+    icon: Cpu,
+    title: "High-Concurrency Architectures",
+    desc: "Event-driven distributed systems engineered to process tens of thousands of transactions per second with sub-50ms latency.",
+  },
+  {
+    icon: Layers,
+    title: "Cloud-Agnostic Resiliency",
+    desc: "Multi-region deployments across AWS, Azure, and Google Cloud with automated failover and 99.99% guaranteed SLA benchmarks.",
+  },
+  {
+    icon: Globe2,
+    title: "Dedicated Domain Pods",
+    desc: "Specialized engineering squads with proven subject matter expertise in your specific industry regulations and operational workflows.",
+  },
+];
+
+const stats = [
+  { value: "7+", label: "Key Regulated Verticals", sub: "Deep Domain Mastery" },
+  { value: "99.99%", label: "Platform Uptime SLA", sub: "Enterprise Production Grade" },
+  { value: "40%", label: "Faster Deployment Cycles", sub: "Modular Microservices" },
+  { value: "100%", label: "Client IP Ownership", sub: "Zero Vendor Lock-in" },
+];
+
 export default function IndustriesServed() {
+  const [activeFilter, setActiveFilter] = useState<string>("all");
+
+  const filteredIndustries =
+    activeFilter === "all"
+      ? industries
+      : industries.filter((item) => item.category === activeFilter);
+
   return (
-    <div className="min-h-screen bg-[#f4f8fd] flex flex-col">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
-        * { font-family: 'DM Sans', sans-serif; }
-        .sora { font-family: 'Sora', sans-serif; }
+    <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f0f5fc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
+      {/* ═══════════════════════════════════════════
+          HERO SECTION — ALIGNED 2-COLUMN LAYOUT
+          Cards are directly visible beside hero copy without scrolling down
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full pt-28 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
+        {/* Ambient Lights */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute top-20 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
 
-        @keyframes fadeLeft {
-          from { opacity: 0; transform: translateX(-28px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeRight {
-          from { opacity: 0; transform: translateX(28px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float {
-          0%,100% { transform: translateY(0); }
-          50%      { transform: translateY(-10px); }
-        }
-        @keyframes rotateSlow {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-        @keyframes diagonalFloat {
-          0%,100% { transform: translate(0,0); }
-          50%      { transform: translate(5px,-8px); }
-        }
-        @keyframes pulseGlow {
-          0%,100% { box-shadow: 0 0 0 0 rgba(26,111,196,0.3); }
-          50%      { box-shadow: 0 0 0 10px rgba(26,111,196,0); }
-        }
+        {/* Cyber Matrix Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
 
-        .fade-left  { animation: fadeLeft  0.75s ease both; }
-        .fade-right { animation: fadeRight 0.75s ease both; }
-        .fade-up    { animation: fadeUp    0.75s ease both; }
+        {/* Hero Content: 2-Column Grid for Zero Cutoff */}
+        <div className="max-w-7xl mx-auto relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            
+            {/* Left Column: Hero Narrative */}
+            <div className="lg:col-span-5 text-left">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-[11px] font-bold uppercase tracking-widest mb-4 backdrop-blur-md shadow-sm select-none"
+              >
+                <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
+                <span>SOLUTIONS • SECTOR EXPERTISE</span>
+              </motion.div>
 
-        .d1{animation-delay:0.05s} .d2{animation-delay:0.13s}
-        .d3{animation-delay:0.21s} .d4{animation-delay:0.29s}
-        .d5{animation-delay:0.37s} .d6{animation-delay:0.45s}
-        .d7{animation-delay:0.53s}
+              <motion.h1
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.08 }}
+                className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.12] mb-4 font-heading"
+              >
+                Domain-Specific Engineering. <br />
+                <span className="text-[#67e8f9] drop-shadow-sm">
+                  Built for High-Stakes Industries.
+                </span>
+              </motion.h1>
 
-        .geo-ring {
-          position: absolute; border-radius: 50%;
-          border: 1px solid rgba(255,255,255,0.12);
-        }
-        .deco-ring {
-          position: absolute; border-radius: 50%;
-          border: 1.5px dashed rgba(26,111,196,0.18);
-          animation: rotateSlow 18s linear infinite;
-        }
-        .orb-float   { animation: float 6s ease-in-out infinite; }
-        .orb-float-2 { animation: float 8s ease-in-out infinite reverse; }
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.16 }}
+                className="text-sm sm:text-base text-blue-100 leading-relaxed font-medium opacity-95 mb-6"
+              >
+                Nexora brings deep sector mastery across seven essential global industries. We build bespoke software architectures aligned with your regulatory compliance, scalability, and mission-critical workflows.
+              </motion.p>
 
-        .section-label {
-          display: inline-flex; align-items: center; gap: 7px;
-          padding: 5px 14px; border-radius: 50px;
-          background: rgba(26,111,196,0.08);
-          border: 1px solid rgba(26,111,196,0.15);
-          font-size: 11.5px; font-weight: 700; color: #1a6fc4;
-          text-transform: uppercase; letter-spacing: 0.1em;
-          font-family: 'Sora', sans-serif; margin-bottom: 14px;
-        }
-        .section-label::before {
-          content: ''; width: 6px; height: 6px; border-radius: 50%;
-          background: linear-gradient(135deg, #1a6fc4, #17b8e0);
-        }
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.24 }}
+                className="flex flex-wrap items-center gap-3"
+              >
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white text-[#0051fe] hover:bg-blue-50 shadow-md shadow-black/15 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  Work With Us
+                  <ArrowRight className="w-4 h-4 text-[#0051fe]" />
+                </Link>
 
-        .dot-row { display: flex; align-items: center; gap: 6px; margin-bottom: 18px; }
-        .dot-row span { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #1a6fc4, #17b8e0); }
-        .dot-row span:nth-child(2) { opacity: 0.5; }
-        .dot-row span:nth-child(3) { opacity: 0.25; }
+                <a
+                  href="#industries-grid"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  Explore All Sectors
+                  <ArrowUpRight className="w-4 h-4 text-cyan-300" />
+                </a>
+              </motion.div>
+            </div>
 
-        /* Industry card */
-        .industry-card {
-          background: white;
-          border-radius: 22px;
-          padding: 30px 26px;
-          border: 1.5px solid #e8f0fb;
-          transition: all 0.32s cubic-bezier(0.4,0,0.2,1);
-          position: relative;
-          overflow: hidden;
-          height: 100%;
-          cursor: default;
-        }
-        .industry-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, rgba(26,111,196,0.04), rgba(23,184,224,0.04));
-          opacity: 0;
-          transition: opacity 0.35s ease;
-        }
-        .industry-card::after {
-          content: '';
-          position: absolute;
-          bottom: 0; left: 0; right: 0;
-          height: 3px;
-          background: linear-gradient(90deg, #1a6fc4, #17b8e0);
-          transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 0.35s ease;
-        }
-        .industry-card:hover::before { opacity: 1; }
-        .industry-card:hover::after  { transform: scaleX(1); }
-        .industry-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 24px 65px rgba(26,111,196,0.15);
-          border-color: rgba(26,111,196,0.22);
-        }
+            {/* Right Column: Industry Cards Matrix (Visible without scrolling) */}
+            <div className="lg:col-span-7">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.45, delay: 0.2 }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-2.5"
+              >
+                {industries.map((ind) => {
+                  const Icon = ind.icon;
+                  return (
+                    <a
+                      key={ind.id}
+                      href={`#${ind.id}`}
+                      className="group flex items-center gap-3 p-2.5 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-cyan-300/40 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-white/15 group-hover:bg-white/25 flex items-center justify-center shrink-0 transition-colors">
+                        <Icon className="w-4.5 h-4.5 text-cyan-200 group-hover:text-white" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-1 mb-0.5">
+                          <span className="text-[10px] font-extrabold text-cyan-300 uppercase tracking-wider font-heading">
+                            {ind.badge}
+                          </span>
+                          <ArrowUpRight className="w-3.5 h-3.5 text-white/50 group-hover:text-cyan-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </div>
+                        <p className="text-xs font-bold text-white font-heading truncate">
+                          {ind.title}
+                        </p>
+                      </div>
+                    </a>
+                  );
+                })}
 
-        .industry-icon {
-          width: 64px; height: 64px; border-radius: 18px;
-          background: linear-gradient(135deg, #eef4fd, #daeeff);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 30px; margin-bottom: 18px;
-          transition: transform 0.3s ease;
-          position: relative; z-index: 1;
-        }
-        .industry-card:hover .industry-icon {
-          transform: scale(1.12) rotate(-5deg);
-          background: linear-gradient(135deg, #1a6fc4, #17b8e0);
-        }
+                {/* 8th Slot: Enterprise Assurance Tile to balance the grid */}
+                <div className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-cyan-400/20 to-blue-500/20 border border-cyan-300/30 backdrop-blur-md">
+                  <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+                    <Sparkles className="w-4.5 h-4.5 text-cyan-200" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-1 mb-0.5">
+                      <span className="text-[10px] font-extrabold text-cyan-200 uppercase tracking-wider font-heading">
+                        Enterprise Tier
+                      </span>
+                      <span className="text-[10px] font-bold text-cyan-200">99.99%</span>
+                    </div>
+                    <p className="text-xs font-bold text-white font-heading truncate">
+                      7+ Global Sectors
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
 
-        .industry-badge {
-          display: inline-block;
-          padding: 2px 10px; border-radius: 50px;
-          background: linear-gradient(135deg, rgba(26,111,196,0.1), rgba(23,184,224,0.1));
-          border: 1px solid rgba(26,111,196,0.18);
-          font-size: 10px; font-weight: 700; color: #1a6fc4;
-          letter-spacing: 0.08em; text-transform: uppercase;
-          font-family: 'Sora', sans-serif;
-          margin-bottom: 6px;
-        }
+          </div>
+        </div>
+      </section>
 
-        /* Image stack */
-        .img-main {
-          border-radius: 22px; overflow: hidden;
-          box-shadow: 0 24px 65px rgba(26,111,196,0.22);
-          position: relative; z-index: 2;
-        }
-        .img-accent {
-          border-radius: 16px; overflow: hidden;
-          box-shadow: 0 12px 35px rgba(26,111,196,0.18);
-          position: absolute; z-index: 3; border: 3px solid white;
-        }
-        .float-badge {
-          position: absolute; background: white;
-          border-radius: 14px; padding: 10px 16px;
-          box-shadow: 0 8px 30px rgba(26,111,196,0.2);
-          z-index: 4; border: 1px solid rgba(26,111,196,0.1);
-          animation: diagonalFloat 4s ease-in-out infinite;
-        }
-
-        .cta-btn {
-          display: inline-flex; align-items: center; gap: 7px;
-          padding: 13px 28px; border-radius: 50px;
-          font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700;
-          transition: all 0.3s ease; text-decoration: none; cursor: pointer; border: none;
-        }
-
-        /* ═══════════════════
-           MOBILE
-        ═══════════════════ */
-        @media (max-width: 767px) {
-          .img-accent     { display: none !important; }
-          .float-badge    { display: none !important; }
-          .deco-ring      { display: none !important; }
-          .img-stack-wrapper { min-height: 240px !important; }
-          .img-main       { width: 100% !important; margin-top: 0 !important; height: 220px !important; }
-        }
-      `}</style>
-
-      {/* ═══════════════════════════════
-          HERO
-      ═══════════════════════════════ */}
-      <section
-        className="relative overflow-hidden py-24 px-4"
-        style={{ background: "linear-gradient(135deg, #1a6fc4 0%, #1e80d8 45%, #1a9fd4 80%, #17b8e0 100%)" }}
-      >
-        <div className="geo-ring" style={{ width: 440, height: 440, top: -140, right: -90, opacity: 0.15 }} />
-        <div className="geo-ring" style={{ width: 240, height: 240, top: 40, right: 90, opacity: 0.09 }} />
-        <div className="geo-ring" style={{ width: 560, height: 560, bottom: -260, left: -120, opacity: 0.07 }} />
-        <div className="orb-float absolute top-10 right-1/3 w-28 h-28 rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, #7dd3fc, transparent)" }} />
-        <div className="orb-float-2 absolute bottom-6 right-20 w-16 h-16 rounded-full opacity-15"
-          style={{ background: "radial-gradient(circle, #a5f3fc, transparent)" }} />
+      {/* ═══════════════════════════════════════════
+          DOMAIN EXPERTISE SHOWCASE SECTION
+          Solid text color for "Your Industry Realities"
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f1f6fd] via-[#e5f0fc] to-[#edf5fd] overflow-hidden">
+        {/* Subtle mesh background shapes */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-300/20 to-sky-200/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-gradient-to-tr from-cyan-300/15 to-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+        
+        {/* Micro-dot grid overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(#0051fe_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.035] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-            {/* Left */}
-            <div>
-              <p className="fade-left sora text-xs tracking-[0.22em] text-cyan-200 uppercase mb-3 d1" style={{ fontWeight: 600 }}>
-                Nexora Technology Services Pvt Ltd
-              </p>
-              <h1 className="fade-left sora text-4xl md:text-5xl text-white mb-5 leading-tight d2" style={{ fontWeight: 800 }}>
-                Industries<br />
-                <span style={{ color: "#a5f3fc" }}>We Serve</span>
-              </h1>
-              <p className="fade-left text-blue-100 text-base leading-relaxed max-w-lg mb-8 d3" style={{ opacity: 0.9 }}>
-                Nexora brings deep domain expertise across seven key industries — delivering
-                technology solutions that are tailored to the unique challenges, regulations,
-                and growth opportunities of each sector.
-              </p>
-              <div className="fade-up d4 flex flex-wrap gap-4">
-                <Link href="/contact" className="cta-btn"
-                  style={{ background: "white", color: "#1a6fc4", boxShadow: "0 8px 28px rgba(0,0,0,0.15)" }}>
-                  Work With Us
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </Link>
-                <Link href="/contact" className="cta-btn text-white"
-                  style={{ background: "rgba(255,255,255,0.12)", border: "1.5px solid rgba(255,255,255,0.4)" }}>
-                  Learn More
-                </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left Column: Domain Narrative */}
+            <div className="lg:col-span-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
+                Domain Mastery
               </div>
-            </div>
 
-            {/* Right: count + industry icons strip */}
-            <div className="fade-right hidden lg:block d2">
-              <div className="grid grid-cols-2 gap-3 mb-3">
-                {industries.slice(0, 4).map((ind, i) => (
-                  <div key={i}
-                    className="flex flex-col items-center justify-center gap-2 rounded-2xl py-4 px-3"
-                    style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.18)" }}>
-                    <span className="text-3xl">{ind.icon}</span>
-                    <p className="sora text-white text-center leading-tight" style={{ fontSize: "11px", fontWeight: 700 }}>
-                      {ind.title}
+              <h2 className="text-3xl sm:text-4xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug mb-5 font-heading">
+                Enterprise Architectures Shaped for{" "}
+                <span className="text-[#0051fe]">
+                  Your Industry Realities
+                </span>
+              </h2>
+
+              <p className="text-slate-600 text-base leading-relaxed mb-6 font-sans">
+                Off-the-shelf software and generic templates crumble under sector-specific regulatory audits, throughput spikes, and complex legacy integrations. At Nexora, every system is engineered by domain-literate pods who comprehend the precise compliance, latency, and operational boundaries of your vertical.
+              </p>
+
+              {/* Three Strategic Strengths */}
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/70 border border-white/80 backdrop-blur-sm shadow-sm hover:border-blue-200 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 mt-0.5">
+                    <ShieldCheck className="w-4 h-4 text-[#0051fe]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900 font-heading">
+                      Strict Regulatory &amp; Audit Compliance
+                    </h4>
+                    <p className="text-xs text-slate-600 mt-0.5">
+                      Built-in compliance protocols matching SOC2, PCI-DSS, HIPAA, and ICAO standards.
                     </p>
                   </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-                {industries.slice(4).map((ind, i) => (
-                  <div key={i}
-                    className="flex flex-col items-center justify-center gap-2 rounded-2xl py-4 px-2"
-                    style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.18)" }}>
-                    <span className="text-3xl">{ind.icon}</span>
-                    <p className="sora text-white text-center leading-tight" style={{ fontSize: "11px", fontWeight: 700 }}>
-                      {ind.title}
+                </div>
+
+                <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/70 border border-white/80 backdrop-blur-sm shadow-sm hover:border-blue-200 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 mt-0.5">
+                    <Server className="w-4 h-4 text-[#0051fe]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900 font-heading">
+                      Zero Technical Debt Architecture
+                    </h4>
+                    <p className="text-xs text-slate-600 mt-0.5">
+                      Test-driven microservices designed for 10x vertical scale without expensive rewrites.
                     </p>
                   </div>
-                ))}
-                {/* stat tile */}
-                {/* <div className="flex flex-col items-center justify-center gap-1 rounded-2xl py-4 px-2"
-                  style={{ background: "linear-gradient(135deg,rgba(26,111,196,0.5),rgba(23,184,224,0.3))", border: "1.5px solid rgba(255,255,255,0.3)" }}>
-                  <p className="sora text-white text-2xl" style={{ fontWeight: 800 }}>7+</p>
-                  <p className="text-cyan-200 text-center leading-tight" style={{ fontSize: "10px" }}>Industries</p>
-                </div> */}
+                </div>
+
+                <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/70 border border-white/80 backdrop-blur-sm shadow-sm hover:border-blue-200 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 mt-0.5">
+                    <Workflow className="w-4 h-4 text-[#0051fe]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900 font-heading">
+                      Seamless Legacy &amp; Modern Integrations
+                    </h4>
+                    <p className="text-xs text-slate-600 mt-0.5">
+                      Safe, non-disruptive bridges connecting monolithic ERPs with high-speed cloud APIs.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-sm bg-gradient-to-r from-[#0051fe] to-[#0284c7] text-white hover:opacity-95 shadow-lg shadow-blue-500/25 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  Schedule Technical Briefing
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  About Our Pods
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: Layered Premium Image Display */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative mx-auto max-w-lg lg:max-w-none">
+                <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-600/20 blur-xl opacity-75 -z-10" />
+
+                {/* Primary Card / Main Image */}
+                <div className="relative rounded-2xl overflow-hidden border-2 border-white/80 shadow-2xl bg-white z-10 group">
+                  <div className="relative h-72 sm:h-80 w-full overflow-hidden">
+                    <Image
+                      src={img1}
+                      alt="Nexora Industry Technology Expertise"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+                    
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <span className="inline-block px-2.5 py-1 rounded-md bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider mb-1.5 font-heading">
+                        Production Proven
+                      </span>
+                      <h3 className="text-lg font-bold font-heading text-white">
+                        Enterprise Workloads Delivered Across 7 Global Sectors
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Secondary Offset Image 1 */}
+                <div className="hidden sm:block absolute -bottom-8 -left-8 w-52 h-40 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20 bg-white">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={img2}
+                      alt="Precision Engineering Pods"
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-slate-900/30" />
+                    <div className="absolute bottom-2 left-2 right-2 bg-white/90 backdrop-blur-md rounded-lg p-1.5 text-center">
+                      <p className="text-[10px] font-bold text-slate-800 font-heading">
+                        Agile 2-Week Sprints
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Secondary Offset Image 2 */}
+                <div className="hidden sm:block absolute -top-8 -right-8 w-48 h-36 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20 bg-white">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={img3}
+                      alt="Scalable Cloud Architecture"
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-slate-900/20" />
+                    <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-blue-600 text-white text-[9px] font-bold font-heading shadow-md">
+                      99.99% SLA
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Metric Badge */}
+                <div className="absolute -bottom-6 right-6 sm:right-10 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-blue-100 shadow-xl z-30 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
+                    <Sparkles className="w-5 h-5 text-[#0051fe]" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-slate-900 font-heading">
+                      100% Client IP Ownership
+                    </p>
+                    <p className="text-[10px] text-slate-500">
+                      Transparent Codebase &amp; Governance
+                    </p>
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -313,138 +515,348 @@ export default function IndustriesServed() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════
-          INTRO + IMAGES
-      ═══════════════════════════════ */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
-
-          {/* Left: text */}
-          <div className="flex-1 fade-left">
-            <div className="section-label">Domain Expertise</div>
-            <div className="dot-row"><span /><span /><span /></div>
-            <h2 className="sora text-3xl md:text-4xl text-[#1e3a5f] mb-5 leading-snug" style={{ fontWeight: 800 }}>
-              Technology Built for<br />
-              <span style={{ background: "linear-gradient(90deg,#1a6fc4,#17b8e0)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Your Industry
-              </span>
-            </h2>
-            <p className="text-slate-600 text-base leading-relaxed mb-6">
-              At Nexora, we understand that every industry has its own set of challenges, compliance
-              requirements, and operational dynamics. Our solutions are shaped by deep sector knowledge
-              — not generic frameworks — ensuring faster adoption, better fit, and stronger outcomes.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/contact" className="cta-btn"
-                style={{ background: "linear-gradient(135deg,#1a6fc4,#17b8e0)", color: "white", boxShadow: "0 6px 22px rgba(26,111,196,0.35)" }}>
-                Get in Touch <span>→</span>
-              </Link>
-              <Link href="/about" className="cta-btn"
-                style={{ color: "#1a6fc4", border: "2px solid rgba(26,111,196,0.25)", background: "transparent" }}>
-                About Us
-              </Link>
-            </div>
-          </div>
-
-          {/* Right: images */}
-          <div className="flex-1 fade-right relative flex justify-center img-stack-wrapper" style={{ minHeight: 460 }}>
-            <div className="deco-ring" style={{ width: 380, height: 380, top: "50%", left: "50%", transform: "translate(-50%,-50%)" }} />
-            <div className="deco-ring" style={{ width: 270, height: 270, top: "50%", left: "50%", transform: "translate(-50%,-50%)", animationDirection: "reverse", opacity: 0.55 }} />
-
-            <div className="img-main" style={{ width: 360, height: 280, marginTop: 40 }}>
-              <Image src={img1} alt="Industries we serve" fill style={{ objectFit: "cover" }} />
-            </div>
-            <div className="img-accent" style={{ width: 190, height: 140, bottom: 10, left: "3%" }}>
-              <Image src={img2} alt="Industry expertise" fill style={{ objectFit: "cover" }} />
-            </div>
-            <div className="img-accent" style={{ width: 160, height: 118, top: 0, right: "2%" }}>
-              <Image src={img3} alt="Domain solutions" fill style={{ objectFit: "cover" }} />
-            </div>
-
-            {/* <div className="float-badge" style={{ bottom: 62, right: "5%", animationDelay: "1.2s" }}>
-              <p className="sora text-xs font-bold text-[#1a6fc4] mb-0.5">500+ Projects</p>
-              <p className="text-slate-500 text-[11px]">Across Industries</p>
-            </div> */}
-            {/* <div className="float-badge"
-              style={{ top: 20, left: "5%", animationDelay: "0.6s", background: "linear-gradient(135deg,#1a6fc4,#17b8e0)" }}>
-              <p className="sora text-xs font-bold text-white mb-0.5">7 Sectors</p>
-              <p className="text-cyan-100 text-[11px]">Deep Expertise</p>
-            </div> */}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════
-          INDUSTRY CARDS GRID
-      ═══════════════════════════════ */}
-      <section className="py-20 px-4 bg-[#f4f8fd]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14 fade-up">
-            <div className="section-label" style={{ margin: "0 auto 14px" }}>Industries Served</div>
-            <h2 className="sora text-3xl md:text-4xl text-[#1e3a5f]" style={{ fontWeight: 800 }}>
-              Sectors We Specialise In
-            </h2>
-            <p className="text-slate-500 mt-3 text-sm max-w-xl mx-auto leading-relaxed">
-              From banking to aviation, we bring proven expertise and industry-specific solutions
-              to help businesses in every sector thrive.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {industries.map((ind, i) => (
-              <div key={ind.title} className={`industry-card fade-up d${(i % 6) + 1}`}>
-                <div className="industry-icon">{ind.icon}</div>
-                {ind.badge && (
-                  <div className="industry-badge">{ind.badge}</div>
-                )}
-                <h3 className="sora text-base text-[#1e3a5f] mb-3 leading-snug" style={{ fontWeight: 700, position: "relative", zIndex: 1 }}>
-                  {ind.title}
-                </h3>
-                <p className="text-slate-500 text-sm leading-relaxed" style={{ position: "relative", zIndex: 1 }}>
-                  {ind.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════
-          CTA
-      ═══════════════════════════════ */}
+      {/* ═══════════════════════════════════════════
+          CORE SECTORS WE SERVE — THE MAIN GRID
+      ═══════════════════════════════════════════ */}
       <section
-        className="py-20 px-4 relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #0a1e3d 0%, #1a6fc4 60%, #17b8e0 100%)" }}
+        id="industries-grid"
+        className="relative w-full py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#e8f2fc] via-[#f0f6ff] to-[#e4eefb] overflow-hidden scroll-mt-20"
       >
-        <div className="geo-ring" style={{ width: 300, height: 300, top: -100, right: -60, opacity: 0.12 }} />
-        <div className="geo-ring" style={{ width: 200, height: 200, bottom: -80, left: -40, opacity: 0.09 }} />
-        <div className="orb-float absolute top-8 left-1/4 w-24 h-24 rounded-full opacity-15"
-          style={{ background: "radial-gradient(circle, #7dd3fc, transparent)" }} />
+        {/* Ambient Glow Orbs */}
+        <div className="pointer-events-none absolute top-10 left-1/4 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-300/20 rounded-full blur-3xl z-0" />
 
-        <div className="max-w-3xl mx-auto text-center relative z-10 fade-up">
-          <p className="sora text-xs tracking-[0.22em] text-cyan-300 uppercase mb-3 font-semibold">
-            Your Industry. Our Expertise.
-          </p>
-          <h2 className="sora text-3xl md:text-5xl text-white mb-5 leading-tight" style={{ fontWeight: 800 }}>
-            Let&apos;s Solve Your<br />
-            <span style={{ color: "#a5f3fc" }}>Industry Challenges</span>
-          </h2>
-          <p className="text-blue-200 text-base leading-relaxed mb-10 max-w-xl mx-auto" style={{ opacity: 0.88 }}>
-            Talk to our industry specialists and discover how Nexora can deliver technology
-            solutions tailored precisely to your sector&apos;s needs.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact" className="cta-btn"
-              style={{ color: "#1a6fc4", background: "white", boxShadow: "0 8px 28px rgba(0,0,0,0.2)" }}>
-              Get in Touch <span>→</span>
-            </Link>
-            <Link href="/about" className="cta-btn text-white"
-              style={{ background: "rgba(255,255,255,0.12)", border: "2px solid rgba(255,255,255,0.3)" }}>
-              About Us
-            </Link>
+        <div className="max-w-6xl mx-auto relative z-10">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
+              Specialized Verticals
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
+              Purpose-Built Engineering for High-Stakes Sectors
+            </h2>
+            <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+              Explore how Nexora delivers robust, tailored software systems engineered to address the specific throughput, data governance, and reliability requirements of your industry.
+            </p>
+
+            {/* Filter Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
+              {[
+                { id: "all", label: "All 7 Verticals" },
+                { id: "finance", label: "Banking, FinTech & Hi-Tech" },
+                { id: "industrial", label: "Manufacturing, Logistics & Energy" },
+                { id: "consumer", label: "Retail & Omnichannel" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveFilter(tab.id)}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer font-heading ${
+                    activeFilter === tab.id
+                      ? "bg-[#0051fe] text-white shadow-md shadow-blue-500/25"
+                      : "bg-white/80 text-slate-600 hover:bg-white hover:text-slate-900 border border-blue-100/80 shadow-sm"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Cards Grid: 2 - 3 - 2 Column Layout for all 7 verticals */}
+          {filteredIndustries.length === 7 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+              {filteredIndustries.map((ind, i) => {
+                const Icon = ind.icon;
+                // 2 - 3 - 2 column layout on lg:
+                // Row 1 (2 cards): items 0, 1 -> col-span-3 (3 + 3 = 6 cols)
+                // Row 2 (3 cards): items 2, 3, 4 -> col-span-2 (2 + 2 + 2 = 6 cols)
+                // Row 3 (2 cards): items 5, 6 -> col-span-3 (3 + 3 = 6 cols)
+                const colSpanClass =
+                  i < 2
+                    ? "md:col-span-1 lg:col-span-3"
+                    : i < 4
+                    ? "md:col-span-1 lg:col-span-2"
+                    : i === 4
+                    ? "md:col-span-2 lg:col-span-2"
+                    : "md:col-span-1 lg:col-span-3";
+
+                return (
+                  <div key={ind.id} id={ind.id} className={`${colSpanClass} scroll-mt-28`}>
+                    <SpotlightCard
+                      className="h-full flex flex-col justify-between !bg-white/85 !border-blue-100/90 hover:!border-blue-300 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl p-7"
+                      spotlightColor="rgba(0, 81, 254, 0.16)"
+                      borderColor="rgba(0, 81, 254, 0.4)"
+                    >
+                      <div>
+                        {/* Top Header of Card */}
+                        <div className="flex items-center justify-between mb-5">
+                          <div className="w-[52px] h-[52px] rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/90 border border-blue-200/80 flex items-center justify-center shadow-sm">
+                            <Icon className="w-6 h-6 text-[#0051fe]" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold text-slate-400 tracking-wider">
+                              {ind.code}
+                            </span>
+                            <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wide bg-blue-50 text-[#0051fe] border border-blue-200/80 font-heading">
+                              {ind.badge}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Card Title & Description */}
+                        <h3 className="text-xl font-bold text-slate-900 mb-2 font-heading tracking-tight leading-snug">
+                          {ind.title}
+                        </h3>
+                        <p className="text-xs font-semibold text-[#0051fe] mb-3">
+                          {ind.summary}
+                        </p>
+                        <p className="text-slate-600 text-sm leading-relaxed mb-6 font-sans">
+                          {ind.desc}
+                        </p>
+
+                        {/* Key Capabilities Bullet Points */}
+                        <div className="space-y-2.5 pt-4 border-t border-slate-100 mb-6">
+                          <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 font-heading">
+                            Core Deliverables:
+                          </p>
+                          {ind.capabilities.map((cap, idx) => (
+                            <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700">
+                              <CheckCircle2 className="w-4 h-4 text-[#0051fe] shrink-0 mt-0.5" />
+                              <span className="leading-snug">{cap}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Bottom Card Footer */}
+                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-600">
+                          <Activity className="w-3.5 h-3.5 text-blue-600" />
+                          <span>{ind.metrics}</span>
+                        </div>
+
+                        <Link
+                          href="/contact"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0051fe] hover:text-[#0041cb] font-heading group transition-colors cursor-pointer"
+                        >
+                          <span>Discuss Need</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </div>
+                    </SpotlightCard>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredIndustries.map((ind) => {
+                const Icon = ind.icon;
+                return (
+                  <div key={ind.id} id={ind.id} className="scroll-mt-28">
+                    <SpotlightCard
+                      className="h-full flex flex-col justify-between !bg-white/85 !border-blue-100/90 hover:!border-blue-300 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl p-7"
+                      spotlightColor="rgba(0, 81, 254, 0.16)"
+                      borderColor="rgba(0, 81, 254, 0.4)"
+                    >
+                      <div>
+                        {/* Top Header of Card */}
+                        <div className="flex items-center justify-between mb-5">
+                          <div className="w-[52px] h-[52px] rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/90 border border-blue-200/80 flex items-center justify-center shadow-sm">
+                            <Icon className="w-6 h-6 text-[#0051fe]" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold text-slate-400 tracking-wider">
+                              {ind.code}
+                            </span>
+                            <span className="px-2.5 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wide bg-blue-50 text-[#0051fe] border border-blue-200/80 font-heading">
+                              {ind.badge}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Card Title & Description */}
+                        <h3 className="text-xl font-bold text-slate-900 mb-2 font-heading tracking-tight leading-snug">
+                          {ind.title}
+                        </h3>
+                        <p className="text-xs font-semibold text-[#0051fe] mb-3">
+                          {ind.summary}
+                        </p>
+                        <p className="text-slate-600 text-sm leading-relaxed mb-6 font-sans">
+                          {ind.desc}
+                        </p>
+
+                        {/* Key Capabilities Bullet Points */}
+                        <div className="space-y-2.5 pt-4 border-t border-slate-100 mb-6">
+                          <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 font-heading">
+                            Core Deliverables:
+                          </p>
+                          {ind.capabilities.map((cap, idx) => (
+                            <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700">
+                              <CheckCircle2 className="w-4 h-4 text-[#0051fe] shrink-0 mt-0.5" />
+                              <span className="leading-snug">{cap}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Bottom Card Footer */}
+                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-600">
+                          <Activity className="w-3.5 h-3.5 text-blue-600" />
+                          <span>{ind.metrics}</span>
+                        </div>
+
+                        <Link
+                          href="/contact"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0051fe] hover:text-[#0041cb] font-heading group transition-colors cursor-pointer"
+                        >
+                          <span>Discuss Need</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </div>
+                    </SpotlightCard>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          CROSS-SECTOR ENTERPRISE STANDARDS
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#09152b] via-[#0d1e3d] to-[#071124] text-white overflow-hidden border-y border-blue-900/40">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none z-0" />
+        <div className="pointer-events-none absolute top-10 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute bottom-10 left-10 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl z-0" />
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-cyan-300 text-xs font-bold uppercase tracking-widest mb-4 backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-300 animate-pulse" />
+              Unified Architecture Benchmarks
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-heading">
+              Universal Engineering Rigor Across Every Vertical
+            </h2>
+            <p className="mt-3 text-blue-200 text-sm sm:text-base leading-relaxed">
+              Regardless of the sector, every solution Nexora ships complies with institutional standards of high availability, automated telemetry, and ironclad security.
+            </p>
+          </div>
+
+          {/* 4 Architectural Pillars Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {enterprisePillars.map((pillar, idx) => {
+              const PillarIcon = pillar.icon;
+              return (
+                <div
+                  key={idx}
+                  className="rounded-2xl p-6 bg-white/[0.06] hover:bg-white/[0.1] border border-white/15 hover:border-cyan-400/40 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 group"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-white/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                    <PillarIcon className="w-6 h-6 text-cyan-300" />
+                  </div>
+                  <h3 className="text-base font-bold text-white mb-2 font-heading">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-xs text-blue-200/80 leading-relaxed font-sans">
+                    {pillar.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Proven Impact Statistics Banner */}
+          <div className="rounded-2xl bg-white/[0.08] border border-white/20 p-8 backdrop-blur-md shadow-2xl">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-white/15">
+              {stats.map((item, idx) => (
+                <div key={idx} className={`text-center ${idx !== 0 ? "pt-6 sm:pt-0" : ""}`}>
+                  <p className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-heading tracking-tight mb-1 bg-gradient-to-r from-white via-cyan-200 to-blue-200 bg-clip-text text-transparent">
+                    {item.value}
+                  </p>
+                  <p className="text-xs sm:text-sm font-bold text-white font-heading">
+                    {item.label}
+                  </p>
+                  <p className="text-[11px] text-cyan-300/80 font-medium mt-0.5">
+                    {item.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          CALL TO ACTION (CTA) BANNER — ENCLOSED CARD
+          Light blue background around the floating CTA card
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#eaf2fc] via-[#f1f6fd] to-[#e5eefa] overflow-hidden">
+        {/* Soft Ambient Lights in Light Blue Outer Section */}
+        <div className="pointer-events-none absolute -top-10 left-1/4 w-80 h-80 bg-blue-300/30 rounded-full blur-3xl z-0" />
+        <div className="pointer-events-none absolute -bottom-10 right-1/4 w-80 h-80 bg-sky-300/25 rounded-full blur-3xl z-0" />
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="relative rounded-3xl p-6 sm:p-10 overflow-hidden bg-gradient-to-r from-[#0041cb] via-[#0051fe] to-[#0284c7] text-white shadow-[0_20px_60px_-15px_rgba(0,81,254,0.45)] border border-blue-400/40 text-center">
+            {/* Ambient Aura & Cyber Matrix within the Card */}
+            <div className="pointer-events-none absolute -top-16 left-1/3 w-72 h-72 bg-cyan-300/30 rounded-full blur-3xl z-0" />
+            <div className="pointer-events-none absolute -bottom-16 right-1/4 w-72 h-72 bg-blue-300/25 rounded-full blur-3xl z-0" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0" />
+
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/30 text-white text-[11px] font-bold uppercase tracking-widest mb-3 backdrop-blur-md shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-300 animate-pulse" />
+                <span>DIRECT DOMAIN COLLABORATION</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug mb-3 font-heading">
+                Accelerate Your Sector-Specific <br className="hidden sm:inline" />
+                <span className="text-[#67e8f9] drop-shadow-sm">
+                  Digital Transformation Roadmap
+                </span>
+              </h2>
+
+              <p className="text-xs sm:text-sm text-blue-100 leading-relaxed font-medium mb-6 opacity-95">
+                Partner with Nexora&apos;s senior solutions architects to audit your architecture, eliminate bottlenecks, and engineer resilient systems built for scale.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white text-[#0051fe] hover:bg-blue-50 shadow-lg shadow-black/15 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  Schedule Architecture Briefing
+                  <ArrowRight className="w-3.5 h-3.5 text-[#0051fe]" />
+                </Link>
+
+                <Link
+                  href="/what-we-serve/services"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white/15 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  Explore All Services
+                  <ArrowUpRight className="w-3.5 h-3.5 text-cyan-200" />
+                </Link>
+              </div>
+
+              <p className="mt-4 text-[11px] text-blue-200/80 font-medium">
+                No obligation consultation • Direct access to principal solution architects
+              </p>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════
+          FOOTER INTEGRATION
+      ═══════════════════════════════════════════ */}
+      <Footer />
     </div>
   );
 }
