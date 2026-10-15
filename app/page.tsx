@@ -829,7 +829,7 @@ export default function Home() {
               </h3>
               <div className="space-y-2 text-slate-400 text-sm">
                 <p>info@nexoratechnology.co.in</p>
-                <p>+91 7483891857</p>
+                <p>+91 98860 71933</p>
                 <p>Bengaluru, Karnataka, India</p>
               </div>
             </div>
