@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import heroBg from "@/app/Photo/hero-section.png";
 import { motion, AnimatePresence } from "framer-motion";
 import SpotlightCard from "@/app/components/ui/SpotlightCard";
 import Footer from "@/app/components/Footer";
@@ -11,14 +13,10 @@ import {
   BarChart3,
   Workflow,
   Sparkles,
-  Network,
-  Zap,
   ShieldCheck,
   TrendingUp,
   ArrowRight,
-  ArrowUpRight,
   CheckCircle2,
-  Activity,
   Bot,
   RefreshCw,
   LineChart,
@@ -124,42 +122,72 @@ const capabilitiesList = [
     title: "Enterprise Data Engineering & Lakehouses",
     badge: "Foundational Architecture",
     desc: "We design modern data lakehouses and resilient ELT/ETL pipelines using Medallion architecture (Bronze, Silver, Gold) ensuring single-source-of-truth accuracy across disparate business systems.",
-    deliverables: ["Automated Data Pipelines", "Delta Lake / Warehouse Sync", "Unified Data Catalog", "Schema Governance"],
+    deliverables: [
+      "Automated Data Pipelines",
+      "Delta Lake / Warehouse Sync",
+      "Unified Data Catalog",
+      "Schema Governance",
+    ],
   },
   {
     icon: Brain,
     title: "Machine Learning & Predictive Modeling",
     badge: "Predictive Automation",
     desc: "From supervised classification to regression forecasting, our ML engineers build custom algorithms that accurately predict market demand, detect equipment anomalies, and prevent customer churn.",
-    deliverables: ["Demand & Revenue Forecasting", "Customer Lifetime & Churn ML", "Anomaly & Fraud Detection", "Model Validation Audits"],
+    deliverables: [
+      "Demand & Revenue Forecasting",
+      "Customer Lifetime & Churn ML",
+      "Anomaly & Fraud Detection",
+      "Model Validation Audits",
+    ],
   },
   {
     icon: Workflow,
     title: "KNIME Workflow Automation & Low-Code AI",
     badge: "Workflow Orchestration",
     desc: "Empower non-technical analysts and data scientists alike. We build modular, repeatable KNIME workflows that automate hours of manual data wrangling and produce audit-ready automated reports.",
-    deliverables: ["Visual Workflow Templates", "Multi-Source Automated Blending", "Scheduled Batch Ingestion", "Reusable Node Workflows"],
+    deliverables: [
+      "Visual Workflow Templates",
+      "Multi-Source Automated Blending",
+      "Scheduled Batch Ingestion",
+      "Reusable Node Workflows",
+    ],
   },
   {
     icon: Sparkles,
     title: "Generative AI & Enterprise Copilots",
     badge: "Next-Gen AI Systems",
     desc: "Integrate Large Language Models (LLMs) with your enterprise knowledge bases using Retrieval-Augmented Generation (RAG). Create secure, compliant internal assistants that automate knowledge work.",
-    deliverables: ["Enterprise RAG Pipelines", "Private Knowledge Assistants", "Document Summarization & Extraction", "Fine-Tuned Domain Prompts"],
+    deliverables: [
+      "Enterprise RAG Pipelines",
+      "Private Knowledge Assistants",
+      "Document Summarization & Extraction",
+      "Fine-Tuned Domain Prompts",
+    ],
   },
   {
     icon: Gauge,
     title: "Executive Business Intelligence & Dashboards",
     badge: "Visual Storytelling",
     desc: "Turn complex multi-table databases into intuitive, sub-second executive dashboards in Power BI and Tableau. Give your leadership real-time visibility into KPIs, margin trends, and operations.",
-    deliverables: ["Power BI Executive Dashboards", "Tableau Visual Storyboards", "Automated KPI Alerts", "Self-Service Semantic Models"],
+    deliverables: [
+      "Power BI Executive Dashboards",
+      "Tableau Visual Storyboards",
+      "Automated KPI Alerts",
+      "Self-Service Semantic Models",
+    ],
   },
   {
     icon: ShieldCheck,
     title: "Data Governance, Quality & MLOps",
     badge: "Enterprise Reliability",
     desc: "Ensure enterprise security, SOC2/GDPR compliance, data lineage, and continuous model health with automated drift detection and automated CI/CD deployment pipelines.",
-    deliverables: ["Automated Model Drift Monitoring", "Data Lineage & Provenance", "RBAC & PII Masking Security", "Automated Retraining Triggers"],
+    deliverables: [
+      "Automated Model Drift Monitoring",
+      "Data Lineage & Provenance",
+      "RBAC & PII Masking Security",
+      "Automated Retraining Triggers",
+    ],
   },
 ];
 
@@ -199,36 +227,47 @@ const pipelineStages = [
 const industryUseCases = [
   {
     sector: "Banking & Financial Services",
-    challenge: "High transaction volumes and increasing regulatory fraud scrutiny.",
-    solution: "Real-time anomaly detection pipelines and automated credit scoring models with Power BI compliance reporting.",
-    impact: "94% faster fraud pattern recognition and audit-ready data lineage.",
+    challenge:
+      "High transaction volumes and increasing regulatory fraud scrutiny.",
+    solution:
+      "Real-time anomaly detection pipelines and automated credit scoring models with Power BI compliance reporting.",
+    impact:
+      "94% faster fraud pattern recognition and audit-ready data lineage.",
     icon: ShieldCheck,
   },
   {
     sector: "Manufacturing & Industry 4.0",
     challenge: "Unplanned factory downtime and disparate sensor telemetry.",
-    solution: "Edge data ingestion via Apache NiFi coupled with KNIME predictive maintenance models.",
-    impact: "38% reduction in equipment failure and continuous shop-floor visibility.",
+    solution:
+      "Edge data ingestion via Apache NiFi coupled with KNIME predictive maintenance models.",
+    impact:
+      "38% reduction in equipment failure and continuous shop-floor visibility.",
     icon: Boxes,
   },
   {
     sector: "Retail & Omnichannel Commerce",
     challenge: "Volatile customer demand and inefficient inventory allocation.",
-    solution: "RapidMiner predictive forecasting paired with Tableau regional heatmaps and real-time restocking alerts.",
+    solution:
+      "RapidMiner predictive forecasting paired with Tableau regional heatmaps and real-time restocking alerts.",
     impact: "22% reduction in stockouts and 3.1x faster trend forecasting.",
     icon: TrendingUp,
   },
   {
     sector: "Healthcare & Life Sciences",
-    challenge: "Fragmented patient records and stringent HIPAA/GDPR compliance.",
-    solution: "Secure ETL data cleaning pipelines, clinical predictive analytics, and anonymized research workflows.",
+    challenge:
+      "Fragmented patient records and stringent HIPAA/GDPR compliance.",
+    solution:
+      "Secure ETL data cleaning pipelines, clinical predictive analytics, and anonymized research workflows.",
     impact: "Zero compliance violations and 60% faster clinical data prep.",
     icon: Microscope,
   },
 ];
 
 export default function DataAIPage() {
-  const [activeCategory, setActiveCategory] = useState<"all" | "analytics" | "bi" | "automation" | "ml">("all");
+  const [activeCategory, setActiveCategory] = useState<
+    "all" | "analytics" | "bi" | "automation" | "ml"
+  >("all");
+  const [h1Hovered, setH1Hovered] = useState(false);
 
   const filteredPlatforms =
     activeCategory === "all"
@@ -237,200 +276,112 @@ export default function DataAIPage() {
 
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f0f5fc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
-      
       {/* ═══════════════════════════════════════════
           HERO SECTION — ENTERPRISE DATA & AI
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full pt-28 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
-        
-        {/* Ambient Lights */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/25 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute top-20 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
+      <section className="relative w-full min-h-screen flex items-center pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
+        {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroBg}
+            alt="Nexora Technology Services - 3D Crystal NTS Identity"
+            fill
+            priority
+            quality={100}
+            className="object-cover object-left md:object-right select-none pointer-events-none"
+            sizes="100vw"
+          />
 
-        {/* Cyber Matrix Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
+          {/* Minimal soft top blend for floating navbar */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />
+        </div>
 
-        <div className="max-w-7xl mx-auto relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            {/* Left Column: Hero Narrative */}
-            <div className="lg:col-span-7 text-left">
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-[11px] font-bold uppercase tracking-widest mb-5 backdrop-blur-md shadow-sm select-none"
+        {/* Left-Aligned UI Content Container */}
+        <div className="w-full max-w-7xl mx-auto relative z-10">
+          <div className="max-w-xl lg:max-w-2xl text-left flex flex-col items-start">
+            {/* Glassmorphic Brand Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-white text-[#0051fe] text-xs font-bold uppercase tracking-widest mb-3.5 sm:mb-4 backdrop-blur-md shadow-[0_4px_20px_rgba(0,81,254,0.18)]"
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0051fe] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0051fe]" />
+              </span>
+              <span
+                style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
               >
-                <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-                <span>NEXORA TECHNOLOGY • DATA, ML &amp; AI</span>
-              </motion.div>
+                NEXORA TECHNOLOGY • DATA, ML & AI
+              </span>
+            </motion.div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.08 }}
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.12] mb-5 font-heading"
+            {/* Impactful Heading — Solid Colors with Persistent White/Light-Blue Shadow & Animated Hover Motion */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              whileHover={{
+                x: 8,
+                transition: { type: "spring", stiffness: 350, damping: 22 },
+              }}
+              onMouseEnter={() => setH1Hovered(true)}
+              onMouseLeave={() => setH1Hovered(false)}
+              style={{
+                textShadow: h1Hovered
+                  ? "0 4px 14px rgba(255, 255, 255, 1), 0 0 28px rgba(186, 230, 253, 0.95), 0 0 45px rgba(147, 197, 253, 0.85)"
+                  : "0 2px 10px rgba(255, 255, 255, 0.95), 0 0 20px rgba(186, 230, 253, 0.85), 0 0 35px rgba(147, 197, 253, 0.65)",
+                transition: "text-shadow 0.35s ease",
+              }}
+              className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight font-heading leading-[1.12] mb-3.5 sm:mb-4 cursor-pointer select-none inline-block"
+            >
+              DATA, ML &amp;
+              <br className="hidden sm:inline" />
+              <span className="text-[#0051fe]">ARTIFICIAL INTELLIGENCE</span>
+            </motion.h1>
+
+            {/* Strategic Value Proposition (Bold Sub Text, No Shadow) */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="text-xs sm:text-sm md:text-[15px] text-slate-800 hover:text-slate-950 font-semibold leading-relaxed max-w-md mb-8 drop-shadow-[0_1px_10px_rgba(255,255,255,0.9)] hover:drop-shadow-[0_2px_16px_rgba(255,255,255,1)] cursor-default transition-all duration-300"
+              style={{
+                textShadow:
+                  "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
+              }}
+            >
+              At Nexora Technology Services Pvt Ltd, we help businesses unlock
+              the power of Data, Machine Learning (ML), and Artificial
+              Intelligence (AI) to drive smarter decisions, automate processes,
+              and accelerate innovation. Our solutions enable organizations to
+              transform raw data into meaningful insights and intelligent
+              business outcomes.
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 mb-5 sm:mb-6"
+            >
+              <Link
+                href="/contact"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0051fe] hover:bg-[#0041cb] text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_12px_28px_-4px_rgba(0,81,254,0.45)] hover:shadow-[0_18px_36px_-4px_rgba(0,81,254,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 transition-all duration-200 cursor-pointer group"
               >
-                Data, ML &amp; <br />
-                <span className="text-[#67e8f9] drop-shadow-sm">
-                  Artificial Intelligence
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.16 }}
-                className="text-sm sm:text-base text-blue-100 leading-relaxed font-normal opacity-95 max-w-2xl mb-4"
+                <span>Get in Touch</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="#platforms-tools"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/90 hover:bg-white text-slate-900 hover:text-[#0051fe] border border-white text-xs sm:text-sm font-bold flex items-center gap-2 backdrop-blur-md shadow-[0_8px_20px_rgba(0,81,254,0.12)] hover:shadow-[0_12px_28px_rgba(0,81,254,0.2)] transition-all duration-200 cursor-pointer"
               >
-                At Nexora Technology Services Pvt Ltd, we help businesses unlock the power of Data, Machine
-                Learning (ML), and Artificial Intelligence (AI) to drive smarter decisions, automate processes,
-                and accelerate innovation. Our solutions enable organizations to transform raw data into meaningful
-                insights and intelligent business outcomes.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.22 }}
-                className="text-xs sm:text-sm text-blue-200/90 leading-relaxed font-normal max-w-2xl mb-8"
-              >
-                We provide end-to-end services including data analytics, predictive modelling, AI-powered automation,
-                machine learning solutions, and intelligent dashboards tailored to business needs. From improving
-                operational efficiency to enhancing customer experiences, our Data, ML, and AI services help
-                businesses stay competitive in a rapidly evolving digital landscape.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.28 }}
-                className="flex flex-wrap items-center gap-3.5"
-              >
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white text-[#0051fe] hover:bg-blue-50 shadow-md shadow-black/15 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Get in Touch
-                  <ArrowRight className="w-4 h-4 text-[#0051fe]" />
-                </Link>
-
-                <a
-                  href="#platforms-tools"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Explore Platforms &amp; Tools
-                  <ArrowUpRight className="w-4 h-4 text-cyan-300" />
-                </a>
-              </motion.div>
-            </div>
-
-            {/* Right Column: Interactive Live Telemetry / Model Pipeline HUD */}
-            <div className="lg:col-span-5">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="rounded-2xl border border-white/20 bg-white/10 p-5 sm:p-6 backdrop-blur-xl shadow-2xl relative overflow-hidden"
-              >
-                {/* HUD Top Bar */}
-                <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
-                  <div className="flex items-center gap-2.5">
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-300" />
-                    </span>
-                    <span className="font-heading font-bold text-xs uppercase tracking-wider text-white">
-                      AI Pipeline Telemetry
-                    </span>
-                  </div>
-                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-white/15 text-cyan-200 border border-white/20">
-                    Live Stream: Healthy
-                  </span>
-                </div>
-
-                {/* Key Metric Gauges in HUD */}
-                <div className="grid grid-cols-2 gap-3 mb-5">
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-md">
-                    <div className="flex items-center justify-between text-xs text-blue-200 mb-1">
-                      <span>Model Precision</span>
-                      <Activity className="w-3.5 h-3.5 text-cyan-300" />
-                    </div>
-                    <div className="text-2xl font-black text-white font-heading">99.4%</div>
-                    <div className="text-[10px] text-cyan-300 font-mono mt-0.5">Top-quartile accuracy</div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-md">
-                    <div className="flex items-center justify-between text-xs text-blue-200 mb-1">
-                      <span>Inference Speed</span>
-                      <Zap className="w-3.5 h-3.5 text-cyan-300" />
-                    </div>
-                    <div className="text-2xl font-black text-white font-heading">38 ms</div>
-                    <div className="text-[10px] text-cyan-300 font-mono mt-0.5">Sub-second latency</div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-md">
-                    <div className="flex items-center justify-between text-xs text-blue-200 mb-1">
-                      <span>Events Streamed</span>
-                      <Network className="w-3.5 h-3.5 text-cyan-300" />
-                    </div>
-                    <div className="text-2xl font-black text-white font-heading">4.2M/s</div>
-                    <div className="text-[10px] text-cyan-300 font-mono mt-0.5">Distributed throughput</div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-md">
-                    <div className="flex items-center justify-between text-xs text-blue-200 mb-1">
-                      <span>Drift Detection</span>
-                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-300" />
-                    </div>
-                    <div className="text-2xl font-black text-white font-heading">0.00%</div>
-                    <div className="text-[10px] text-emerald-300 font-mono mt-0.5">Zero model degradation</div>
-                  </div>
-                </div>
-
-                {/* Live Connected Engines List */}
-                <div className="space-y-2">
-                  <div className="text-[11px] font-bold text-blue-200 uppercase tracking-wider mb-1.5">
-                    Integrated Stack Nodes
-                  </div>
-
-                  <div className="flex items-center justify-between p-2 rounded-lg bg-black/20 text-xs">
-                    <div className="flex items-center gap-2">
-                      <Microscope className="w-4 h-4 text-cyan-300" />
-                      <span className="font-medium text-white">KNIME Analytics Pipeline</span>
-                    </div>
-                    <span className="text-[10px] text-emerald-300 font-mono flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                      Active Node
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between p-2 rounded-lg bg-black/20 text-xs">
-                    <div className="flex items-center gap-2">
-                      <BarChart3 className="w-4 h-4 text-cyan-300" />
-                      <span className="font-medium text-white">Power BI &amp; Tableau Sync</span>
-                    </div>
-                    <span className="text-[10px] text-emerald-300 font-mono flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                      Real-time Feed
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between p-2 rounded-lg bg-black/20 text-xs">
-                    <div className="flex items-center gap-2">
-                      <RefreshCw className="w-4 h-4 text-cyan-300" />
-                      <span className="font-medium text-white">Apache NiFi Dataflow Engine</span>
-                    </div>
-                    <span className="text-[10px] text-emerald-300 font-mono flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                      Streaming
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-
+                <span>Explore Platform &amp; Tools</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -441,10 +392,26 @@ export default function DataAIPage() {
       <section className="relative z-20 -mt-7 max-w-6xl mx-auto px-4 w-full">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {[
-            { metric: "10x", label: "Faster Time-to-Insight", sub: "from raw data to visual KPIs" },
-            { metric: "99.9%", label: "Pipeline Reliability", sub: "enterprise SLA standards" },
-            { metric: "60%", label: "Less Data Prep Overhead", sub: "with automated KNIME workflows" },
-            { metric: "5+", label: "Leading Platforms", sub: "deep certified engineering bench" },
+            {
+              metric: "10x",
+              label: "Faster Time-to-Insight",
+              sub: "from raw data to visual KPIs",
+            },
+            {
+              metric: "99.9%",
+              label: "Pipeline Reliability",
+              sub: "enterprise SLA standards",
+            },
+            {
+              metric: "60%",
+              label: "Less Data Prep Overhead",
+              sub: "with automated KNIME workflows",
+            },
+            {
+              metric: "5+",
+              label: "Leading Platforms",
+              sub: "deep certified engineering bench",
+            },
           ].map((item, idx) => (
             <motion.div
               key={item.label}
@@ -476,11 +443,14 @@ export default function DataAIPage() {
           <h3 className="text-xs font-bold uppercase tracking-widest text-[#0051fe] mb-2 font-heading">
             Comprehensive Offerings
           </h3>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 font-heading">  
-              <span className="text-[#0051fe]">End-to-End </span> &amp; AI Capabilities
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 font-heading">
+            <span className="text-[#0051fe]">End-to-End </span> &amp; AI
+            Capabilities
           </h2>
           <p className="text-slate-500 text-sm max-w-2xl mx-auto mt-2">
-            Engineered to handle your entire data lifecycle — from initial ingestion through predictive intelligence and boardroom visualization.
+            Engineered to handle your entire data lifecycle — from initial
+            ingestion through predictive intelligence and boardroom
+            visualization.
           </p>
         </div>
 
@@ -539,9 +509,11 @@ export default function DataAIPage() {
       {/* ═══════════════════════════════════════════
           FEATURED PLATFORMS & TOOLS (SPOTLIGHT)
       ═══════════════════════════════════════════ */}
-      <section id="platforms-tools" className="py-14 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200/80">
+      <section
+        id="platforms-tools"
+        className="py-14 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200/80"
+      >
         <div className="max-w-7xl mx-auto">
-          
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-3">
@@ -550,10 +522,14 @@ export default function DataAIPage() {
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 font-heading">
                 KNIME and Similar{" "}
-              <span className="text-[#0051fe]">Data Analytics &amp; AI Tools</span>
+                <span className="text-[#0051fe]">
+                  Data Analytics &amp; AI Tools
+                </span>
               </h2>
               <p className="text-slate-500 text-sm max-w-xl mt-2">
-                We deliver robust, end-to-end implementations across the industry&apos;s most proven data analytics, automation, and reporting suites.
+                We deliver robust, end-to-end implementations across the
+                industry&apos;s most proven data analytics, automation, and
+                reporting suites.
               </p>
             </div>
 
@@ -644,7 +620,10 @@ export default function DataAIPage() {
                         </div>
                         <ul className="space-y-1.5">
                           {p.capabilities.map((cap) => (
-                            <li key={cap} className="flex items-center gap-2 text-xs text-slate-700">
+                            <li
+                              key={cap}
+                              className="flex items-center gap-2 text-xs text-slate-700"
+                            >
                               <CheckCircle2 className="w-3.5 h-3.5 text-[#0051fe] shrink-0" />
                               <span>{cap}</span>
                             </li>
@@ -671,7 +650,8 @@ export default function DataAIPage() {
                 Complementary Modern Data Ecosystem
               </div>
               <p className="text-xs text-slate-500 mt-0.5">
-                We also connect seamlessly with your existing cloud warehouses, lakehouses, and custom codebases.
+                We also connect seamlessly with your existing cloud warehouses,
+                lakehouses, and custom codebases.
               </p>
             </div>
 
@@ -694,7 +674,6 @@ export default function DataAIPage() {
               ))}
             </div>
           </div>
-
         </div>
       </section>
 
@@ -709,10 +688,12 @@ export default function DataAIPage() {
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 font-heading">
             How We Build &amp; Deploy{" "}
-              <span className="text-[#0051fe]">Data Solutions</span>
+            <span className="text-[#0051fe]">Data Solutions</span>
           </h2>
           <p className="text-slate-500 text-sm max-w-2xl mx-auto mt-2">
-            A battle-tested 4-stage engineering lifecycle designed for fast time-to-value, airtight governance, and seamless stakeholder adoption.
+            A battle-tested 4-stage engineering lifecycle designed for fast
+            time-to-value, airtight governance, and seamless stakeholder
+            adoption.
           </p>
         </div>
 
@@ -759,7 +740,6 @@ export default function DataAIPage() {
       ═══════════════════════════════════════════ */}
       <section className="py-14 px-4 sm:px-6 lg:px-8 bg-white border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto">
-          
           <div className="text-center mb-10">
             <h3 className="text-xs font-bold uppercase tracking-widest text-[#0051fe] mb-2 font-heading">
               Proven Sector Value
@@ -788,23 +768,32 @@ export default function DataAIPage() {
 
                   <div className="space-y-2.5 text-xs sm:text-sm">
                     <div>
-                      <span className="font-bold text-slate-700">Challenge: </span>
-                      <span className="text-slate-600">{useCase.challenge}</span>
+                      <span className="font-bold text-slate-700">
+                        Challenge:{" "}
+                      </span>
+                      <span className="text-slate-600">
+                        {useCase.challenge}
+                      </span>
                     </div>
                     <div>
-                      <span className="font-bold text-[#0051fe]">Solution: </span>
+                      <span className="font-bold text-[#0051fe]">
+                        Solution:{" "}
+                      </span>
                       <span className="text-slate-600">{useCase.solution}</span>
                     </div>
                     <div className="pt-2 border-t border-slate-200/80">
-                      <span className="font-bold text-emerald-700">Measurable Impact: </span>
-                      <span className="font-medium text-emerald-900">{useCase.impact}</span>
+                      <span className="font-bold text-emerald-700">
+                        Measurable Impact:{" "}
+                      </span>
+                      <span className="font-medium text-emerald-900">
+                        {useCase.impact}
+                      </span>
                     </div>
                   </div>
                 </div>
               );
             })}
           </div>
-
         </div>
       </section>
 
@@ -813,7 +802,6 @@ export default function DataAIPage() {
       ═══════════════════════════════════════════ */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="rounded-3xl bg-gradient-to-r from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl">
-          
           {/* Ambient Lighting */}
           <div className="pointer-events-none absolute -top-20 -right-20 w-80 h-80 bg-cyan-400/25 rounded-full blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -left-20 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl" />
@@ -832,8 +820,9 @@ export default function DataAIPage() {
             </h2>
 
             <p className="text-sm sm:text-base text-blue-100 leading-relaxed max-w-2xl mb-8">
-              Whether you need to automate workflows in KNIME, build executive Power BI telemetry,
-              or deploy customized machine learning models, our technical team is ready to assist.
+              Whether you need to automate workflows in KNIME, build executive
+              Power BI telemetry, or deploy customized machine learning models,
+              our technical team is ready to assist.
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
@@ -860,7 +849,6 @@ export default function DataAIPage() {
           GLOBAL FOOTER
       ═══════════════════════════════════════════ */}
       <Footer />
-
     </div>
   );
 }

@@ -62,9 +62,12 @@ export default function Footer() {
   const servicesLinks = [
     { name: "What We Serve", href: "/what-we-serve/services" },
     { name: "Data & AI", href: "/services/dataAi" },
-    { name: "Application Services", href: "/what-we-serve/services/application-services" },
+    {
+      name: "Application Services",
+      href: "/what-we-serve/services/application-services",
+    },
     { name: "ERP Solutions", href: "/components/ERPService" },
-    { name: "Custom Developments", href: "/components/CustomDevelopment" },
+    { name: "Custom ERP Developments", href: "/components/CustomDevelopment" },
     { name: "Cloud Services", href: "/services/cloud-solution" },
     { name: "Consulting", href: "/components/Consulting" },
     { name: "Quality Assurance", href: "/services/Quality-Assurance" },
@@ -72,15 +75,12 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-slate-950 text-white relative overflow-hidden pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 rounded-t-[36px] sm:rounded-t-[48px] md:rounded-t-[56px] shadow-2xl">
-      
       {/* Ambient Top Light Beam */}
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-[#0051fe]/25 to-transparent blur-2xl" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        
         {/* Main 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 mb-12">
-          
           {/* Column 1: Brand Info + Contact Section + Follow Us */}
           <div className="md:col-span-4 flex flex-col items-start space-y-5">
             <div>
@@ -88,7 +88,8 @@ export default function Footer() {
                 Nexora <span className="text-[#0051fe]">Technology</span>
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-                Pioneering enterprise digital transformation, scalable cloud architectures, AI workflows, and bespoke software engineering.
+                Pioneering enterprise digital transformation, scalable cloud
+                architectures, AI workflows, and bespoke software engineering.
               </p>
             </div>
 
@@ -106,10 +107,10 @@ export default function Footer() {
               <p className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#0051fe] shrink-0" />
                 <a
-                  href="tel:+917483891857"
+                  href="tel:+919886071933"
                   className="text-slate-300 hover:text-[#0051fe] transition-colors"
                 >
-                  +91 7483891857
+                  +91 98860 71933
                 </a>
               </p>
               <p className="flex items-start gap-2.5">
@@ -201,12 +202,14 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Nexora Technology Services Pvt. Ltd. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Nexora Technology Services Pvt. Ltd.
+            All rights reserved.
+          </p>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-xs text-blue-400">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe] animate-pulse" />
             <span>Build with Nexora. Grow without limits.</span>

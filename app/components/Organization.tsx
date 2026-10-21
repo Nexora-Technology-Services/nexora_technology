@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import heroBg from "@/app/Photo/hero-section.png";
 import { motion } from "framer-motion";
 import img1 from "@/app/Photo/img 1.jpg";
 import img2 from "@/app/Photo/img 2.jpg";
@@ -105,71 +107,173 @@ const approachSteps = [
 ];
 
 export default function Organization() {
+  const [h1Hovered, setH1Hovered] = useState(false);
+
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
       {/* ═══════════════════════════════════════════
-          HERO BANNER
+          HERO BANNER — 3D CRYSTAL NTS BACKGROUND (UNCROPPED) & BALANCED FOREGROUND
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full pt-32 sm:pt-36 pb-20 md:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
-        {/* Ambient Lights & Orbs */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-sky-400/25 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute -bottom-24 right-0 w-[500px] h-[500px] bg-blue-400/20 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute top-1/4 left-[-100px] w-80 h-80 bg-cyan-300/15 rounded-full blur-2xl z-0" />
+      <section className="relative w-full min-h-screen flex items-center pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
+        {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroBg}
+            alt="Nexora Technology Services - 3D Crystal NTS Identity"
+            fill
+            priority
+            quality={100}
+            className="object-cover object-left md:object-right select-none pointer-events-none"
+            sizes="100vw"
+          />
 
-        {/* Cyber Matrix Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
+          {/* Minimal soft top blend for floating navbar */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />
+        </div>
 
-        <div className="max-w-6xl mx-auto relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md shadow-sm"
-          >
-            <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-            <span>Nexora Technology Services Pvt Ltd</span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-heading leading-[1.12] mb-6"
-          >
-            Transforming Business <br className="hidden sm:inline" />
-            <span className="text-cyan-200">Through Next-Gen Enterprise Technology</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.2 }}
-            className="text-blue-100 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-10 font-normal opacity-95"
-          >
-            Your trusted strategic partner for enterprise ERP solutions — from roadmap evaluation
-            and full-cycle implementation to continuous support, training, and ecosystem modernization.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.3 }}
-            className="flex flex-wrap items-center justify-center gap-4"
-          >
-            <Link
-              href="/contact"
-              className="px-8 py-4 rounded-full bg-white text-[#0051fe] hover:bg-blue-50 text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_10px_25px_-4px_rgba(0,0,0,0.3)] hover:shadow-[0_16px_34px_-4px_rgba(0,0,0,0.4)] flex items-center gap-2 transition-all duration-200 cursor-pointer group"
+        {/* Left-Aligned UI Content Container */}
+        <div className="w-full max-w-7xl mx-auto relative z-10">
+          <div className="max-w-xl lg:max-w-2xl text-left">
+            {/* Glassmorphic Brand Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-white text-[#0051fe] text-xs font-bold uppercase tracking-widest mb-3.5 sm:mb-4 backdrop-blur-md shadow-[0_4px_20px_rgba(0,81,254,0.18)]"
             >
-              <span>Partner With Us</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="#services"
-              className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/30 text-xs sm:text-sm font-bold flex items-center gap-2 backdrop-blur-md transition-all duration-200 cursor-pointer"
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0051fe] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0051fe]" />
+              </span>
+              <span
+                style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
+              >
+                Nexora Technology Services Pvt Ltd
+              </span>
+            </motion.div>
+
+            {/* Impactful Heading — Solid Colors with Persistent White/Light-Blue Shadow & Animated Hover Motion */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              whileHover={{
+                x: 8,
+                transition: { type: "spring", stiffness: 350, damping: 22 },
+              }}
+              onMouseEnter={() => setH1Hovered(true)}
+              onMouseLeave={() => setH1Hovered(false)}
+              style={{
+                textShadow: h1Hovered
+                  ? "0 4px 14px rgba(255, 255, 255, 1), 0 0 28px rgba(186, 230, 253, 0.95), 0 0 45px rgba(147, 197, 253, 0.85)"
+                  : "0 2px 10px rgba(255, 255, 255, 0.95), 0 0 20px rgba(186, 230, 253, 0.85), 0 0 35px rgba(147, 197, 253, 0.65)",
+                transition: "text-shadow 0.35s ease",
+              }}
+              className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight font-heading leading-[1.12] mb-3.5 sm:mb-4 cursor-pointer select-none inline-block"
             >
-              <span>Explore Services</span>
-            </Link>
-          </motion.div>
+              Transforming Business <br className="hidden sm:inline" />
+              <span className="text-[#0051fe]">
+                Through Next-Gen Enterprise Technology
+              </span>
+            </motion.h1>
+
+            {/* Strategic Value Proposition (Bold Sub Text, No Shadow) */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="text-xs sm:text-sm md:text-[15px] text-slate-800 hover:text-slate-950 font-semibold leading-relaxed max-w-md mb-8 drop-shadow-[0_1px_10px_rgba(255,255,255,0.9)] hover:drop-shadow-[0_2px_16px_rgba(255,255,255,1)] cursor-default transition-all duration-300"
+              style={{
+                textShadow:
+                  "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
+              }}
+            >
+              Your trusted strategic partner for enterprise ERP solutions - from
+              roadmap evaluation and full-cycle implementation to continuous
+              support, training, and ecosystem modernization.
+            </motion.p>
+            {/* <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.2 }}
+              className="text-slate-900 text-base sm:text-lg md:text-xl leading-relaxed mb-5 sm:mb-6 font-bold"
+            >
+              Your trusted strategic partner for enterprise ERP solutions - from roadmap evaluation
+              and full-cycle implementation to continuous support, training, and ecosystem modernization.
+            </motion.p> */}
+
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 mb-5 sm:mb-6"
+            >
+              <Link
+                href="/contact"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0051fe] hover:bg-[#0041cb] text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_12px_28px_-4px_rgba(0,81,254,0.45)] hover:shadow-[0_18px_36px_-4px_rgba(0,81,254,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 transition-all duration-200 cursor-pointer group"
+              >
+                <span>Partner With Us</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="#services"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/90 hover:bg-white text-slate-900 hover:text-[#0051fe] border border-white text-xs sm:text-sm font-bold flex items-center gap-2 backdrop-blur-md shadow-[0_8px_20px_rgba(0,81,254,0.12)] hover:shadow-[0_12px_28px_rgba(0,81,254,0.2)] transition-all duration-200 cursor-pointer"
+              >
+                <span>Explore Services</span>
+              </Link>
+            </motion.div>
+
+            {/* Enterprise Trust & Capability Metrics (Positioned Perfectly Inside Viewport) */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.4 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-4 border-t border-blue-200/70 max-w-xl"
+            >
+              <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-200/80 flex items-center justify-center text-[#0051fe] shrink-0">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">
+                    SOC2 & ISO
+                  </div>
+                  <div className="text-[11px] text-slate-600 font-medium">
+                    Enterprise QA
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
+                <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-200/80 flex items-center justify-center text-[#0284c7] shrink-0">
+                  <Cpu className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">
+                    ERP & Cloud
+                  </div>
+                  <div className="text-[11px] text-slate-600 font-medium">
+                    Modern Arch
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-200/80 flex items-center justify-center text-cyan-700 shrink-0">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">
+                    24/7 Operations
+                  </div>
+                  <div className="text-[11px] text-slate-600 font-medium">
+                    Mission Support
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -197,17 +301,23 @@ export default function Organization() {
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-heading mb-6 leading-tight">
                 Your End-to-End <br />
-                <span className="text-[#0051fe]">Enterprise Technology Partner</span>
+                <span className="text-[#0051fe]">
+                  Enterprise Technology Partner
+                </span>
               </h2>
 
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-5">
-                Nexora Technology Services Pvt Ltd helps forward-thinking organisations identify and evaluate the right
-                enterprise software architectures aligned with their long-term growth and operational goals.
+                Nexora Technology Services Pvt Ltd helps forward-thinking
+                organisations identify and evaluate the right enterprise
+                software architectures aligned with their long-term growth and
+                operational goals.
               </p>
 
               <p className="text-slate-600 text-base leading-relaxed mb-8">
-                From strategic roadmap design to seamless implementation, 24/7 mission-critical support, and custom
-                integrations — we combine deep technical acumen, agile methodologies, and proven delivery excellence.
+                From strategic roadmap design to seamless implementation, 24/7
+                mission-critical support, and custom integrations — we combine
+                deep technical acumen, agile methodologies, and proven delivery
+                excellence.
               </p>
 
               <div className="grid grid-cols-2 gap-3 mb-10">
@@ -258,17 +368,32 @@ export default function Organization() {
 
               {/* Main Image */}
               <div className="relative w-[280px] sm:w-[360px] h-[220px] sm:h-[280px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,81,254,0.18)] border-4 border-white z-10">
-                <Image src={img1} alt="Nexora Enterprise Services" fill className="object-cover" />
+                <Image
+                  src={img1}
+                  alt="Nexora Enterprise Services"
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Accent Image Top-Right */}
               <div className="absolute top-0 right-2 sm:right-6 w-[140px] sm:w-[180px] h-[100px] sm:h-[130px] rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,81,254,0.15)] border-4 border-white z-20">
-                <Image src={img3} alt="Nexora Innovation Hub" fill className="object-cover" />
+                <Image
+                  src={img3}
+                  alt="Nexora Innovation Hub"
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Accent Image Bottom-Left */}
               <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-6 w-[150px] sm:w-[190px] h-[110px] sm:h-[140px] rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,81,254,0.15)] border-4 border-white z-20">
-                <Image src={img2} alt="Nexora Team Collaboration" fill className="object-cover" />
+                <Image
+                  src={img2}
+                  alt="Nexora Team Collaboration"
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Floating Quality Badge (Smoothly Animated) */}
@@ -288,8 +413,12 @@ export default function Organization() {
                   <Award className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-slate-900">ISO Certified</p>
-                  <p className="text-[11px] text-slate-500 font-medium">Enterprise QA Standard</p>
+                  <p className="text-xs font-bold text-slate-900">
+                    ISO Certified
+                  </p>
+                  <p className="text-[11px] text-slate-500 font-medium">
+                    Enterprise QA Standard
+                  </p>
                 </div>
               </motion.div>
 
@@ -311,8 +440,12 @@ export default function Organization() {
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-slate-900">100% Secure</p>
-                  <p className="text-[11px] text-[#0051fe] font-semibold">SOC2 Compliant</p>
+                  <p className="text-xs font-bold text-slate-900">
+                    100% Secure
+                  </p>
+                  <p className="text-[11px] text-[#0051fe] font-semibold">
+                    SOC2 Compliant
+                  </p>
                 </div>
               </motion.div>
             </motion.div>
@@ -323,7 +456,10 @@ export default function Organization() {
       {/* ═══════════════════════════════════════════
           CORE SERVICES GRID (2-3-2 LAYOUT)
       ═══════════════════════════════════════════ */}
-      <section id="services" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#f4f8fe] relative overflow-hidden">
+      <section
+        id="services"
+        className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#f4f8fe] relative overflow-hidden"
+      >
         {/* Ambient Glow */}
         <div className="pointer-events-none absolute top-1/4 right-0 w-[600px] h-[600px] bg-[#0051fe]/10 rounded-full blur-3xl" />
         <div className="pointer-events-none absolute bottom-10 left-0 w-[500px] h-[500px] bg-sky-400/10 rounded-full blur-3xl" />
@@ -338,8 +474,9 @@ export default function Organization() {
               Our <span className="text-[#0051fe]">Core Services</span>
             </h2>
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-              Comprehensive, high-impact enterprise technology solutions tailored to accelerate digital transformation,
-              modernize workflows, and deliver measurable operational ROI.
+              Comprehensive, high-impact enterprise technology solutions
+              tailored to accelerate digital transformation, modernize
+              workflows, and deliver measurable operational ROI.
             </p>
           </div>
 
@@ -415,17 +552,22 @@ export default function Organization() {
               </div>
 
               <h2 className="text-[1.35rem] min-[400px]:text-2xl sm:text-3xl md:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-extrabold text-slate-900 tracking-tight font-heading mb-6 leading-tight">
-                <span className="block whitespace-nowrap">Structured, Strategic &</span>
-                <span className="block text-[#0051fe] whitespace-nowrap">Results Driven Execution</span>
+                <span className="block whitespace-nowrap">
+                  Structured, Strategic &
+                </span>
+                <span className="block text-[#0051fe] whitespace-nowrap">
+                  Results Driven Execution
+                </span>
               </h2>
 
               <p className="text-slate-600 text-base leading-relaxed mb-8">
-                Our battle-tested engagement model ensures transparent milestones, complete governance, and zero disruption to your daily operations.
+                Our battle-tested engagement model ensures transparent
+                milestones, complete governance, and zero disruption to your
+                daily operations.
               </p>
 
               <div className="flex flex-col gap-4">
                 {approachSteps.map((item, idx) => {
-                  const Icon = item.icon;
                   return (
                     <div
                       key={idx}
@@ -440,7 +582,9 @@ export default function Organization() {
                             {item.title}
                           </h4>
                         </div>
-                        <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
+                        <p className="text-slate-600 text-sm leading-relaxed">
+                          {item.desc}
+                        </p>
                       </div>
                     </div>
                   );
@@ -461,17 +605,32 @@ export default function Organization() {
 
               {/* Main Image */}
               <div className="relative w-[280px] sm:w-[350px] h-[220px] sm:h-[270px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,81,254,0.18)] border-4 border-white z-10">
-                <Image src={img2} alt="Nexora Roadmap Planning" fill className="object-cover" />
+                <Image
+                  src={img2}
+                  alt="Nexora Roadmap Planning"
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Accent Image Top-Right */}
               <div className="absolute top-0 right-2 sm:right-6 w-[140px] sm:w-[170px] h-[100px] sm:h-[125px] rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,81,254,0.15)] border-4 border-white z-20">
-                <Image src={img1} alt="Nexora System Execution" fill className="object-cover" />
+                <Image
+                  src={img1}
+                  alt="Nexora System Execution"
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Accent Image Bottom-Left */}
               <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-6 w-[140px] sm:w-[170px] h-[100px] sm:h-[125px] rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,81,254,0.15)] border-4 border-white z-20">
-                <Image src={img3} alt="Nexora Client Delivery" fill className="object-cover" />
+                <Image
+                  src={img3}
+                  alt="Nexora Client Delivery"
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Floating Agile Pill Badge (Smoothly Animated) */}
@@ -491,8 +650,12 @@ export default function Organization() {
                   <Rocket className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-slate-900">Agile Delivery</p>
-                  <p className="text-[11px] text-[#0051fe] font-semibold">Faster Time-to-Market</p>
+                  <p className="text-xs font-bold text-slate-900">
+                    Agile Delivery
+                  </p>
+                  <p className="text-[11px] text-[#0051fe] font-semibold">
+                    Faster Time-to-Market
+                  </p>
                 </div>
               </motion.div>
 
@@ -514,8 +677,12 @@ export default function Organization() {
                   <Zap className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-slate-900">Zero Downtime</p>
-                  <p className="text-[11px] text-[#0051fe] font-semibold">Seamless Migration</p>
+                  <p className="text-xs font-bold text-slate-900">
+                    Zero Downtime
+                  </p>
+                  <p className="text-[11px] text-[#0051fe] font-semibold">
+                    Seamless Migration
+                  </p>
                 </div>
               </motion.div>
             </motion.div>
@@ -548,12 +715,17 @@ export default function Organization() {
               </span>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight mb-6">
-                Let&apos;s Build Your Enterprise <br className="hidden sm:inline" />
-                <span className="text-cyan-200">Transformation Journey Together</span>
+                Let&apos;s Build Your Enterprise{" "}
+                <br className="hidden sm:inline" />
+                <span className="text-cyan-200">
+                  Transformation Journey Together
+                </span>
               </h2>
 
               <p className="text-blue-100 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10 opacity-90 font-normal">
-                Partner with Nexora to unlock the full potential of your technology architecture. From evaluation to scalable execution, we are with you every step of the way.
+                Partner with Nexora to unlock the full potential of your
+                technology architecture. From evaluation to scalable execution,
+                we are with you every step of the way.
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-4">

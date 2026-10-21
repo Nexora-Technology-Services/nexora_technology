@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
+import heroBg from "@/app/Photo/hero-section.png";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import SpotlightCard from "../components/ui/SpotlightCard";
 import Footer from "../components/Footer";
 import {
-  ShieldCheck,
   Zap,
+  ShieldCheck,
   Sparkles,
   ArrowRight,
   ArrowUpRight,
@@ -14,7 +17,6 @@ import {
   Quote,
   Cpu,
   Compass,
-  Globe2,
 } from "lucide-react";
 
 const leaders = [
@@ -31,12 +33,11 @@ const leaders = [
       "Global Technology Strategy",
       "High-Concurrency Systems",
     ],
-    stats: [
-      { label: "Experience", value: "25+ Years" },
-    ],
+    stats: [{ label: "Experience", value: "25+ Years" }],
     accentGradient: "from-[#0051fe] via-[#2563eb] to-[#0284c7]",
     badgeBg: "bg-blue-50 text-[#0051fe] border-blue-200",
-    linkedin: "https://www.linkedin.com/company/nexora-technology-services-pvt-ltd",
+    linkedin:
+      "https://www.linkedin.com/company/nexora-technology-services-pvt-ltd",
     email: "info@nexoratechnology.co.in",
   },
   {
@@ -52,12 +53,11 @@ const leaders = [
       "Enterprise SLA Compliance",
       "Continuous Integration & QA",
     ],
-    stats: [
-      { label: "Experience", value: "30+ Years" },
-    ],
+    stats: [{ label: "Experience", value: "30+ Years" }],
     accentGradient: "from-[#0284c7] via-[#0051fe] to-[#1e3a8a]",
     badgeBg: "bg-sky-50 text-[#0284c7] border-sky-200",
-    linkedin: "https://www.linkedin.com/company/nexora-technology-services-pvt-ltd",
+    linkedin:
+      "https://www.linkedin.com/company/nexora-technology-services-pvt-ltd",
     email: "info@nexoratechnology.co.in",
   },
 ];
@@ -89,87 +89,150 @@ const leadershipPrinciples = [
   },
 ];
 
-
 export default function About() {
+  const [h1Hovered, setH1Hovered] = useState(false);
+
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
       {/* ═══════════════════════════════════════════
           HERO SECTION — POWER BLUE PALETTE & CYBER GRID
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full pt-32 sm:pt-36 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
-        {/* Ambient Aura Background Lights */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute top-10 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
+      <section className="relative w-full min-h-screen flex items-center pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
+        {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroBg}
+            alt="Nexora Technology Services - 3D Crystal NTS Identity"
+            fill
+            priority
+            quality={100}
+            className="object-cover object-left md:object-right select-none pointer-events-none"
+            sizes="100vw"
+          />
 
-        {/* Cyber Matrix Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
+          {/* Minimal soft top blend for floating navbar */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />
+        </div>
 
-        {/* Hero Content */}
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          {/* Floating Pill Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md shadow-sm select-none"
-          >
-            <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-            <span>ORGANIZATION • EXECUTIVE LEADERSHIP</span>
-          </motion.div>
+        {/* Left-Aligned UI Content Container */}
+        <div className="w-full max-w-7xl mx-auto relative z-10">
+          <div className="max-w-xl lg:max-w-2xl text-left">
+            {/* Glassmorphic Brand Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-white text-[#0051fe] text-xs font-bold uppercase tracking-widest mb-3.5 sm:mb-4 backdrop-blur-md shadow-[0_4px_20px_rgba(0,81,254,0.18)]"
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0051fe] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0051fe]" />
+              </span>
+              <span
+                style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
+              >
+                ORGANIZATION • EXECUTIVE LEADERSHIP
+              </span>
+            </motion.div>
 
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.08 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12] mb-6 font-heading"
-          >
-            Visionary Leadership. <br />
-            <span className="text-[#67e8f9] drop-shadow-sm">
-              Architecting Global Excellence.
-            </span>
-          </motion.h1>
+            {/* Impactful Heading — Solid Colors with Persistent White/Light-Blue Shadow & Animated Hover Motion */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              whileHover={{
+                x: 8,
+                transition: { type: "spring", stiffness: 350, damping: 22 },
+              }}
+              onMouseEnter={() => setH1Hovered(true)}
+              onMouseLeave={() => setH1Hovered(false)}
+              style={{
+                textShadow: h1Hovered
+                  ? "0 4px 14px rgba(255, 255, 255, 1), 0 0 28px rgba(186, 230, 253, 0.95), 0 0 45px rgba(147, 197, 253, 0.85)"
+                  : "0 2px 10px rgba(255, 255, 255, 0.95), 0 0 20px rgba(186, 230, 253, 0.85), 0 0 35px rgba(147, 197, 253, 0.65)",
+                transition: "text-shadow 0.35s ease",
+              }}
+              className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight font-heading leading-[1.12] mb-3.5 sm:mb-4 cursor-pointer select-none inline-block"
+            >
+              VISIONARY LEADERSHIP <br className="hidden sm:inline" />
+              <span className="text-[#0051fe]">
+                ARCHITECTING GLOBAL EXCELLENCE
+              </span>
+            </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.16 }}
-            className="max-w-2xl mx-auto text-base sm:text-lg text-blue-100 leading-relaxed font-medium opacity-95"
-          >
-            Meet the leaders guiding Nexora's engineering craft, rapid agile execution, and unwavering commitment to client value.
-          </motion.p>
+            {/* Strategic Value Proposition (Bold Sub Text, No Shadow) */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="text-xs sm:text-sm md:text-[15px] text-slate-800 hover:text-slate-950 font-semibold leading-relaxed max-w-md mb-8 drop-shadow-[0_1px_10px_rgba(255,255,255,0.9)] hover:drop-shadow-[0_2px_16px_rgba(255,255,255,1)] cursor-default transition-all duration-300"
+              style={{
+                textShadow:
+                  "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
+              }}
+            >
+              Meet the leaders guiding Nexora&apos;s engineering craft, rapid
+              agile execution, and unwavering commitment to client value.
+            </motion.p>
 
-          {/* Proof Badges Strip */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.24 }}
-            className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3.5 max-w-4xl mx-auto"
-          >
-            {[
-              { title: "Direct Architect Access", desc: "No junior filters", icon: ShieldCheck },
-              { title: "100+ Systems Built", desc: "Mission-critical scale", icon: Zap },
-              { title: "100% IP Protected", desc: "Full code ownership", icon: Sparkles },
-              { title: "Global Pods", desc: "Timezone aligned", icon: Globe2 },
-            ].map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={idx}
-                  className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.15)] backdrop-blur-md hover:bg-white/15 hover:border-cyan-300/40 hover:-translate-y-0.5 transition-all duration-200 cursor-default"
-                >
-                  <div className="w-9 h-9 rounded-xl bg-white/15 text-cyan-200 flex items-center justify-center shrink-0 border border-white/20 shadow-sm">
-                    <Icon className="w-4 h-4" />
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 mb-5 sm:mb-6"
+            ></motion.div>
+
+            {/* Enterprise Trust & Capability Metrics (Positioned Perfectly Inside Viewport) */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.4 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-4 border-t border-blue-200/70 max-w-xl"
+            >
+              <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-200/80 flex items-center justify-center text-[#0051fe] shrink-0">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">
+                    Direct Architect Access
                   </div>
-                  <div className="text-left">
-                    <p className="text-xs font-bold text-white leading-tight">{item.title}</p>
-                    <p className="text-[11px] font-medium text-blue-100">{item.desc}</p>
+                  <div className="text-[11px] text-slate-600 font-medium">
+                    No Junior Filters
                   </div>
                 </div>
-              );
-            })}
-          </motion.div>
+              </div>
+
+              <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
+                <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-200/80 flex items-center justify-center text-[#0284c7] shrink-0">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">
+                    100+Systems Built
+                  </div>
+                  <div className="text-[11px] text-slate-600 font-medium">
+                    Mission Critical-scale
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-200/80 flex items-center justify-center text-cyan-700 shrink-0">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">
+                    100 % IP Protected
+                  </div>
+                  <div className="text-[11px] text-slate-600 font-medium">
+                    Full Code Ownership
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -188,7 +251,9 @@ export default function About() {
               The Minds Driving Nexora
             </h2>
             <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
-              Decades of combined engineering mastery, enterprise operational scaling, and an unrelenting drive to help our clients lead their industries.
+              Decades of combined engineering mastery, enterprise operational
+              scaling, and an unrelenting drive to help our clients lead their
+              industries.
             </p>
           </div>
 
@@ -258,7 +323,11 @@ export default function About() {
                           aria-label={`Connect with ${leader.name} on LinkedIn`}
                           className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-[#0051fe] hover:text-white text-slate-700 border border-slate-200/80 flex items-center justify-center transition-all shadow-sm hover:shadow-[0_4px_16px_rgba(0,81,254,0.3)] hover:-translate-y-0.5"
                         >
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                          <svg
+                            className="w-4 h-4"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
                             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                           </svg>
                         </a>
@@ -298,7 +367,7 @@ export default function About() {
                       <div className="relative p-5 rounded-2xl bg-gradient-to-br from-blue-50/70 via-white to-blue-50/40 border border-blue-200/80 shadow-sm">
                         <Quote className="w-6 h-6 text-[#0051fe]/30 absolute top-4 right-4 pointer-events-none" />
                         <p className="text-xs sm:text-sm font-medium italic text-slate-800 leading-relaxed pr-6">
-                          "{leader.quote}"
+                          &quot;{leader.quote}&quot;
                         </p>
                       </div>
 
@@ -342,7 +411,8 @@ export default function About() {
               How Our Leadership Operates
             </h2>
             <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
-              The non-negotiable principles that guide our technical choices, engagement models, and organizational growth.
+              The non-negotiable principles that guide our technical choices,
+              engagement models, and organizational growth.
             </p>
           </div>
 
@@ -398,7 +468,9 @@ export default function About() {
               </h2>
 
               <p className="text-blue-100 text-sm sm:text-base leading-relaxed mb-8 font-medium">
-                Whether you need senior architecture advisory, specialized engineering pods, or cloud modernization, our executive team is ready to connect.
+                Whether you need senior architecture advisory, specialized
+                engineering pods, or cloud modernization, our executive team is
+                ready to connect.
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-4">
@@ -430,4 +502,3 @@ export default function About() {
     </div>
   );
 }
-

@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import heroBg from "@/app/Photo/hero-section.png";
 import { motion } from "framer-motion";
 import Footer from "@/app/components/Footer";
 import img1 from "@/app/Photo/img 1.jpg";
@@ -28,9 +29,7 @@ import {
   Search,
   Wrench,
   Check,
-  Activity,
   Briefcase,
-  TrendingDown,
 } from "lucide-react";
 
 const services = [
@@ -146,162 +145,106 @@ const continuousItems = [
 ];
 
 export default function Consulting() {
+  const [h1Hovered, setH1Hovered] = useState(false);
+
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
-
       {/* ═══════════════════════════════════════════
           SECTION 1: HERO BANNER
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
-        
-        {/* Ambient Glowing Orbs */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/25 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute top-20 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
+      <section className="relative w-full min-h-0 md:min-h-[560px] lg:min-h-screen flex items-center pt-[88px] sm:pt-24 md:pt-28 pb-8 sm:pb-10 md:pb-16 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
+        {" "}
+        {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroBg}
+            alt="Nexora Technology Services - 3D Crystal NTS Identity"
+            fill
+            priority
+            quality={100}
+            className="object-cover object-left md:object-right select-none pointer-events-none"
+            sizes="100vw"
+          />
 
-        {/* Cyber Matrix Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
-
-        <div className="max-w-7xl mx-auto relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-
-            {/* Left Column: Hero Narrative */}
-            <div className="lg:col-span-7 text-left">
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-[11px] font-bold uppercase tracking-widest mb-5 backdrop-blur-md shadow-sm select-none"
+          {/* Minimal soft top blend for floating navbar */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />
+        </div>
+        {/* Left-Aligned UI Content Container */}
+        <div className="w-full max-w-7xl mx-auto relative z-10">
+          <div className="max-w-xl lg:max-w-2xl text-left flex flex-col items-start">
+            {/* Glassmorphic Brand Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-white text-[#0051fe] text-xs font-bold uppercase tracking-widest mb-3.5 sm:mb-4 backdrop-blur-md shadow-[0_4px_20px_rgba(0,81,254,0.18)]"
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0051fe] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0051fe]" />
+              </span>
+              <span
+                style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
               >
-                <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-                <span>NEXORA TECHNOLOGY SERVICES PVT LTD</span>
-              </motion.div>
+                Nexora Technology Services Pvt Ltd
+              </span>
+            </motion.div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.08 }}
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.14] mb-5 font-heading"
+            {/* Impactful Heading — Solid Colors with Persistent White/Light-Blue Shadow & Animated Hover Motion */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              whileHover={{
+                x: 8,
+                transition: { type: "spring", stiffness: 350, damping: 22 },
+              }}
+              onMouseEnter={() => setH1Hovered(true)}
+              onMouseLeave={() => setH1Hovered(false)}
+              style={{
+                textShadow: h1Hovered
+                  ? "0 4px 14px rgba(255, 255, 255, 1), 0 0 28px rgba(186, 230, 253, 0.95), 0 0 45px rgba(147, 197, 253, 0.85)"
+                  : "0 2px 10px rgba(255, 255, 255, 0.95), 0 0 20px rgba(186, 230, 253, 0.85), 0 0 35px rgba(147, 197, 253, 0.65)",
+                transition: "text-shadow 0.35s ease",
+              }}
+              className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight font-heading leading-[1.12] mb-3.5 sm:mb-4 cursor-pointer select-none inline-block"
+            >
+              Strategic Technology <br className="hidden sm:inline" />
+              <span className="text-[#0051fe]">Consulting Services</span>
+            </motion.h1>
+
+            {/* Strategic Value Proposition (Bold Sub Text, No Shadow) */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="text-xs sm:text-sm md:text-[15px] text-slate-800 hover:text-slate-950 font-semibold leading-relaxed max-w-md mb-8 drop-shadow-[0_1px_10px_rgba(255,255,255,0.9)] hover:drop-shadow-[0_2px_16px_rgba(255,255,255,1)] cursor-default transition-all duration-300"
+              style={{
+                textShadow:
+                  "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
+              }}
+            >
+              We partner with organizations to understand their business
+              challenges, analyze operational processes, and deliver customized
+              IT and digital transformation strategies that drive measurable
+              results.
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 mb-5 sm:mb-6"
+            >
+              <Link
+                href="/contact"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0051fe] hover:bg-[#0041cb] text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_12px_28px_-4px_rgba(0,81,254,0.45)] hover:shadow-[0_18px_36px_-4px_rgba(0,81,254,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 transition-all duration-200 cursor-pointer group"
               >
-                Strategic Technology <br />
-                <span className="text-[#67e8f9] drop-shadow-sm">
-                  Consulting Services
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.16 }}
-                className="text-sm sm:text-base text-blue-100 leading-relaxed font-normal opacity-95 max-w-2xl mb-8"
-              >
-                We partner with organizations to understand their business challenges, analyze operational
-                processes, and deliver customized IT and digital transformation strategies that drive
-                measurable results.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.24 }}
-                className="flex flex-wrap items-center gap-3.5"
-              >
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white text-[#0051fe] hover:bg-blue-50 shadow-md shadow-black/15 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Talk to a Consultant
-                  <ArrowRight className="w-4 h-4 text-[#0051fe]" />
-                </Link>
-
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Free Strategy Call
-                  <ArrowUpRight className="w-4 h-4 text-cyan-300" />
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Right Column: Advisory Operations Telemetry HUD */}
-            <div className="lg:col-span-5">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="rounded-2xl border border-white/20 bg-white/10 p-5 sm:p-6 backdrop-blur-xl shadow-2xl relative overflow-hidden"
-              >
-                {/* HUD Header */}
-                <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
-                  <div className="flex items-center gap-2.5">
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-300" />
-                    </span>
-                    <span className="font-heading font-bold text-xs uppercase tracking-wider text-white">
-                      Strategic Advisory Center
-                    </span>
-                  </div>
-                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-white/15 text-cyan-200 border border-white/20 flex items-center gap-1.5">
-                    <Activity className="w-3 h-3 text-cyan-300" />
-                    Advisory Active
-                  </span>
-                </div>
-
-                {/* Key Metrics Cards */}
-                <div className="space-y-3 mb-5">
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex items-center gap-4 transition-all hover:bg-white/15">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-400/20 to-blue-500/30 border border-cyan-400/30 flex items-center justify-center shrink-0 text-cyan-300">
-                      <Briefcase className="w-5 h-5" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-blue-200 text-[11px] uppercase tracking-wider">Engagements Delivered</p>
-                      <p className="font-heading text-white font-extrabold text-xl">500+</p>
-                    </div>
-                    <span className="text-cyan-200 text-[11px] bg-white/10 px-2 py-1 rounded-md border border-white/15">
-                      Across 20+ Countries
-                    </span>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex items-center gap-4 transition-all hover:bg-white/15">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-400/20 to-teal-500/30 border border-emerald-400/30 flex items-center justify-center shrink-0 text-emerald-300">
-                      <TrendingDown className="w-5 h-5" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-blue-200 text-[11px] uppercase tracking-wider">Average Cost Reduction</p>
-                      <p className="font-heading text-white font-extrabold text-xl">30–40%</p>
-                    </div>
-                    <span className="text-emerald-200 text-[11px] bg-white/10 px-2 py-1 rounded-md border border-white/15">
-                      Post-Optimization
-                    </span>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex items-center gap-4 transition-all hover:bg-white/15">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-sky-400/20 to-indigo-500/30 border border-sky-400/30 flex items-center justify-center shrink-0 text-sky-300">
-                      <Zap className="w-5 h-5" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-blue-200 text-[11px] uppercase tracking-wider">Faster Time-to-Market</p>
-                      <p className="font-heading text-white font-extrabold text-xl">3×</p>
-                    </div>
-                    <span className="text-sky-200 text-[11px] bg-white/10 px-2 py-1 rounded-md border border-white/15">
-                      With Our Roadmaps
-                    </span>
-                  </div>
-                </div>
-
-                {/* HUD Footer Status */}
-                <div className="pt-3 border-t border-white/15 flex items-center justify-between text-[11px] text-blue-100/80">
-                  <span className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-300" />
-                    KPI-Driven Architecture
-                  </span>
-                  <span className="font-mono text-cyan-300">Enterprise Standard</span>
-                </div>
-              </motion.div>
-            </div>
-
+                <span>Talk to a Consultants</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -312,7 +255,6 @@ export default function Consulting() {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-
             {/* Left Column: Text & Values */}
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider">
@@ -321,26 +263,32 @@ export default function Consulting() {
               </div>
 
               <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-                More Than Recommendations<br />
-                <span className="text-[#0051fe]">
-                  We Deliver Solutions
-                </span>
+                More Than Recommendations
+                <br />
+                <span className="text-[#0051fe]">We Deliver Solutions</span>
               </h2>
 
               <p className="text-slate-600 text-base leading-relaxed">
-                At Nexora, consulting is not just about presenting a report and walking away. We are with
-                you from diagnosis through delivery, embedding alongside your teams, driving implementation,
-                and measuring real business outcomes.
+                At Nexora, consulting is not just about presenting a report and
+                walking away. We are with you from diagnosis through delivery,
+                embedding alongside your teams, driving implementation, and
+                measuring real business outcomes.
               </p>
 
               <p className="text-slate-600 text-base leading-relaxed">
-                With a strong understanding of industry best practices and emerging technologies, we help
-                businesses improve efficiency, reduce operational costs, and accelerate innovation through
+                With a strong understanding of industry best practices and
+                emerging technologies, we help businesses improve efficiency,
+                reduce operational costs, and accelerate innovation through
                 scalable and future-ready solutions aligned with their goals.
               </p>
 
               <div className="flex flex-wrap gap-2.5 pt-2">
-                {["ERP Advisory", "Process Optimization", "Cloud Strategy", "Digital Modernization"].map((tag) => (
+                {[
+                  "ERP Advisory",
+                  "Process Optimization",
+                  "Cloud Strategy",
+                  "Digital Modernization",
+                ].map((tag) => (
                   <span
                     key={tag}
                     className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-50/80 border border-blue-100 text-slate-800 text-xs sm:text-sm font-semibold shadow-xs hover:border-blue-300 transition-colors"
@@ -361,7 +309,7 @@ export default function Consulting() {
                 </Link>
 
                 <Link
-                  href="/about"
+                  href="/components/Organization"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
                 >
                   About Us
@@ -418,8 +366,12 @@ export default function Consulting() {
                     <ShieldCheck className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="font-heading font-bold text-xs text-slate-900">ISO Certified</p>
-                    <p className="text-[11px] text-slate-500">Quality Assured</p>
+                    <p className="font-heading font-bold text-xs text-slate-900">
+                      ISO Certified
+                    </p>
+                    <p className="text-[11px] text-slate-500">
+                      Quality Assured
+                    </p>
                   </div>
                 </div>
 
@@ -429,13 +381,16 @@ export default function Consulting() {
                     <Briefcase className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="font-heading font-bold text-xs text-white">500+ Engagements</p>
-                    <p className="text-[10px] text-blue-200">Delivered Globally</p>
+                    <p className="font-heading font-bold text-xs text-white">
+                      500+ Engagements
+                    </p>
+                    <p className="text-[10px] text-blue-200">
+                      Delivered Globally
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -449,7 +404,6 @@ export default function Consulting() {
         <div className="pointer-events-none absolute -bottom-10 left-10 w-96 h-96 bg-sky-400/15 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto relative z-10">
-
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-[#0051fe]" />
@@ -457,12 +411,13 @@ export default function Consulting() {
             </div>
 
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
-              What We {" "}<span className="text-[#0051fe]">Consult On</span>
+              What We <span className="text-[#0051fe]">Consult On</span>
             </h2>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              From strategy to execution — our consulting services span every dimension of technology
-              transformation to help you compete and grow.
+              From strategy to execution — our consulting services span every
+              dimension of technology transformation to help you compete and
+              grow.
             </p>
           </div>
 
@@ -495,7 +450,6 @@ export default function Consulting() {
               );
             })}
           </div>
-
         </div>
       </section>
 
@@ -504,7 +458,6 @@ export default function Consulting() {
       ═══════════════════════════════════════════ */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
-
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4">
               <Workflow className="w-3.5 h-3.5 text-[#0051fe]" />
@@ -512,12 +465,12 @@ export default function Consulting() {
             </div>
 
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-4">
-              How We {" "}<span className="text-[#0051fe]">Work With You</span>
+              How We <span className="text-[#0051fe]">Work With You</span>
             </h2>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              A proven four-phase consulting methodology that ensures clarity, accountability, and
-              measurable outcomes at every stage.
+              A proven four-phase consulting methodology that ensures clarity,
+              accountability, and measurable outcomes at every stage.
             </p>
           </div>
 
@@ -544,7 +497,6 @@ export default function Consulting() {
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -557,7 +509,6 @@ export default function Consulting() {
         <div className="pointer-events-none absolute -bottom-10 left-10 w-96 h-96 bg-sky-400/15 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto relative z-10">
-
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
               <ShieldCheck className="w-3.5 h-3.5 text-[#0051fe]" />
@@ -569,8 +520,8 @@ export default function Consulting() {
             </h2>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              We combine deep technical expertise with genuine business acumen to deliver consulting
-              that creates lasting, meaningful impact.
+              We combine deep technical expertise with genuine business acumen
+              to deliver consulting that creates lasting, meaningful impact.
             </p>
           </div>
 
@@ -600,7 +551,6 @@ export default function Consulting() {
               );
             })}
           </div>
-
         </div>
       </section>
 
@@ -610,7 +560,6 @@ export default function Consulting() {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-
             {/* Left Column: Methodology Points */}
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider">
@@ -619,16 +568,19 @@ export default function Consulting() {
               </div>
 
               <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-5">
-                <span className="whitespace-nowrap">Scalable, Future-Ready</span> <br />
-                <span className="text-[#0051fe]">
-                  Solutions That Evolve
-                </span>
+                <span className="whitespace-nowrap">
+                  Scalable, Future-Ready
+                </span>{" "}
+                <br />
+                <span className="text-[#0051fe]">Solutions That Evolve</span>
               </h2>
 
               <p className="text-slate-600 text-base leading-relaxed mb-6">
-                Our team works closely with clients to provide expert guidance, seamless implementation
-                support, and continuous improvement strategies that enable long-term business success.
-                We don&apos;t just hand over a report — we stay engaged until you achieve measurable results.
+                Our team works closely with clients to provide expert guidance,
+                seamless implementation support, and continuous improvement
+                strategies that enable long-term business success. We don&apos;t
+                just hand over a report — we stay engaged until you achieve
+                measurable results.
               </p>
 
               <div className="space-y-4 pt-2">
@@ -700,7 +652,9 @@ export default function Consulting() {
                     <Sparkles className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="font-heading font-bold text-xs text-slate-900">Expert Guidance</p>
+                    <p className="font-heading font-bold text-xs text-slate-900">
+                      Expert Guidance
+                    </p>
                     <p className="text-[11px] text-slate-500">From Day One</p>
                   </div>
                 </div>
@@ -711,13 +665,14 @@ export default function Consulting() {
                     <CheckCircle2 className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="font-heading font-bold text-xs text-white">Measurable Impact</p>
+                    <p className="font-heading font-bold text-xs text-white">
+                      Measurable Impact
+                    </p>
                     <p className="text-[11px] text-blue-200">KPI Guaranteed</p>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -728,7 +683,6 @@ export default function Consulting() {
       <section className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]">
         <div className="max-w-6xl mx-auto">
           <div className="relative rounded-3xl sm:rounded-[36px] p-8 sm:p-12 lg:p-16 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white shadow-[0_20px_60px_-15px_rgba(0,81,254,0.45)] border border-blue-400/30 text-center">
-
             {/* Ambient Background Aura Lights */}
             <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-400/25 rounded-full blur-3xl z-0" />
             <div className="pointer-events-none absolute -bottom-24 right-10 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl z-0" />
@@ -744,12 +698,15 @@ export default function Consulting() {
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-heading tracking-tight mb-5 leading-tight">
                 Let&apos;s Build Your Digital <br />
-                <span className="text-[#67e8f9] drop-shadow-sm">Transformation Strategy</span>
+                <span className="text-[#67e8f9] drop-shadow-sm">
+                  Transformation Strategy
+                </span>
               </h2>
 
               <p className="text-blue-100 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10 font-normal max-w-2xl mx-auto opacity-95">
-                Partner with Nexora consultants to unlock new efficiency, reduce costs, and accelerate
-                growth. From first conversation to final delivery — we are with you every step.
+                Partner with Nexora consultants to unlock new efficiency, reduce
+                costs, and accelerate growth. From first conversation to final
+                delivery — we are with you every step.
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-4">
@@ -762,7 +719,7 @@ export default function Consulting() {
                 </Link>
 
                 <Link
-                  href="/about"
+                  href="/components/Organization"
                   className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
                 >
                   <span>About Us</span>
@@ -770,7 +727,6 @@ export default function Consulting() {
                 </Link>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -779,7 +735,6 @@ export default function Consulting() {
           GLOBAL SHARED FOOTER
       ═══════════════════════════════════════════ */}
       <Footer />
-
     </div>
   );
 }

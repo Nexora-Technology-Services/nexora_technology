@@ -1,8 +1,8 @@
 "use client";
-
-import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import heroBg from "@/app/Photo/hero-section.png";
 import { motion } from "framer-motion";
 import Footer from "@/app/components/Footer";
 import img3 from "@/app/Photo/img 3.jpg";
@@ -13,7 +13,7 @@ import {
   Cpu,
   Code2,
   ShieldCheck,
-  CheckCircle2,
+  //CheckCircle2,
   ArrowRight,
   ArrowUpRight,
   Sparkles,
@@ -21,8 +21,6 @@ import {
   Activity,
   Layers,
   Database,
-  Workflow,
-  BarChart3,
   TrendingDown,
   Users,
   Target,
@@ -31,8 +29,6 @@ import {
   Headphones,
   Check,
   Globe,
-  Radio,
-  ServerCog,
 } from "lucide-react";
 
 const offerings = [
@@ -169,222 +165,137 @@ const whyItems = [
   },
 ];
 
-const cloudMetrics = [
-  { value: "99.99%", label: "Uptime SLA", icon: CheckCircle2, color: "text-emerald-400" },
-  { value: "35%", label: "Cost Savings", icon: TrendingDown, color: "text-cyan-300" },
+{
+  /*const cloudMetrics = [
+  {
+    value: "99.99%",
+    label: "Uptime SLA",
+    icon: CheckCircle2,
+    color: "text-emerald-400",
+  },
+  {
+    value: "35%",
+    label: "Cost Savings",
+    icon: TrendingDown,
+    color: "text-cyan-300",
+  },
   { value: "3x", label: "Faster Deploy", icon: Zap, color: "text-amber-300" },
-  { value: "24/7", label: "Monitoring", icon: ShieldCheck, color: "text-sky-300" },
-];
+  {
+    value: "24/7",
+    label: "Monitoring",
+    icon: ShieldCheck,
+    color: "text-sky-300",
+  },
+]; */
+}
 
 export default function CloudSolutions() {
+  const [h1Hovered, setH1Hovered] = useState(false);
+
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
-
       {/* ═══════════════════════════════════════════
           HERO SECTION — CLOUD SOLUTIONS
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
-        
-        {/* Ambient Glowing Orbs */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/25 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute top-20 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
+      <section className="relative w-full min-h-screen flex items-center pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
+        {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroBg}
+            alt="Nexora Technology Services - 3D Crystal NTS Identity"
+            fill
+            priority
+            quality={100}
+            className="object-cover object-left md:object-right select-none pointer-events-none"
+            sizes="100vw"
+          />
 
-        {/* Cyber Matrix Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
+          {/* Minimal soft top blend for floating navbar */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />
+        </div>
 
-        <div className="max-w-7xl mx-auto relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-
-            {/* Left Column: Hero Narrative */}
-            <div className="lg:col-span-7 text-left">
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-[11px] font-bold uppercase tracking-widest mb-5 backdrop-blur-md shadow-sm select-none"
+        {/* Left-Aligned UI Content Container */}
+        <div className="w-full max-w-7xl mx-auto relative z-10">
+          <div className="max-w-xl lg:max-w-2xl text-left flex flex-col items-start">
+            {/* Glassmorphic Brand Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-white text-[#0051fe] text-xs font-bold uppercase tracking-widest mb-3.5 sm:mb-4 backdrop-blur-md shadow-[0_4px_20px_rgba(0,81,254,0.18)]"
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0051fe] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0051fe]" />
+              </span>
+              <span
+                style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
               >
-                <Cloud className="w-3.5 h-3.5 text-cyan-300" />
-                <span>Cloud Solutions</span>
-              </motion.div>
+                CLOUD SOLUTIONS
+              </span>
+            </motion.div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.08 }}
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.14] mb-5 font-heading"
+            {/* Impactful Heading — Solid Colors with Persistent White/Light-Blue Shadow & Animated Hover Motion */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              whileHover={{
+                x: 8,
+                transition: { type: "spring", stiffness: 350, damping: 22 },
+              }}
+              onMouseEnter={() => setH1Hovered(true)}
+              onMouseLeave={() => setH1Hovered(false)}
+              style={{
+                textShadow: h1Hovered
+                  ? "0 4px 14px rgba(255, 255, 255, 1), 0 0 28px rgba(186, 230, 253, 0.95), 0 0 45px rgba(147, 197, 253, 0.85)"
+                  : "0 2px 10px rgba(255, 255, 255, 0.95), 0 0 20px rgba(186, 230, 253, 0.85), 0 0 35px rgba(147, 197, 253, 0.65)",
+                transition: "text-shadow 0.35s ease",
+              }}
+              className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight font-heading leading-[1.12] mb-3.5 sm:mb-4 cursor-pointer select-none inline-block"
+            >
+              Accelerate Your Business with <br className="hidden sm:inline" />
+              <span className="text-[#0051fe]">Scalable Cloud</span>
+            </motion.h1>
+
+            {/* Strategic Value Proposition (Bold Sub Text, No Shadow) */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="text-xs sm:text-sm md:text-[15px] text-slate-800 hover:text-slate-950 font-semibold leading-relaxed max-w-md mb-8 drop-shadow-[0_1px_10px_rgba(255,255,255,0.9)] hover:drop-shadow-[0_2px_16px_rgba(255,255,255,1)] cursor-default transition-all duration-300"
+              style={{
+                textShadow:
+                  "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
+              }}
+            >
+              At Nexora Technology Services Pvt Ltd, we help businesses
+              modernize their IT infrastructure with secure, scalable, and
+              cost-effective cloud solutions - improving agility, collaboration,
+              and performance across your entire organization.
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 mb-5 sm:mb-6"
+            >
+              <Link
+                href="#offerings"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/90 hover:bg-white text-slate-900 hover:text-[#0051fe] border border-white text-xs sm:text-sm font-bold flex items-center gap-2 backdrop-blur-md shadow-[0_8px_20px_rgba(0,81,254,0.12)] hover:shadow-[0_12px_28px_rgba(0,81,254,0.2)] transition-all duration-200 cursor-pointer"
               >
-                Accelerate Your Business <br />
-                <span className="text-[#67e8f9] drop-shadow-sm">
-                  with Scalable Cloud
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.16 }}
-                className="text-sm sm:text-base text-blue-100 leading-relaxed font-normal opacity-95 max-w-2xl mb-8"
+                <span>Explore Services</span>
+              </Link>
+              <Link
+                href="/contact"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0051fe] hover:bg-[#0041cb] text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_12px_28px_-4px_rgba(0,81,254,0.45)] hover:shadow-[0_18px_36px_-4px_rgba(0,81,254,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 transition-all duration-200 cursor-pointer group"
               >
-                At Nexora Technology Services Pvt Ltd, we help businesses modernize their IT infrastructure
-                with secure, scalable, and cost-effective cloud solutions — improving agility, collaboration,
-                and performance across your entire organization.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.24 }}
-                className="flex flex-wrap items-center gap-3.5"
-              >
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white text-[#0051fe] hover:bg-blue-50 shadow-md shadow-black/15 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Move to the Cloud
-                  <ArrowRight className="w-4 h-4 text-[#0051fe]" />
-                </Link>
-
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Free Assessment
-                  <ArrowUpRight className="w-4 h-4 text-cyan-300" />
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Right Column: Cloud Architecture HUD */}
-            <div className="lg:col-span-5">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="rounded-2xl border border-white/20 bg-slate-900/60 p-5 sm:p-6 backdrop-blur-xl shadow-2xl relative overflow-hidden"
-              >
-                {/* HUD Header */}
-                <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex gap-1.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
-                    </div>
-                    <span className="text-slate-400 text-xs font-mono ml-1">cloud-architecture.yml</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
-                    </span>
-                    <span className="text-emerald-400 text-[11px] font-mono">All Systems Operational</span>
-                  </div>
-                </div>
-
-                {/* Cloud Provider Nodes */}
-                <div className="grid grid-cols-3 gap-2.5 mb-3">
-                  {[
-                    { label: "AWS", sub: "Cloud Infrastructure", color: "#ff9900", icon: Cloud },
-                    { label: "Azure", sub: "Enterprise Cloud", color: "#0089d6", icon: Database },
-                    { label: "GCP", sub: "Compute Engine", color: "#4285f4", icon: Globe },
-                  ].map((node) => {
-                    const IconComponent = node.icon;
-                    return (
-                      <div
-                        key={node.label}
-                        className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 flex flex-col items-center text-center gap-2 transition-all"
-                        style={{ boxShadow: `0 4px 20px ${node.color}15` }}
-                      >
-                        <div
-                          className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border"
-                          style={{
-                            background: `${node.color}20`,
-                            borderColor: `${node.color}40`,
-                            color: node.color,
-                          }}
-                        >
-                          <IconComponent className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="text-white text-xs font-bold font-heading">{node.label}</p>
-                          <p className="text-[10px] text-slate-400">{node.sub}</p>
-                        </div>
-                        <div className="flex gap-1 w-full justify-center">
-                          <span className="h-1 w-3 rounded-full" style={{ background: node.color, opacity: 0.9 }} />
-                          <span className="h-1 w-3 rounded-full" style={{ background: node.color, opacity: 0.6 }} />
-                          <span className="h-1 w-3 rounded-full" style={{ background: node.color, opacity: 0.3 }} />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Connector SVG */}
-                <div className="my-2 flex justify-center">
-                  <svg className="w-full h-6" viewBox="0 0 300 24" fill="none">
-                    <line x1="50" y1="2" x2="150" y2="22" stroke="rgba(103,232,249,0.4)" strokeWidth="1.5" strokeDasharray="3 3" />
-                    <line x1="150" y1="2" x2="150" y2="22" stroke="rgba(103,232,249,0.7)" strokeWidth="1.5" />
-                    <line x1="250" y1="2" x2="150" y2="22" stroke="rgba(103,232,249,0.4)" strokeWidth="1.5" strokeDasharray="3 3" />
-                  </svg>
-                </div>
-
-                {/* Central Orchestration Hub */}
-                <div className="p-3.5 rounded-xl bg-gradient-to-r from-blue-600/30 via-indigo-600/30 to-sky-600/30 border border-cyan-400/40 backdrop-blur-md flex items-center justify-between mb-3 shadow-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-[#0051fe] border border-cyan-300/40 flex items-center justify-center text-cyan-200">
-                      <ServerCog className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="font-heading font-bold text-xs text-white">Nexora Cloud Hub</p>
-                      <p className="text-[10px] text-cyan-300">Orchestration & Governance Layer</p>
-                    </div>
-                  </div>
-                  <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 rounded-md">
-                    <Radio className="w-3 h-3 text-emerald-400 animate-pulse" />
-                    Active
-                  </span>
-                </div>
-
-                {/* Sub Services Matrix */}
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                  {[
-                    { label: "Security", icon: ShieldCheck, color: "text-emerald-400" },
-                    { label: "DevOps", icon: Workflow, color: "text-amber-400" },
-                    { label: "Monitor", icon: BarChart3, color: "text-sky-400" },
-                  ].map((srv) => {
-                    const SrvIcon = srv.icon;
-                    return (
-                      <div
-                        key={srv.label}
-                        className="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center gap-2 text-center"
-                      >
-                        <SrvIcon className={`w-3.5 h-3.5 ${srv.color}`} />
-                        <span className="text-white text-[11px] font-medium">{srv.label}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Telemetry Metrics Strip */}
-                <div className="grid grid-cols-4 gap-2 pt-3 border-t border-white/15">
-                  {cloudMetrics.map((m) => {
-                    const MetricIcon = m.icon;
-                    return (
-                      <div
-                        key={m.label}
-                        className="p-2 rounded-xl bg-white/5 border border-white/10 text-center hover:bg-white/10 transition-colors"
-                      >
-                        <MetricIcon className={`w-3.5 h-3.5 mx-auto mb-1 ${m.color}`} />
-                        <p className="font-heading font-bold text-xs text-white">{m.value}</p>
-                        <p className="text-[9px] text-slate-400 leading-tight">{m.label}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            </div>
-
+                <span>Free Assessment</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -392,13 +303,15 @@ export default function CloudSolutions() {
       {/* ═══════════════════════════════════════════
           SECTION 1: SERVICE OFFERINGS ("WHAT WE OFFER")
       ═══════════════════════════════════════════ */}
-      <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#eaf2fc] via-[#f0f6fd] to-[#e4eefb] border-y border-blue-200/60 relative overflow-hidden">
+      <section
+        id="offerings"
+        className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#eaf2fc] via-[#f0f6fd] to-[#e4eefb] border-y border-blue-200/60 relative overflow-hidden"
+      >
         {/* Soft Ambient Glows */}
         <div className="pointer-events-none absolute -top-10 right-10 w-96 h-96 bg-[#0051fe]/10 rounded-full blur-3xl" />
         <div className="pointer-events-none absolute -bottom-10 left-10 w-96 h-96 bg-sky-400/15 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto relative z-10">
-          
           {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
@@ -409,8 +322,8 @@ export default function CloudSolutions() {
               Our Cloud Service Offerings
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Comprehensive cloud services covering every stage of your digital transformation journey —
-              from strategy to security.
+              Comprehensive cloud services covering every stage of your digital
+              transformation journey — from strategy to security.
             </p>
           </div>
 
@@ -427,9 +340,7 @@ export default function CloudSolutions() {
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
                   className="h-full"
                 >
-                  <div
-                    className="h-full flex flex-col p-7 sm:p-8 rounded-2xl bg-white border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 group cursor-pointer relative overflow-hidden hover:-translate-y-1"
-                  >
+                  <div className="h-full flex flex-col p-7 sm:p-8 rounded-2xl bg-white border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 group cursor-pointer relative overflow-hidden hover:-translate-y-1">
                     {/* Top Accent Bar at the true top edge of the card */}
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0051fe] to-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left z-20" />
 
@@ -454,7 +365,10 @@ export default function CloudSolutions() {
 
                       <ul className="space-y-2">
                         {o.items.map((item) => (
-                          <li key={item} className="flex items-start gap-2.5 text-xs text-slate-700 leading-snug">
+                          <li
+                            key={item}
+                            className="flex items-start gap-2.5 text-xs text-slate-700 leading-snug"
+                          >
                             <Check className="w-3.5 h-3.5 text-[#0051fe] shrink-0 mt-0.5" />
                             <span>{item}</span>
                           </li>
@@ -466,7 +380,6 @@ export default function CloudSolutions() {
               );
             })}
           </div>
-
         </div>
       </section>
 
@@ -476,11 +389,9 @@ export default function CloudSolutions() {
       <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-
             {/* Left: Interactive Showcase Image */}
             <div className="lg:col-span-6 relative flex justify-center">
               <div className="relative w-full max-w-lg">
-                
                 {/* Decorative Background Aura Rings */}
                 <div className="pointer-events-none absolute -top-8 -left-8 w-72 h-72 rounded-full bg-blue-100/60 blur-2xl z-0" />
                 <div className="pointer-events-none absolute -bottom-8 -right-8 w-64 h-64 rounded-full bg-cyan-100/60 blur-2xl z-0" />
@@ -515,8 +426,12 @@ export default function CloudSolutions() {
                     <Cloud className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="font-heading font-bold text-xs sm:text-sm text-slate-900">99.99% Uptime</p>
-                    <p className="text-[11px] text-slate-500 font-medium">SLA Guaranteed</p>
+                    <p className="font-heading font-bold text-xs sm:text-sm text-slate-900">
+                      99.99% Uptime
+                    </p>
+                    <p className="text-[11px] text-slate-500 font-medium">
+                      SLA Guaranteed
+                    </p>
                   </div>
                 </motion.div>
 
@@ -532,11 +447,14 @@ export default function CloudSolutions() {
                     <TrendingDown className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="font-heading font-bold text-xs sm:text-sm text-slate-900">35% Cost Saved</p>
-                    <p className="text-[11px] text-slate-500 font-medium">Avg. client savings</p>
+                    <p className="font-heading font-bold text-xs sm:text-sm text-slate-900">
+                      35% Cost Saved
+                    </p>
+                    <p className="text-[11px] text-slate-500 font-medium">
+                      Avg. client savings
+                    </p>
                   </div>
                 </motion.div>
-
               </div>
             </div>
 
@@ -549,14 +467,13 @@ export default function CloudSolutions() {
 
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading tracking-tight mb-4 leading-tight">
                 Cloud Platforms <br />
-                <span className="text-[#0051fe]">
-                  We Work With
-                </span>
+                <span className="text-[#0051fe]">We Work With</span>
               </h2>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-8">
-                We support leading cloud platforms and technologies, delivering certified expertise across
-                all major providers so you always have the right tool for the job.
+                We support leading cloud platforms and technologies, delivering
+                certified expertise across all major providers so you always
+                have the right tool for the job.
               </p>
 
               {/* Platform Cards */}
@@ -593,9 +510,30 @@ export default function CloudSolutions() {
                           </span>
                         </div>
                         <div className="flex items-center gap-1.5 mt-1.5">
-                          <div className="h-1.5 rounded-full" style={{ width: "45px", background: p.color, opacity: 0.9 }} />
-                          <div className="h-1.5 rounded-full" style={{ width: "25px", background: p.color, opacity: 0.5 }} />
-                          <div className="h-1.5 rounded-full" style={{ width: "15px", background: p.color, opacity: 0.2 }} />
+                          <div
+                            className="h-1.5 rounded-full"
+                            style={{
+                              width: "45px",
+                              background: p.color,
+                              opacity: 0.9,
+                            }}
+                          />
+                          <div
+                            className="h-1.5 rounded-full"
+                            style={{
+                              width: "25px",
+                              background: p.color,
+                              opacity: 0.5,
+                            }}
+                          />
+                          <div
+                            className="h-1.5 rounded-full"
+                            style={{
+                              width: "15px",
+                              background: p.color,
+                              opacity: 0.2,
+                            }}
+                          />
                         </div>
                       </div>
 
@@ -611,7 +549,6 @@ export default function CloudSolutions() {
                 })}
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -625,7 +562,6 @@ export default function CloudSolutions() {
         <div className="pointer-events-none absolute -bottom-10 left-10 w-96 h-96 bg-sky-400/15 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto relative z-10">
-          
           {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
@@ -634,13 +570,11 @@ export default function CloudSolutions() {
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading tracking-tight mb-4">
               Why Choose Nexora Technology Services{" "}
-              <span className="text-[#0051fe]">
-                for Cloud?
-              </span>
+              <span className="text-[#0051fe]">for Cloud?</span>
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              We ensure seamless cloud adoption with minimal disruption while maximising performance,
-              security, and cost efficiency.
+              We ensure seamless cloud adoption with minimal disruption while
+              maximising performance, security, and cost efficiency.
             </p>
           </div>
 
@@ -657,9 +591,7 @@ export default function CloudSolutions() {
                   transition={{ duration: 0.35, delay: idx * 0.06 }}
                   className="h-full"
                 >
-                  <div
-                    className="h-full p-7 rounded-2xl bg-white border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 group cursor-pointer relative overflow-hidden flex flex-col hover:-translate-y-1"
-                  >
+                  <div className="h-full p-7 rounded-2xl bg-white border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 group cursor-pointer relative overflow-hidden flex flex-col hover:-translate-y-1">
                     {/* Top Accent Line on Hover */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-[#0051fe] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
 
@@ -679,7 +611,6 @@ export default function CloudSolutions() {
               );
             })}
           </div>
-
         </div>
       </section>
 
@@ -689,7 +620,6 @@ export default function CloudSolutions() {
       <section className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]">
         <div className="max-w-6xl mx-auto">
           <div className="relative rounded-3xl sm:rounded-[36px] p-8 sm:p-12 lg:p-16 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white shadow-[0_20px_60px_-15px_rgba(0,81,254,0.45)] border border-blue-400/30 text-center">
-            
             {/* Ambient Background Aura Lights */}
             <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-400/25 rounded-full blur-3xl z-0" />
             <div className="pointer-events-none absolute -bottom-24 right-10 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl z-0" />
@@ -705,13 +635,16 @@ export default function CloudSolutions() {
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-heading tracking-tight mb-5 leading-tight">
                 Transform Your Business <br />
-                <span className="text-[#67e8f9] drop-shadow-sm">with Cloud Technology</span>
+                <span className="text-[#67e8f9] drop-shadow-sm">
+                  with Cloud Technology
+                </span>
               </h2>
 
               <p className="text-blue-100 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10 font-normal max-w-2xl mx-auto opacity-95">
-                Empower your organization with flexible, reliable, and future-ready cloud solutions. We help
-                businesses leverage the power of the cloud to improve operational efficiency, enhance customer
-                experiences, and drive innovation.
+                Empower your organization with flexible, reliable, and
+                future-ready cloud solutions. We help businesses leverage the
+                power of the cloud to improve operational efficiency, enhance
+                customer experiences, and drive innovation.
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-4">
@@ -732,7 +665,6 @@ export default function CloudSolutions() {
                 </Link>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -741,7 +673,6 @@ export default function CloudSolutions() {
           GLOBAL SHARED FOOTER
       ═══════════════════════════════════════════ */}
       <Footer />
-
     </div>
   );
 }

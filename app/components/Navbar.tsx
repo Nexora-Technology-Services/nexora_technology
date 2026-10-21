@@ -97,7 +97,10 @@ export default function Navbar() {
               href: "/what-we-serve/services/application-services",
               sub: [
                 { name: "ERP", href: "/components/ERPService" },
-                { name: "Custom Developments", href: "/components/CustomDevelopment" },
+                {
+                  name: "Custom ERP Developments",
+                  href: "/components/CustomDevelopment",
+                },
               ],
             },
             { name: "Cloud Services", href: "/services/cloud-solution" },
@@ -106,15 +109,16 @@ export default function Navbar() {
           ],
         },
         { name: "Product", href: "/components/ProductDevelopment" },
-        { name: "Learning & Development", href: "/services/Learning-Development" },
+        {
+          name: "Learning & Development",
+          href: "/services/Learning-Development",
+        },
         { name: "Talent Acquisition", href: "/services/Talent-Acquisition" },
       ],
     },
     {
       label: "Life @NTS",
-      children: [
-        { name: "Working @ NTS", href: "/components/WorkingAtNTS" },
-      ],
+      children: [{ name: "Working @ NTS", href: "/components/WorkingAtNTS" }],
     },
     { label: "Careers", href: "/components/Careers" },
     { label: "Contact Us", href: "/contact" },
@@ -133,7 +137,12 @@ export default function Navbar() {
       stroke="currentColor"
       viewBox="0 0 24 24"
     >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.8} d="M9 5l7 7-7 7" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2.8}
+        d="M9 5l7 7-7 7"
+      />
     </svg>
   );
 
@@ -155,7 +164,11 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between">
           {/* Brand Logo */}
-          <Link href="/" onClick={closeAll} className="flex items-center gap-2 shrink-0 group">
+          <Link
+            href="/"
+            onClick={closeAll}
+            className="flex items-center gap-2 shrink-0 group"
+          >
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.96 }}
@@ -276,7 +289,12 @@ export default function Navbar() {
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.6} d="M19 9l-7 7-7-7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.6}
+                        d="M19 9l-7 7-7-7"
+                      />
                     </motion.svg>
                   </button>
 
@@ -324,80 +342,127 @@ export default function Navbar() {
                                   <AnimatePresence>
                                     {isSubOpen && (
                                       <motion.div
-                                        initial={{ opacity: 0, x: -8, scale: 0.97 }}
+                                        initial={{
+                                          opacity: 0,
+                                          x: -8,
+                                          scale: 0.97,
+                                        }}
                                         animate={{ opacity: 1, x: 0, scale: 1 }}
-                                        exit={{ opacity: 0, x: -6, scale: 0.98 }}
-                                        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                                        exit={{
+                                          opacity: 0,
+                                          x: -6,
+                                          scale: 0.98,
+                                        }}
+                                        transition={{
+                                          duration: 0.2,
+                                          ease: [0.16, 1, 0.3, 1],
+                                        }}
                                         className="absolute left-[calc(100%+6px)] top-0 min-w-[240px] p-2 rounded-2xl z-50 origin-top-left"
                                         style={FLYOUT_STYLES}
                                       >
-                                        {(child as any).sub.map((subItem: any, sIdx: number) => {
-                                          const hasSubSub = "sub" in subItem && subItem.sub;
-                                          const isSubSubOpen = activeSubSub === subItem.name;
+                                        {(child as any).sub.map(
+                                          (subItem: any, sIdx: number) => {
+                                            const hasSubSub =
+                                              "sub" in subItem && subItem.sub;
+                                            const isSubSubOpen =
+                                              activeSubSub === subItem.name;
 
-                                          return (
-                                            <div
-                                              key={sIdx}
-                                              className="relative group/subitem"
-                                              onMouseEnter={() => {
-                                                if (hasSubSub) {
-                                                  setActiveSubSub(subItem.name);
-                                                } else {
-                                                  setActiveSubSub(null);
-                                                }
-                                              }}
-                                            >
-                                              {hasSubSub ? (
-                                                <div
-                                                  className={`flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold rounded-xl mx-0.5 my-0.5 cursor-pointer transition-all duration-200 select-none ${
-                                                    isSubSubOpen
-                                                      ? "bg-gradient-to-r from-blue-50 to-indigo-50/70 text-[#0051fe] pl-4.5 shadow-sm"
-                                                      : "text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/70 hover:pl-4.5"
-                                                  }`}
-                                                >
-                                                  <DotAccent />
-                                                  <span className="flex-1">{subItem.name}</span>
-                                                  <ChevronRightIcon />
+                                            return (
+                                              <div
+                                                key={sIdx}
+                                                className="relative group/subitem"
+                                                onMouseEnter={() => {
+                                                  if (hasSubSub) {
+                                                    setActiveSubSub(
+                                                      subItem.name,
+                                                    );
+                                                  } else {
+                                                    setActiveSubSub(null);
+                                                  }
+                                                }}
+                                              >
+                                                {hasSubSub ? (
+                                                  <div
+                                                    className={`flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold rounded-xl mx-0.5 my-0.5 cursor-pointer transition-all duration-200 select-none ${
+                                                      isSubSubOpen
+                                                        ? "bg-gradient-to-r from-blue-50 to-indigo-50/70 text-[#0051fe] pl-4.5 shadow-sm"
+                                                        : "text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/70 hover:pl-4.5"
+                                                    }`}
+                                                  >
+                                                    <DotAccent />
+                                                    <span className="flex-1">
+                                                      {subItem.name}
+                                                    </span>
+                                                    <ChevronRightIcon />
 
-                                                  {/* Level 3 Flyout */}
-                                                  <AnimatePresence>
-                                                    {isSubSubOpen && (
-                                                      <motion.div
-                                                        initial={{ opacity: 0, x: -8, scale: 0.97 }}
-                                                        animate={{ opacity: 1, x: 0, scale: 1 }}
-                                                        exit={{ opacity: 0, x: -6, scale: 0.98 }}
-                                                        transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                                                        className="absolute left-[calc(100%+6px)] top-0 min-w-[230px] p-2 rounded-2xl z-50 origin-top-left"
-                                                        style={FLYOUT_STYLES}
-                                                      >
-                                                        {subItem.sub.map((ssItem: any, ssIdx: number) => (
-                                                          <Link
-                                                            key={ssIdx}
-                                                            href={ssItem.href}
-                                                            className="flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
-                                                            onClick={closeAll}
-                                                          >
-                                                            <DotAccent />
-                                                            <span>{ssItem.name}</span>
-                                                          </Link>
-                                                        ))}
-                                                      </motion.div>
-                                                    )}
-                                                  </AnimatePresence>
-                                                </div>
-                                              ) : (
-                                                <Link
-                                                  href={subItem.href}
-                                                  className="flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
-                                                  onClick={closeAll}
-                                                >
-                                                  <DotAccent />
-                                                  <span>{subItem.name}</span>
-                                                </Link>
-                                              )}
-                                            </div>
-                                          );
-                                        })}
+                                                    {/* Level 3 Flyout */}
+                                                    <AnimatePresence>
+                                                      {isSubSubOpen && (
+                                                        <motion.div
+                                                          initial={{
+                                                            opacity: 0,
+                                                            x: -8,
+                                                            scale: 0.97,
+                                                          }}
+                                                          animate={{
+                                                            opacity: 1,
+                                                            x: 0,
+                                                            scale: 1,
+                                                          }}
+                                                          exit={{
+                                                            opacity: 0,
+                                                            x: -6,
+                                                            scale: 0.98,
+                                                          }}
+                                                          transition={{
+                                                            duration: 0.18,
+                                                            ease: [
+                                                              0.16, 1, 0.3, 1,
+                                                            ],
+                                                          }}
+                                                          className="absolute left-[calc(100%+6px)] top-0 min-w-[230px] p-2 rounded-2xl z-50 origin-top-left"
+                                                          style={FLYOUT_STYLES}
+                                                        >
+                                                          {subItem.sub.map(
+                                                            (
+                                                              ssItem: any,
+                                                              ssIdx: number,
+                                                            ) => (
+                                                              <Link
+                                                                key={ssIdx}
+                                                                href={
+                                                                  ssItem.href
+                                                                }
+                                                                className="flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
+                                                                onClick={
+                                                                  closeAll
+                                                                }
+                                                              >
+                                                                <DotAccent />
+                                                                <span>
+                                                                  {ssItem.name}
+                                                                </span>
+                                                              </Link>
+                                                            ),
+                                                          )}
+                                                        </motion.div>
+                                                      )}
+                                                    </AnimatePresence>
+                                                  </div>
+                                                ) : (
+                                                  <Link
+                                                    href={subItem.href}
+                                                    className="flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 hover:pl-4.5 rounded-xl mx-0.5 my-0.5 transition-all duration-200"
+                                                    onClick={closeAll}
+                                                  >
+                                                    <DotAccent />
+                                                    <span>{subItem.name}</span>
+                                                  </Link>
+                                                )}
+                                              </div>
+                                            );
+                                          },
+                                        )}
                                       </motion.div>
                                     )}
                                   </AnimatePresence>
@@ -442,7 +507,12 @@ export default function Navbar() {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
                 </svg>
               </Link>
             </motion.div>
@@ -456,12 +526,32 @@ export default function Navbar() {
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               )}
             </button>
@@ -497,7 +587,9 @@ export default function Navbar() {
                 return (
                   <div key={item.label} className="rounded-xl overflow-hidden">
                     <button
-                      onClick={() => setMobileExpanded(isExpanded ? null : item.label)}
+                      onClick={() =>
+                        setMobileExpanded(isExpanded ? null : item.label)
+                      }
                       className="w-full flex items-center justify-between px-3.5 py-2.5 text-base font-bold text-slate-900 hover:text-[#0051fe] hover:bg-blue-50/80 transition-colors"
                     >
                       <span>{item.label}</span>
@@ -509,7 +601,12 @@ export default function Navbar() {
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
                       </motion.svg>
                     </button>
 
@@ -530,39 +627,49 @@ export default function Navbar() {
                                     {child.name}
                                   </p>
                                   <div className="pl-2 space-y-1">
-                                    {(child as any).sub.map((subItem: any, sIdx: number) => {
-                                      if ("sub" in subItem && subItem.sub) {
-                                        return (
-                                          <div key={sIdx} className="space-y-1">
-                                            <p className="px-3 text-xs font-bold text-slate-600">
-                                              {subItem.name}
-                                            </p>
-                                            <div className="pl-2 space-y-0.5">
-                                              {subItem.sub.map((ssItem: any, ssIdx: number) => (
-                                                <Link
-                                                  key={ssIdx}
-                                                  href={ssItem.href}
-                                                  onClick={closeAll}
-                                                  className="block px-3 py-1.5 text-sm font-semibold text-slate-700 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
-                                                >
-                                                  • {ssItem.name}
-                                                </Link>
-                                              ))}
+                                    {(child as any).sub.map(
+                                      (subItem: any, sIdx: number) => {
+                                        if ("sub" in subItem && subItem.sub) {
+                                          return (
+                                            <div
+                                              key={sIdx}
+                                              className="space-y-1"
+                                            >
+                                              <p className="px-3 text-xs font-bold text-slate-600">
+                                                {subItem.name}
+                                              </p>
+                                              <div className="pl-2 space-y-0.5">
+                                                {subItem.sub.map(
+                                                  (
+                                                    ssItem: any,
+                                                    ssIdx: number,
+                                                  ) => (
+                                                    <Link
+                                                      key={ssIdx}
+                                                      href={ssItem.href}
+                                                      onClick={closeAll}
+                                                      className="block px-3 py-1.5 text-sm font-semibold text-slate-700 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
+                                                    >
+                                                      • {ssItem.name}
+                                                    </Link>
+                                                  ),
+                                                )}
+                                              </div>
                                             </div>
-                                          </div>
+                                          );
+                                        }
+                                        return (
+                                          <Link
+                                            key={sIdx}
+                                            href={subItem.href}
+                                            onClick={closeAll}
+                                            className="block px-3 py-1.5 text-sm font-bold text-slate-800 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
+                                          >
+                                            {subItem.name}
+                                          </Link>
                                         );
-                                      }
-                                      return (
-                                        <Link
-                                          key={sIdx}
-                                          href={subItem.href}
-                                          onClick={closeAll}
-                                          className="block px-3 py-1.5 text-sm font-bold text-slate-800 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
-                                        >
-                                          {subItem.name}
-                                        </Link>
-                                      );
-                                    })}
+                                      },
+                                    )}
                                   </div>
                                 </div>
                               );

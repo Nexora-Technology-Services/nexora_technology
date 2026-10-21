@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import heroBg from "@/app/Photo/hero-section.png";
 import { motion } from "framer-motion";
 import SpotlightCard from "@/app/components/ui/SpotlightCard";
 import Footer from "@/app/components/Footer";
@@ -14,9 +17,7 @@ import {
   ArrowRight,
   Sparkles,
   FileText,
-  Compass,
   CheckCircle2,
-  ExternalLink,
 } from "lucide-react";
 
 const boardMembers = [
@@ -74,51 +75,100 @@ const investorPillars = [
 ];
 
 export default function MediaPage() {
+  const [h1Hovered, setH1Hovered] = useState(false);
+
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
       {/* ═══════════════════════════════════════════
           HERO SECTION
-      ═══════════════════════════════════════════ */}
-      <section className="relative w-full pt-32 sm:pt-36 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
-        {/* Ambient Lights */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl z-0" />
+      ═══════════════════════════════════════════ */}{" "}
+      <section className="relative w-full min-h-0 md:min-h-[560px] lg:min-h-screen flex items-center pt-[88px] sm:pt-24 md:pt-28 pb-8 sm:pb-10 md:pb-16 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
+        {" "}
+        {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroBg}
+            alt="Nexora Technology Services - 3D Crystal NTS Identity"
+            fill
+            priority
+            quality={100}
+            className="object-cover object-left md:object-right select-none pointer-events-none"
+            sizes="100vw"
+          />
 
-        {/* Cyber Matrix Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
+          {/* Minimal soft top blend for floating navbar */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />
+        </div>
+        {/* Left-Aligned UI Content Container */}
+        <div className="w-full max-w-7xl mx-auto relative z-10">
+          <div className="max-w-xl lg:max-w-2xl text-left">
+            {/* Glassmorphic Brand Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-white text-[#0051fe] text-xs font-bold uppercase tracking-widest mb-3.5 sm:mb-4 backdrop-blur-md shadow-[0_4px_20px_rgba(0,81,254,0.18)]"
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0051fe] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0051fe]" />
+              </span>
+              <span
+                style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
+              >
+                ORGANIZATION • MEDIA &amp; INVESTORS
+              </span>
+            </motion.div>
 
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md shadow-sm"
-          >
-            <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-            <span>ORGANIZATION • MEDIA &amp; INVESTORS</span>
-          </motion.div>
+            {/* Impactful Heading — Solid Colors with Persistent White/Light-Blue Shadow & Animated Hover Motion */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              whileHover={{
+                x: 8,
+                transition: { type: "spring", stiffness: 350, damping: 22 },
+              }}
+              onMouseEnter={() => setH1Hovered(true)}
+              onMouseLeave={() => setH1Hovered(false)}
+              style={{
+                textShadow: h1Hovered
+                  ? "0 4px 14px rgba(255, 255, 255, 1), 0 0 28px rgba(186, 230, 253, 0.95), 0 0 45px rgba(147, 197, 253, 0.85)"
+                  : "0 2px 10px rgba(255, 255, 255, 0.95), 0 0 20px rgba(186, 230, 253, 0.85), 0 0 35px rgba(147, 197, 253, 0.65)",
+                transition: "text-shadow 0.35s ease",
+              }}
+              className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight font-heading leading-[1.12] mb-3.5 sm:mb-4 cursor-pointer select-none inline-block"
+            >
+              Media &amp; {""}
+              <span className="text-[#0051fe]">Investors</span>
+            </motion.h1>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.08 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12] mb-6 font-heading"
-          >
-            Media &amp;{" "}
-            <span className="text-[#67e8f9] drop-shadow-sm">Investors</span>
-          </motion.h1>
+            {/* Strategic Value Proposition (Bold Sub Text, No Shadow) */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="text-xs sm:text-sm md:text-[15px] text-slate-800 hover:text-slate-950 font-semibold leading-relaxed max-w-md mb-8 drop-shadow-[0_1px_10px_rgba(255,255,255,0.9)] hover:drop-shadow-[0_2px_16px_rgba(255,255,255,1)] cursor-default transition-all duration-300"
+              style={{
+                textShadow:
+                  "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
+              }}
+            >
+              Leadership driving Nexora&apos;s long-term vision, corporate
+              governance, shareholder stewardship, and official media
+              communications.
+            </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.16 }}
-            className="max-w-2xl mx-auto text-base sm:text-lg text-blue-100 leading-relaxed font-medium opacity-95"
-          >
-            Leadership driving Nexora's long-term vision, corporate governance, shareholder stewardship, and official media communications.
-          </motion.p>
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4"
+            ></motion.div>
+          </div>
         </div>
       </section>
-
       {/* ═══════════════════════════════════════════
           BOARD OF DIRECTORS & INVESTORS SECTION
       ═══════════════════════════════════════════ */}
@@ -133,7 +183,8 @@ export default function MediaPage() {
               Board of Directors &amp; Investors
             </h2>
             <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
-              Guiding Nexora's capital strategies, governance principles, and institutional growth trajectory.
+              Guiding Nexora&apos;s capital strategies, governance principles,
+              and institutional growth trajectory.
             </p>
           </div>
 
@@ -209,7 +260,6 @@ export default function MediaPage() {
           </div>
         </div>
       </section>
-
       {/* ═══════════════════════════════════════════
           INVESTOR PILLARS & VALUE DRIVERS
       ═══════════════════════════════════════════ */}
@@ -224,7 +274,8 @@ export default function MediaPage() {
               Governance &amp; Value Creation
             </h2>
             <p className="mt-2 text-sm text-slate-600">
-              The foundational principles steering Nexora's long-term enterprise investments.
+              The foundational principles steering Nexora&apos;s long-term
+              enterprise investments.
             </p>
           </div>
 
@@ -253,7 +304,6 @@ export default function MediaPage() {
           </div>
         </div>
       </section>
-
       {/* ═══════════════════════════════════════════
           MEDIA & INVESTOR CONTACT / PRESS KIT
       ═══════════════════════════════════════════ */}
@@ -270,7 +320,9 @@ export default function MediaPage() {
                   Media &amp; Press Enquiries
                 </h3>
                 <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                  Access official press releases, corporate brand assets, leadership commentary, and executive biographies for publication.
+                  Access official press releases, corporate brand assets,
+                  leadership commentary, and executive biographies for
+                  publication.
                 </p>
 
                 <div className="space-y-3 mb-6 text-sm">
@@ -280,7 +332,9 @@ export default function MediaPage() {
                   </div>
                   <div className="flex items-center gap-2.5 text-slate-700">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
-                    <span>Executive Leadership Biographies &amp; Photography</span>
+                    <span>
+                      Executive Leadership Biographies &amp; Photography
+                    </span>
                   </div>
                   <div className="flex items-center gap-2.5 text-slate-700">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
@@ -312,7 +366,8 @@ export default function MediaPage() {
                   Investor Relations Desk
                 </h3>
                 <p className="text-sm text-slate-400 leading-relaxed mb-6">
-                  For institutional shareholders, strategic investment inquiries, and corporate governance correspondence.
+                  For institutional shareholders, strategic investment
+                  inquiries, and corporate governance correspondence.
                 </p>
 
                 <div className="space-y-3 mb-6 text-sm text-slate-300">
@@ -328,10 +383,10 @@ export default function MediaPage() {
                   <p className="flex items-center gap-3">
                     <Phone className="w-4 h-4 text-[#0051fe] shrink-0" />
                     <a
-                      href="tel:+917483891857"
+                      href="tel:+919886071933"
                       className="hover:text-white transition-colors"
                     >
-                      +91 7483891857
+                      +91 9886071933
                     </a>
                   </p>
                   <p className="flex items-center gap-3">
@@ -354,7 +409,6 @@ export default function MediaPage() {
           </div>
         </div>
       </section>
-
       {/* ═══════════════════════════════════════════
           SHARED SITE FOOTER
       ═══════════════════════════════════════════ */}

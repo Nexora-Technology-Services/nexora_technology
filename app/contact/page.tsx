@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import heroBg from "@/app/Photo/hero-section.png";
 import { motion, AnimatePresence } from "framer-motion";
 import SpotlightCard from "../components/ui/SpotlightCard";
 import Footer from "../components/Footer";
@@ -12,7 +14,7 @@ import {
   CheckCircle2,
   ArrowRight,
   ArrowUpRight,
-  Sparkles,
+  Earth,
   ShieldCheck,
   Building2,
   MessageSquare,
@@ -20,10 +22,10 @@ import {
   HelpCircle,
   ChevronDown,
   Zap,
-  Globe2,
 } from "lucide-react";
 
 export default function Contact() {
+  const [h1Hovered, setH1Hovered] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -59,9 +61,11 @@ export default function Contact() {
     {
       icon: MapPin,
       label: "Global Headquarters",
-      value: "# 44/1, 2nd Floor, 16th Cross, Jayanagar, 7th Block (west), K.R. Road",
+      value:
+        "# 44/1, 2nd Floor, 16th Cross, Jayanagar, 7th Block (west), K.R. Road",
       subvalue: "Bengaluru, Karnataka - 560070, India",
-      action: "https://www.google.com/maps/place/12%C2%B055'20.0%22N+77%C2%B034'25.8%22E",
+      action:
+        "https://www.google.com/maps/place/12%C2%B055'20.0%22N+77%C2%B034'25.8%22E",
       actionLabel: "View on Google Maps",
     },
     {
@@ -75,9 +79,9 @@ export default function Contact() {
     {
       icon: Phone,
       label: "Direct Phone & WhatsApp",
-      value: "+91 7483891857",
+      value: "+91 98860 71933",
       subvalue: "Mon–Fri from 9:00 AM to 6:00 PM IST",
-      action: "tel:+917483891857",
+      action: "tel:+919886071933",
       actionLabel: "Call Directly",
     },
     {
@@ -161,86 +165,134 @@ export default function Contact() {
 
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
-      
       {/* ═══════════════════════════════════════════
           HERO SECTION — LANDING PAGE CTA POWER PALETTE & CYBER GRID
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full pt-32 sm:pt-36 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
-        
-        {/* Ambient Background Aura Lights (From Landing Page CTA) */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute top-10 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
+      <section className="relative w-full min-h-screen flex items-center pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
+        {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroBg}
+            alt="Nexora Technology Services - 3D Crystal NTS Identity"
+            fill
+            priority
+            quality={100}
+            className="object-cover object-left md:object-right select-none pointer-events-none"
+            sizes="100vw"
+          />
 
-        {/* Preserved Cyber Matrix Grid Layer */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
+          {/* Minimal soft top blend for floating navbar */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />
+        </div>
 
-        {/* Hero Content Container */}
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          
-          {/* CTA-Style Floating Pill Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md shadow-sm select-none"
-          >
-            <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-            <span>START A CONVERSATION • 24H RESPONSE</span>
-          </motion.div>
+        {/* Left-Aligned UI Content Container */}
+        <div className="w-full max-w-7xl mx-auto relative z-10">
+          <div className="max-w-xl lg:max-w-2xl text-left">
+            {/* Glassmorphic Brand Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-white text-[#0051fe] text-xs font-bold uppercase tracking-widest mb-3.5 sm:mb-4 backdrop-blur-md shadow-[0_4px_20px_rgba(0,81,254,0.18)]"
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0051fe] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0051fe]" />
+              </span>
+              <span
+                style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
+              >
+                START A CONVERSATION • 24H RESPONSE
+              </span>
+            </motion.div>
 
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.08 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12] mb-6 font-heading"
-          >
-            Let's Engineer Your Next <br />
-            <span className="text-[#67e8f9] drop-shadow-sm">
-              Breakthrough Together
-            </span>
-          </motion.h1>
+            {/* Impactful Heading — Solid Colors with Persistent White/Light-Blue Shadow & Animated Hover Motion */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              whileHover={{
+                x: 8,
+                transition: { type: "spring", stiffness: 350, damping: 22 },
+              }}
+              onMouseEnter={() => setH1Hovered(true)}
+              onMouseLeave={() => setH1Hovered(false)}
+              style={{
+                textShadow: h1Hovered
+                  ? "0 4px 14px rgba(255, 255, 255, 1), 0 0 28px rgba(186, 230, 253, 0.95), 0 0 45px rgba(147, 197, 253, 0.85)"
+                  : "0 2px 10px rgba(255, 255, 255, 0.95), 0 0 20px rgba(186, 230, 253, 0.85), 0 0 35px rgba(147, 197, 253, 0.65)",
+                transition: "text-shadow 0.35s ease",
+              }}
+              className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight font-heading leading-[1.12] mb-3.5 sm:mb-4 cursor-pointer select-none inline-block"
+            >
+              Let&apos;s Engineer Your Next <br className="hidden sm:inline" />
+              <span className="text-[#0051fe]">BreakThrough Together</span>
+            </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.16 }}
-            className="max-w-2xl mx-auto text-base sm:text-lg text-blue-100 leading-relaxed font-medium opacity-95"
-          >
-            Partner with senior architects and dedicated engineering pods to build, scale, and modernize your mission-critical digital systems.
-          </motion.p>
+            {/* Strategic Value Proposition (Bold Sub Text, No Shadow) */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="text-xs sm:text-sm md:text-[15px] text-slate-800 hover:text-slate-950 font-semibold leading-relaxed max-w-md mb-8 drop-shadow-[0_1px_10px_rgba(255,255,255,0.9)] hover:drop-shadow-[0_2px_16px_rgba(255,255,255,1)] cursor-default transition-all duration-300"
+              style={{
+                textShadow:
+                  "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
+              }}
+            >
+              Partner with senior architects and dedicated engineering pods to
+              build, scale, and modernize your mission-critical digital systems.
+            </motion.p>
 
-          {/* Value Proof Frosted Glass Pillars */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.24 }}
-            className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3.5 max-w-4xl mx-auto"
-          >
-            {[
-              { title: "< 24h Response", desc: "Rapid lead triage", icon: Zap },
-              { title: "Direct Architect", desc: "No junior filters", icon: ShieldCheck },
-              { title: "100% IP Protected", desc: "Full ownership", icon: Sparkles },
-              { title: "Global Pods", desc: "Timezone aligned", icon: Globe2 },
-            ].map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={idx}
-                  className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.15)] backdrop-blur-md hover:bg-white/15 hover:border-cyan-300/40 hover:-translate-y-0.5 transition-all duration-200 cursor-default"
-                >
-                  <div className="w-9 h-9 rounded-xl bg-white/15 text-cyan-200 flex items-center justify-center shrink-0 border border-white/20 shadow-sm">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-xs font-bold text-white leading-tight">{item.title}</p>
-                    <p className="text-[11px] font-medium text-blue-100">{item.desc}</p>
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 mb-5 sm:mb-6"
+            ></motion.div>
+
+            {/* Enterprise Trust & Capability Metrics (Positioned Perfectly Inside Viewport) */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.4 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-4 border-t border-blue-200/70 max-w-xl"
+            >
+              <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-200/80 flex items-center justify-center text-[#0051fe] shrink-0">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">
+                    &lt;24H Response
                   </div>
                 </div>
-              );
-            })}
-          </motion.div>
+              </div>
+
+              <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
+                <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-200/80 flex items-center justify-center text-[#0284c7] shrink-0">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">
+                    Direct Architect
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-200/80 flex items-center justify-center text-cyan-700 shrink-0">
+                  <Earth className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">
+                    Global Pods
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -249,7 +301,6 @@ export default function Contact() {
       ═══════════════════════════════════════════ */}
       <section className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f8fafc] via-[#f1f6fe] to-[#f8fafc]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          
           {/* LEFT: Direct Channels Container (Vertically Aligned) */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -269,10 +320,11 @@ export default function Contact() {
                 Direct Channels
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight font-heading">
-                We're Here to Help You Innovate
+                We&apos;re Here to Help You Innovate
               </h2>
               <p className="mt-2 text-sm text-slate-600 leading-relaxed font-medium">
-                Connect with our advisory and engineering leaders directly through your preferred channel.
+                Connect with our advisory and engineering leaders directly
+                through your preferred channel.
               </p>
             </div>
 
@@ -306,8 +358,16 @@ export default function Contact() {
                         {item.action && (
                           <a
                             href={item.action}
-                            target={item.action.startsWith("http") ? "_blank" : undefined}
-                            rel={item.action.startsWith("http") ? "noopener noreferrer" : undefined}
+                            target={
+                              item.action.startsWith("http")
+                                ? "_blank"
+                                : undefined
+                            }
+                            rel={
+                              item.action.startsWith("http")
+                                ? "noopener noreferrer"
+                                : undefined
+                            }
                             className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#0051fe] hover:text-[#0043d4] mt-2 group transition-colors"
                           >
                             <span>{item.actionLabel}</span>
@@ -349,7 +409,6 @@ export default function Contact() {
                 ))}
               </div>
             </div>
-
           </motion.div>
 
           {/* RIGHT: Project Brief Form (Vertically Aligned) */}
@@ -361,7 +420,6 @@ export default function Contact() {
             className="lg:col-span-7 h-full"
           >
             <div className="h-full relative rounded-3xl p-6 sm:p-9 bg-white/95 border border-blue-200/90 shadow-[0_20px_60px_-15px_rgba(0,81,254,0.12)] backdrop-blur-xl flex flex-col justify-between">
-              
               {/* Decorative Header */}
               <div className="mb-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-2">
@@ -372,12 +430,15 @@ export default function Contact() {
                   Tell Us About Your Project
                 </h3>
                 <p className="text-slate-500 text-sm mt-1">
-                  Complete the fields below and our team will prepare a structured initial assessment within 24 hours.
+                  Complete the fields below and our team will prepare a
+                  structured initial assessment within 24 hours.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5 flex-1 flex flex-col justify-between">
-                
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-5 flex-1 flex flex-col justify-between"
+              >
                 {/* Name & Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -389,7 +450,9 @@ export default function Contact() {
                       required
                       placeholder="e.g. Alex Morgan"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       className="w-full px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-[#0051fe] focus:ring-4 focus:ring-[#0051fe]/10 outline-none transition-all duration-200"
                     />
                   </div>
@@ -403,7 +466,9 @@ export default function Contact() {
                       required
                       placeholder="alex@company.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       className="w-full px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-[#0051fe] focus:ring-4 focus:ring-[#0051fe]/10 outline-none transition-all duration-200"
                     />
                   </div>
@@ -419,7 +484,9 @@ export default function Contact() {
                       type="tel"
                       placeholder="+1 (555) 000-0000"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
                       className="w-full px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-[#0051fe] focus:ring-4 focus:ring-[#0051fe]/10 outline-none transition-all duration-200"
                     />
                   </div>
@@ -431,10 +498,14 @@ export default function Contact() {
                     <div className="relative">
                       <select
                         value={formData.service}
-                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, service: e.target.value })
+                        }
                         className="w-full px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-200 text-sm text-slate-900 focus:bg-white focus:border-[#0051fe] focus:ring-4 focus:ring-[#0051fe]/10 outline-none transition-all duration-200 appearance-none cursor-pointer"
                       >
-                        <option value="">Select an engineering domain...</option>
+                        <option value="">
+                          Select an engineering domain...
+                        </option>
                         {serviceOptions.map((opt, i) => (
                           <option key={i} value={opt}>
                             {opt}
@@ -449,14 +520,17 @@ export default function Contact() {
                 {/* Message Textarea */}
                 <div>
                   <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-700 mb-2">
-                    Project Overview / Requirements <span className="text-[#0051fe]">*</span>
+                    Project Overview / Requirements{" "}
+                    <span className="text-[#0051fe]">*</span>
                   </label>
                   <textarea
                     rows={5}
                     required
                     placeholder="Describe your goals, challenges, technical preferences, or timeline milestones..."
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
                     className="w-full px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-[#0051fe] focus:ring-4 focus:ring-[#0051fe]/10 outline-none transition-all duration-200 resize-none"
                   />
                 </div>
@@ -465,7 +539,8 @@ export default function Contact() {
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-blue-50/60 border border-blue-100 text-xs text-slate-600">
                   <ShieldCheck className="w-5 h-5 text-[#0051fe] shrink-0" />
                   <span>
-                    Strict Confidentiality: Your details and project brief are protected under our standard non-disclosure policy.
+                    Strict Confidentiality: Your details and project brief are
+                    protected under our standard non-disclosure policy.
                   </span>
                 </div>
 
@@ -494,11 +569,9 @@ export default function Contact() {
                     )}
                   </button>
                 </div>
-
               </form>
             </div>
           </motion.div>
-
         </div>
       </section>
 
@@ -507,7 +580,6 @@ export default function Contact() {
       ═══════════════════════════════════════════ */}
       <section className="relative w-full py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f8fafc] via-[#edf4ff] to-[#f4f8fe] border-t border-blue-100/80">
         <div className="max-w-6xl mx-auto">
-          
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-3">
@@ -533,7 +605,6 @@ export default function Contact() {
 
           {/* Map Frame Card with Glowing Accents */}
           <div className="relative rounded-3xl overflow-hidden p-2 bg-white/90 border border-blue-200/90 shadow-[0_16px_50px_-10px_rgba(0,81,254,0.15)]">
-            
             {/* Live Pin Overlay Card */}
             <div className="absolute top-6 left-6 z-20 p-4 rounded-2xl bg-white/95 backdrop-blur-xl border border-blue-200/90 shadow-xl max-w-xs flex items-center gap-3.5">
               <div className="w-3.5 h-3.5 rounded-full bg-[#0051fe] animate-pulse shrink-0 ring-4 ring-blue-100" />
@@ -566,7 +637,10 @@ export default function Contact() {
             <div className="mt-2 p-3.5 rounded-xl bg-blue-50/70 border border-blue-100 flex items-center justify-between flex-wrap gap-2 text-xs">
               <div className="flex items-center gap-2 text-slate-600 font-medium">
                 <Building2 className="w-4 h-4 text-[#0051fe]" />
-                <span>12°55'20.0"N, 77°34'25.8"E — Bengaluru, Karnataka, India</span>
+                <span>
+                  12&deg;55&apos;20.0&quot;N, 77&deg;34&apos;25.8&quot;E —
+                  Bengaluru, Karnataka, India
+                </span>
               </div>
               <a
                 href="https://www.google.com/maps/place/12%C2%B055'20.0%22N+77%C2%B034'25.8%22E"
@@ -578,9 +652,7 @@ export default function Contact() {
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>
-
           </div>
-
         </div>
       </section>
 
@@ -589,7 +661,6 @@ export default function Contact() {
       ═══════════════════════════════════════════ */}
       <section className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#f4f8fe]">
         <div className="max-w-4xl mx-auto">
-          
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-3">
               <HelpCircle className="w-3.5 h-3.5" />
@@ -599,7 +670,8 @@ export default function Contact() {
               Frequently Asked Questions
             </h3>
             <p className="mt-2 text-slate-600 text-sm sm:text-base">
-              Answers to common queries regarding onboarding, technical scoping, and engagement models.
+              Answers to common queries regarding onboarding, technical scoping,
+              and engagement models.
             </p>
           </div>
 
@@ -646,7 +718,6 @@ export default function Contact() {
               );
             })}
           </div>
-
         </div>
       </section>
 
@@ -654,7 +725,6 @@ export default function Contact() {
           FUTURISTIC FROSTED GLASS FOOTER
       ═══════════════════════════════════════════ */}
       <Footer />
-
     </div>
   );
 }

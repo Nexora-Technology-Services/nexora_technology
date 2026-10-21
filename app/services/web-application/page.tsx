@@ -668,7 +668,7 @@ export default function WebMobileDevelopment() {
             style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)" }}>
             <span style={{ fontSize: "16px" }}>📱</span>
             <span className="sora text-xs text-white uppercase tracking-widest" style={{ fontWeight: 700 }}>
-              Let's Build Together
+              Let&apos;s Build Together
             </span>
           </div>
           <h2 className="sora text-3xl md:text-4xl text-white mb-4 leading-tight" style={{ fontWeight: 800 }}>
@@ -676,7 +676,7 @@ export default function WebMobileDevelopment() {
             <span style={{ color: "#a5f3fc" }}>Digital Experiences</span>
           </h2>
           <p className="text-blue-100 mb-10 max-w-lg mx-auto text-sm leading-relaxed" style={{ opacity: 0.9 }}>
-            Whether it's a web platform, mobile app, or progressive web app — our team is ready to build something extraordinary for your users.
+            Whether it&apos;s a web platform, mobile app, or progressive web app — our team is ready to build something extraordinary for your users.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/contact"

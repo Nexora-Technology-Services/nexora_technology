@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import heroBg from "@/app/Photo/hero-section.png";
 import { motion } from "framer-motion";
 import Footer from "@/app/components/Footer";
 import {
@@ -20,9 +22,7 @@ import {
   ArrowUpRight,
   Mail,
   Check,
-  Activity,
   Briefcase,
-  ShieldCheck,
   Target,
   Zap,
   Coffee,
@@ -30,6 +30,8 @@ import {
 } from "lucide-react";
 
 export default function WorkingAtNTSPage() {
+  const [h1Hovered, setH1Hovered] = useState(false);
+
   /* ── Core Cultural Pillars ── */
   const culturalPillars = [
     {
@@ -148,208 +150,110 @@ export default function WorkingAtNTSPage() {
     },
   ];
 
-  /* ── Hero Stats ── */
-  const heroStats = [
-    {
-      label: "Team Members",
-      value: "250+",
-      sub: "Engineers & Consultants",
-      icon: Users,
-      color: "from-blue-500/20 to-cyan-500/20",
-      border: "border-cyan-300/30",
-      text: "text-cyan-300",
-    },
-    {
-      label: "Retention Rate",
-      value: "98%",
-      sub: "Long-term career tenure",
-      icon: ShieldCheck,
-      color: "from-sky-500/20 to-blue-500/20",
-      border: "border-sky-300/30",
-      text: "text-sky-300",
-    },
-    {
-      label: "Growth & Innovation",
-      value: "12+ Yrs",
-      sub: "Consistent market expansion",
-      icon: Rocket,
-      color: "from-cyan-500/20 to-blue-500/20",
-      border: "border-cyan-300/30",
-      text: "text-cyan-300",
-    },
-    {
-      label: "Equal Opportunity",
-      value: "100%",
-      sub: "Inclusive meritocracy",
-      icon: HeartHandshake,
-      color: "from-blue-500/20 to-sky-500/20",
-      border: "border-blue-300/30",
-      text: "text-cyan-200",
-    },
-  ];
-
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
       {/* ═══════════════════════════════════════════
           SECTION 1: HERO BANNER (DEEP ENTERPRISE BLUE)
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full pt-28 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white border-b border-blue-400/30 shadow-2xl">
-        {/* Ambient Glowing Orbs */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute -bottom-20 right-0 w-80 h-80 bg-blue-400/25 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute top-24 left-10 w-72 h-72 bg-[#0051fe]/30 rounded-full blur-3xl z-0" />
+      <section className="relative w-full min-h-0 md:min-h-[560px] lg:min-h-screen flex items-center pt-[88px] sm:pt-24 md:pt-28 pb-8 sm:pb-10 md:pb-16 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
+        {" "}
+        {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroBg}
+            alt="Nexora Technology Services - 3D Crystal NTS Identity"
+            fill
+            priority
+            quality={100}
+            className="object-cover object-left md:object-right select-none pointer-events-none"
+            sizes="100vw"
+          />
 
-        {/* Cyber Matrix Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,black_40%,transparent_100%)] pointer-events-none z-0" />
-
-        <div className="max-w-7xl mx-auto relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Column: Hero Narrative */}
-            <div className="lg:col-span-7 text-left">
-              {/* Eyebrow Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/30 text-white text-[11px] font-bold uppercase tracking-widest mb-6 backdrop-blur-md shadow-sm select-none"
+          {/* Minimal soft top blend for floating navbar */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />
+        </div>
+        {/* Left-Aligned UI Content Container */}
+        <div className="w-full max-w-7xl mx-auto relative z-10">
+          <div className="max-w-xl lg:max-w-2xl text-left flex flex-col items-start">
+            {/* Glassmorphic Brand Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-white text-[#0051fe] text-xs font-bold uppercase tracking-widest mb-3.5 sm:mb-4 backdrop-blur-md shadow-[0_4px_20px_rgba(0,81,254,0.18)]"
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0051fe] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0051fe]" />
+              </span>
+              <span
+                style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
               >
-                <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-                <span>Life &amp; Culture @ Nexora Technology Services</span>
-              </motion.div>
+                Life &amp; Culture @ NTS
+              </span>
+            </motion.div>
 
-              {/* Headline (No Gradient for Text: White with Cyan Accent) */}
-              <motion.h1
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.08 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.12] mb-6 font-heading"
+            {/* Impactful Heading — Solid Colors with Persistent White/Light-Blue Shadow & Animated Hover Motion */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1 }}
+              whileHover={{
+                x: 8,
+                transition: { type: "spring", stiffness: 350, damping: 22 },
+              }}
+              onMouseEnter={() => setH1Hovered(true)}
+              onMouseLeave={() => setH1Hovered(false)}
+              style={{
+                textShadow: h1Hovered
+                  ? "0 4px 14px rgba(255, 255, 255, 1), 0 0 28px rgba(186, 230, 253, 0.95), 0 0 45px rgba(147, 197, 253, 0.85)"
+                  : "0 2px 10px rgba(255, 255, 255, 0.95), 0 0 20px rgba(186, 230, 253, 0.85), 0 0 35px rgba(147, 197, 253, 0.65)",
+                transition: "text-shadow 0.35s ease",
+              }}
+              className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight font-heading leading-[1.12] mb-3.5 sm:mb-4 cursor-pointer select-none inline-block"
+            >
+              Working @ <span className="text-[#0051fe]">NTS</span>
+            </motion.h1>
+
+            {/* Strategic Value Proposition (Bold Sub Text, No Shadow) */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="text-xs sm:text-sm md:text-[15px] text-slate-800 hover:text-slate-950 font-semibold leading-relaxed max-w-md mb-8 drop-shadow-[0_1px_10px_rgba(255,255,255,0.9)] hover:drop-shadow-[0_2px_16px_rgba(255,255,255,1)] cursor-default transition-all duration-300"
+              style={{
+                textShadow:
+                  "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
+              }}
+            >
+              We are building an environment where talented minds thrive,
+              curiosity is celebrated, and careers accelerate. Explore our
+              workplace culture, employee benefits, and what makes NTS a truly
+              rewarding place to build your future.
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 mb-5 sm:mb-6"
+            >
+              <Link
+                href="/components/Careers"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0051fe] hover:bg-[#0041cb] text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_12px_28px_-4px_rgba(0,81,254,0.45)] hover:shadow-[0_18px_36px_-4px_rgba(0,81,254,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 transition-all duration-200 cursor-pointer group"
               >
-                Working <br />
-                <span className="text-cyan-200">@ NTS</span>
-              </motion.h1>
-
-              {/* Subheadline */}
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.16 }}
-                className="text-base sm:text-lg text-blue-100 leading-relaxed font-normal opacity-95 max-w-2xl mb-8"
+                <Briefcase className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <span>Explore Careers</span>
+              </Link>
+              <a
+                href="mailto:hr@nexoratechnology.co.in"
+                className="px-8 py-3.5 rounded-full bg-white text-[#0051fe] hover:bg-blue-50 font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
               >
-                We are building an environment where talented minds thrive, curiosity is celebrated, and careers
-                accelerate. Explore our workplace culture, employee benefits, and what makes NTS a truly rewarding
-                place to build your future.
-              </motion.p>
-
-              {/* Highlights Chips */}
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.22 }}
-                className="flex flex-wrap gap-2.5 sm:gap-3 mb-10"
-              >
-                {["Collaborative Pods", "Hybrid Flexibility", "Continuous Upskilling", "Enterprise Scale"].map(
-                  (chip) => (
-                    <div
-                      key={chip}
-                      className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-semibold text-white transition-all shadow-sm"
-                    >
-                      <Check className="w-4 h-4 text-cyan-300 shrink-0" />
-                      <span>{chip}</span>
-                    </div>
-                  )
-                )}
-              </motion.div>
-
-              {/* Hero Action CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.28 }}
-                className="flex flex-wrap items-center gap-4"
-              >
-                <Link
-                  href="/components/Careers"
-                  className="px-8 py-3.5 rounded-full bg-white text-[#0051fe] hover:bg-blue-50 font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
-                >
-                  <Briefcase className="w-4 h-4 text-[#0051fe]" />
-                  <span>Explore Careers</span>
-                </Link>
-
-                <a
-                  href="mailto:hr@nexoratechnology.co.in"
-                  className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
-                >
-                  <Mail className="w-4 h-4 text-cyan-300" />
-                  <span>Send Your CV</span>
-                </a>
-              </motion.div>
-            </div>
-
-            {/* Right Column: Workplace Culture HUD */}
-            <div className="lg:col-span-5">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="rounded-3xl border border-white/20 bg-white/10 p-6 sm:p-7 backdrop-blur-xl shadow-2xl relative overflow-hidden"
-              >
-                {/* HUD Header */}
-                <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
-                  <div className="flex items-center gap-2.5">
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-300" />
-                    </span>
-                    <span className="font-heading font-bold text-xs uppercase tracking-wider text-white">
-                      Life @ Nexora Insights
-                    </span>
-                  </div>
-                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-white/15 text-cyan-200 border border-white/20 flex items-center gap-1.5">
-                    <Activity className="w-3 h-3 text-cyan-300" />
-                    People First
-                  </span>
-                </div>
-
-                {/* Stat Cards */}
-                <div className="space-y-3 mb-5">
-                  {heroStats.map((s, i) => {
-                    const StatIcon = s.icon;
-                    return (
-                      <div
-                        key={i}
-                        className="p-3.5 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex items-center gap-4 transition-all hover:bg-white/15"
-                      >
-                        <div
-                          className={`w-11 h-11 rounded-xl bg-gradient-to-br ${s.color} border ${s.border} flex items-center justify-center shrink-0 ${s.text}`}
-                        >
-                          <StatIcon className="w-5 h-5" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-blue-200 text-[11px] uppercase tracking-wider font-medium">
-                            {s.label}
-                          </p>
-                          <p className="font-heading text-white font-extrabold text-lg sm:text-xl">
-                            {s.value}
-                          </p>
-                        </div>
-                        <span className="text-cyan-200 text-[11px] bg-white/10 px-2.5 py-1 rounded-md border border-white/15 text-right max-w-[140px] leading-tight">
-                          {s.sub}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* HUD Footer Status */}
-                <div className="pt-3 border-t border-white/15 flex items-center justify-between text-[11px] text-blue-100/90">
-                  <span className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-300" />
-                    Recognized Tech Workplace
-                  </span>
-                  <span className="font-mono text-cyan-300">Nexora Benchmark</span>
-                </div>
-              </motion.div>
-            </div>
+                <Mail className="w-4 h-4 text-[#0051fe]" />
+                <span>Send Your CV</span>
+              </a>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -371,12 +275,14 @@ export default function WorkingAtNTSPage() {
 
             {/* Headline (No Gradient for Text: Dark with Primary Blue Accent) */}
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
-              The Principles That <span className="text-[#0051fe]">Drive Us</span>
+              The Principles That{" "}
+              <span className="text-[#0051fe]">Drive Us</span>
             </h2>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              We believe great engineering and enterprise innovation start with the people behind the solutions.
-              Here is how we collaborate, lead, and grow together every single day.
+              We believe great engineering and enterprise innovation start with
+              the people behind the solutions. Here is how we collaborate, lead,
+              and grow together every single day.
             </p>
           </div>
 
@@ -406,7 +312,9 @@ export default function WorkingAtNTSPage() {
                   </div>
 
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <span className="font-semibold text-[#0051fe]">{p.metric}</span>
+                    <span className="font-semibold text-[#0051fe]">
+                      {p.metric}
+                    </span>
                     <CheckCircle2 className="w-4 h-4 text-[#0051fe]" />
                   </div>
                 </div>
@@ -433,8 +341,9 @@ export default function WorkingAtNTSPage() {
             </h2>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              We invest in your comfort, career, and long-term well-being with industry-leading benefits designed
-              for modern technology professionals.
+              We invest in your comfort, career, and long-term well-being with
+              industry-leading benefits designed for modern technology
+              professionals.
             </p>
           </div>
 
@@ -503,8 +412,9 @@ export default function WorkingAtNTSPage() {
             </h2>
 
             <p className="text-blue-100 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto opacity-90">
-              Straightforward, respectful, and human. No black-box algorithms or endless loops — just authentic
-              conversations with the people you will actually work with.
+              Straightforward, respectful, and human. No black-box algorithms or
+              endless loops — just authentic conversations with the people you
+              will actually work with.
             </p>
           </div>
 
@@ -580,8 +490,10 @@ export default function WorkingAtNTSPage() {
               </h2>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                At Nexora, culture is not a slide deck — it is the sum of daily interactions between teams who love
-                crafting enterprise technology. We remove friction so you can focus on building work you are proud of.
+                At Nexora, culture is not a slide deck — it is the sum of daily
+                interactions between teams who love crafting enterprise
+                technology. We remove friction so you can focus on building work
+                you are proud of.
               </p>
 
               <div className="pt-2 space-y-3">
@@ -591,7 +503,10 @@ export default function WorkingAtNTSPage() {
                   "Structured compensation reviews with clear milestone criteria",
                   "Celebration of individual achievements and team milestones",
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                  <div
+                    key={idx}
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium"
+                  >
                     <CheckCircle2 className="w-4 h-4 text-[#0051fe] shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
@@ -675,8 +590,9 @@ export default function WorkingAtNTSPage() {
               </h2>
 
               <p className="text-blue-100 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10 font-normal max-w-2xl mx-auto opacity-95">
-                Whether you are an enterprise consultant, full-stack engineer, cloud architect, or talent specialist,
-                there is a space for your skills and ambitions at NTS. Reach out to our talent team today.
+                Whether you are an enterprise consultant, full-stack engineer,
+                cloud architect, or talent specialist, there is a space for your
+                skills and ambitions at NTS. Reach out to our talent team today.
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-4">
