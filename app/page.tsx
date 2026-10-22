@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import heroBackground from "@/app/Photo/hero-background.png";
-import SpotlightCard from "./components/ui/SpotlightCard";
-import Footer from "./components/Footer";
+import heroBackground from "@/public/images/hero-background.png";
+import SpotlightCard from "@/components/ui/spotlightcard";
+import Footer from "@/components/layout/footer";
 import {
   Code2,
   Smartphone,

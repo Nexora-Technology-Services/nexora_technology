@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import heroBg from "@/app/Photo/hero-section.png";
+import heroBg from "@/public/images/hero-section.png";
 import { motion, AnimatePresence } from "framer-motion";
-import SpotlightCard from "../components/ui/SpotlightCard";
-import Footer from "../components/Footer";
+import SpotlightCard from "@/components/ui/spotlightcard";
+import Footer from "@/components/layout/footer";
 import {
   Mail,
   Phone,

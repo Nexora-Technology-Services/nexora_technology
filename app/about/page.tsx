@@ -2,100 +2,117 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import heroBg from "@/app/Photo/hero-section.png";
 import Link from "next/link";
+import heroBg from "@/public/images/hero-section.png";
 import { motion } from "framer-motion";
-import SpotlightCard from "../components/ui/SpotlightCard";
-import Footer from "../components/Footer";
+import img1 from "@/public/images/img-1.jpg";
+import img2 from "@/public/images/img-2.jpg";
+import img3 from "@/public/images/img-3.jpg";
+import SpotlightCard from "@/components/ui/spotlightcard";
+import Footer from "@/components/layout/footer";
 import {
-  Zap,
-  ShieldCheck,
-  Sparkles,
-  ArrowRight,
-  ArrowUpRight,
-  Mail,
-  Quote,
-  Cpu,
   Compass,
+  Rocket,
+  Zap,
+  Sliders,
+  ShieldCheck,
+  GraduationCap,
+  Boxes,
+  ArrowRight,
+  CheckCircle2,
+  Sparkles,
+  Award,
+  Layers,
+  TrendingUp,
+  Cpu,
 } from "lucide-react";
 
-const leaders = [
+const services = [
   {
-    name: "Venkatesh Gothe",
-    title: "Founder & CEO",
-    initials: "VG",
-    bio: "Guiding Nexora's global strategy, engineering standards, and innovation roadmap. Venkatesh spearheads mission-critical software engineering, enterprise cloud modernization, and applied AI workflows with an uncompromising focus on code craft, transparency, and scalable architecture.",
-    quote:
-      "We founded Nexora with one immutable principle: solve high-stakes challenges with uncompromising engineering craft, absolute transparency, and genuine client ownership.",
-    expertise: [
-      "Enterprise Architecture",
-      "Applied AI & Cloud Transformation",
-      "Global Technology Strategy",
-      "High-Concurrency Systems",
-    ],
-    stats: [{ label: "Experience", value: "25+ Years" }],
-    accentGradient: "from-[#0051fe] via-[#2563eb] to-[#0284c7]",
-    badgeBg: "bg-blue-50 text-[#0051fe] border-blue-200",
-    linkedin:
-      "https://www.linkedin.com/company/nexora-technology-services-pvt-ltd",
-    email: "info@nexoratechnology.co.in",
+    icon: Compass,
+    title: "Package Evaluation & Roadmap Creation",
+    desc: "We identify and evaluate the right enterprise solutions aligned with your business goals. Our experts conduct detailed requirement analysis, gap assessments, and process evaluations — delivering a strategic roadmap with phases, timelines, resource planning, and risk mitigation.",
+    tag: "Strategic Advisory",
+    colSpan: "lg:col-span-3", // Row 1 (Card 1/2)
   },
   {
-    name: "M. B Sanjay",
-    title: "COO",
-    initials: "MS",
-    bio: "Directing Nexora's operational architecture, delivery governance, and multi-disciplinary engineering pods. Sanjay ensures every client engagement executes with predictable sprint cadences, SOC2-standard quality benchmarks, and proactive stakeholder collaboration across global timezones.",
-    quote:
-      "Predictability in execution and precision in delivery are what turn ambitious digital blueprints into durable, high-performing production systems.",
-    expertise: [
-      "Agile Delivery Governance",
-      "Engineering Pod Optimization",
-      "Enterprise SLA Compliance",
-      "Continuous Integration & QA",
-    ],
-    stats: [{ label: "Experience", value: "30+ Years" }],
-    accentGradient: "from-[#0284c7] via-[#0051fe] to-[#1e3a8a]",
-    badgeBg: "bg-sky-50 text-[#0284c7] border-sky-200",
-    linkedin:
-      "https://www.linkedin.com/company/nexora-technology-services-pvt-ltd",
-    email: "info@nexoratechnology.co.in",
+    icon: Rocket,
+    title: "Implementation",
+    desc: "End-to-end implementation services designed for seamless ERP deployment with minimal disruption. Our structured approach covers planning, configuration, data migration, testing, go-live support, and change management for faster adoption.",
+    tag: "Deployment",
+    colSpan: "lg:col-span-3", // Row 1 (Card 2/2)
   },
-];
-
-const leadershipPrinciples = [
   {
-    icon: Cpu,
-    title: "Engineering Over Buzzwords",
-    description:
-      "We prioritize robust, test-driven architectures, low latency, and zero technical debt over fleeting technological trends.",
+    icon: Zap,
+    title: "Upgrade",
+    desc: "Stay current with the latest features, security standards, and performance enhancements. Our upgrade methodology ensures smooth migration, compatibility validation, data integrity, and minimal downtime while maximising existing technology investments.",
+    tag: "Modernization",
+    colSpan: "lg:col-span-2", // Row 2 (Card 1/3)
+  },
+  {
+    icon: Sliders,
+    title: "Customization",
+    desc: "Every business has unique needs. We develop custom workflows, reports, dashboards, integrations, and modules that align with your specific processes — enabling greater efficiency, flexibility, and user productivity.",
+    tag: "Tailored Architecture",
+    colSpan: "lg:col-span-2", // Row 2 (Card 2/3)
   },
   {
     icon: ShieldCheck,
-    title: "Radical Transparency",
-    description:
-      "Direct access to solution architects, live staging previews, open sprint backlogs, and total IP ownership without middleman friction.",
+    title: "Application Support",
+    desc: "Uninterrupted operations through proactive monitoring, issue resolution, system optimisation, and ongoing maintenance. We deliver reliable technical assistance, performance tuning, and troubleshooting to maximise system uptime and user satisfaction.",
+    tag: "24/7 Operations",
+    colSpan: "lg:col-span-2", // Row 2 (Card 3/3)
   },
   {
-    icon: Compass,
-    title: "Client-Centric Co-Pilot",
-    description:
-      "We approach every client engagement as our own product, aligning our software architecture with concrete business metrics and growth.",
+    icon: GraduationCap,
+    title: "Training",
+    desc: "Comprehensive user and administrator training programs to ensure smooth system adoption. Our approach includes hands-on workshops, process-oriented learning, documentation, and role-based knowledge transfer to empower your teams.",
+    tag: "Enablement",
+    colSpan: "lg:col-span-3", // Row 3 (Card 1/2)
   },
   {
-    icon: Sparkles,
-    title: "Continuous Innovation",
-    description:
-      "Pioneering cloud-native paradigms, generative AI integrations, and automated pipelines to give our partners a distinct competitive edge.",
+    icon: Boxes,
+    title: "Package Consolidation",
+    desc: "Streamline and consolidate multiple software applications into a unified enterprise platform. We reduce operational complexity, eliminate redundant systems, improve data visibility, and enhance process integration for better control and cost optimisation.",
+    tag: "System Unification",
+    colSpan: "lg:col-span-3", // Row 3 (Card 2/2)
   },
 ];
 
-export default function About() {
+const approachSteps = [
+  {
+    step: "01",
+    title: "Discover & Assess",
+    desc: "Detailed requirement analysis and gap assessment to map the right solution directly to your organizational objectives.",
+    icon: Compass,
+  },
+  {
+    step: "02",
+    title: "Plan & Design",
+    desc: "Architecting a strategic roadmap with transparent milestones, resource planning, and proactive risk mitigation.",
+    icon: Layers,
+  },
+  {
+    step: "03",
+    title: "Implement & Configure",
+    desc: "Precision engineering, rigorous testing, automated data migration, and zero-downtime go-live support.",
+    icon: Cpu,
+  },
+  {
+    step: "04",
+    title: "Support & Evolve",
+    desc: "Continuous proactive monitoring, administrator training, and iterative enhancements to maximise ROI.",
+    icon: TrendingUp,
+  },
+];
+
+export default function Organization() {
   const [h1Hovered, setH1Hovered] = useState(false);
 
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
       {/* ═══════════════════════════════════════════
-          HERO SECTION — POWER BLUE PALETTE & CYBER GRID
+          HERO BANNER — 3D CRYSTAL NTS BACKGROUND (UNCROPPED) & BALANCED FOREGROUND
       ═══════════════════════════════════════════ */}
       <section className="relative w-full min-h-screen flex items-center pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
         {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
@@ -131,7 +148,7 @@ export default function About() {
               <span
                 style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
               >
-                ORGANIZATION • EXECUTIVE LEADERSHIP
+                Nexora Technology Services Pvt Ltd
               </span>
             </motion.div>
 
@@ -154,9 +171,9 @@ export default function About() {
               }}
               className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight font-heading leading-[1.12] mb-3.5 sm:mb-4 cursor-pointer select-none inline-block"
             >
-              VISIONARY LEADERSHIP <br className="hidden sm:inline" />
+              Transforming Business <br className="hidden sm:inline" />
               <span className="text-[#0051fe]">
-                ARCHITECTING GLOBAL EXCELLENCE
+                Through Next-Gen Enterprise Technology
               </span>
             </motion.h1>
 
@@ -171,9 +188,19 @@ export default function About() {
                   "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
               }}
             >
-              Meet the leaders guiding Nexora&apos;s engineering craft, rapid
-              agile execution, and unwavering commitment to client value.
+              Your trusted strategic partner for enterprise ERP solutions - from
+              roadmap evaluation and full-cycle implementation to continuous
+              support, training, and ecosystem modernization.
             </motion.p>
+            {/* <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.2 }}
+              className="text-slate-900 text-base sm:text-lg md:text-xl leading-relaxed mb-5 sm:mb-6 font-bold"
+            >
+              Your trusted strategic partner for enterprise ERP solutions - from roadmap evaluation
+              and full-cycle implementation to continuous support, training, and ecosystem modernization.
+            </motion.p> */}
 
             {/* Action Buttons */}
             <motion.div
@@ -181,7 +208,21 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.3 }}
               className="flex flex-wrap items-center gap-4 mb-5 sm:mb-6"
-            ></motion.div>
+            >
+              <Link
+                href="/contact"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0051fe] hover:bg-[#0041cb] text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_12px_28px_-4px_rgba(0,81,254,0.45)] hover:shadow-[0_18px_36px_-4px_rgba(0,81,254,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 transition-all duration-200 cursor-pointer group"
+              >
+                <span>Partner With Us</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="#services"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/90 hover:bg-white text-slate-900 hover:text-[#0051fe] border border-white text-xs sm:text-sm font-bold flex items-center gap-2 backdrop-blur-md shadow-[0_8px_20px_rgba(0,81,254,0.12)] hover:shadow-[0_12px_28px_rgba(0,81,254,0.2)] transition-all duration-200 cursor-pointer"
+              >
+                <span>Explore Services</span>
+              </Link>
+            </motion.div>
 
             {/* Enterprise Trust & Capability Metrics (Positioned Perfectly Inside Viewport) */}
             <motion.div
@@ -196,24 +237,24 @@ export default function About() {
                 </div>
                 <div>
                   <div className="text-xs font-bold text-slate-900">
-                    Direct Architect Access
+                    SOC2 & ISO
                   </div>
                   <div className="text-[11px] text-slate-600 font-medium">
-                    No Junior Filters
+                    Enterprise QA
                   </div>
                 </div>
               </div>
 
               <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-md px-3 py-2 rounded-xl border border-white/95 shadow-sm">
                 <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-200/80 flex items-center justify-center text-[#0284c7] shrink-0">
-                  <Zap className="w-4 h-4" />
+                  <Cpu className="w-4 h-4" />
                 </div>
                 <div>
                   <div className="text-xs font-bold text-slate-900">
-                    100+Systems Built
+                    ERP & Cloud
                   </div>
                   <div className="text-[11px] text-slate-600 font-medium">
-                    Mission Critical-scale
+                    Modern Arch
                   </div>
                 </div>
               </div>
@@ -224,10 +265,10 @@ export default function About() {
                 </div>
                 <div>
                   <div className="text-xs font-bold text-slate-900">
-                    100 % IP Protected
+                    24/7 Operations
                   </div>
                   <div className="text-[11px] text-slate-600 font-medium">
-                    Full Code Ownership
+                    Mission Support
                   </div>
                 </div>
               </div>
@@ -237,208 +278,252 @@ export default function About() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          LEADERSHIP DIRECTORY — FEATURED PROFILES
+          WHO WE ARE (INTRO SPLIT)
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f8fafc] via-[#edf4ff] to-[#f4f8fe]">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-3 shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
-              Executive Directory
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight font-heading">
-              The Minds Driving Nexora
-            </h2>
-            <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
-              Decades of combined engineering mastery, enterprise operational
-              scaling, and an unrelenting drive to help our clients lead their
-              industries.
-            </p>
-          </div>
+      <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
+        {/* Ambient glow */}
+        <div className="pointer-events-none absolute top-1/3 left-0 w-96 h-96 bg-blue-50 rounded-full blur-3xl -z-0" />
 
-          {/* Leaders List */}
-          <div className="space-y-12">
-            {leaders.map((leader, i) => (
-              <motion.div
-                key={leader.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-              >
-                <SpotlightCard
-                  spotlightColor="rgba(0, 81, 254, 0.14)"
-                  borderColor="rgba(0, 81, 254, 0.45)"
-                  className="p-6 sm:p-10 bg-white/95 border-blue-200/90 shadow-[0_20px_60px_-15px_rgba(0,81,254,0.12)] rounded-3xl"
-                >
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                    {/* Left: Avatar & Identity Visual */}
-                    <div className="lg:col-span-4 flex flex-col items-center text-center">
-                      <div className="relative group/avatar">
-                        {/* Ambient Glow */}
-                        <div
-                          className={`absolute -inset-4 bg-gradient-to-tr ${leader.accentGradient} opacity-30 rounded-full blur-xl group-hover/avatar:opacity-50 transition-opacity duration-300`}
-                        />
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+            {/* Left Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex-1"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
+                Who We Are
+              </div>
 
-                        {/* Modern Avatar Crest */}
-                        <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl p-1.5 bg-gradient-to-br from-white via-blue-100 to-blue-200 shadow-xl border border-blue-200/80 flex items-center justify-center">
-                          <div
-                            className={`w-full h-full rounded-[22px] bg-gradient-to-br ${leader.accentGradient} flex flex-col items-center justify-center text-white relative overflow-hidden shadow-inner`}
-                          >
-                            {/* Abstract Matrix Overlay in Avatar */}
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.25)_0%,transparent_60%)]" />
-                            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-heading mb-6 leading-tight">
+                Your End-to-End <br />
+                <span className="text-[#0051fe]">
+                  Enterprise Technology Partner
+                </span>
+              </h2>
 
-                            <span className="font-heading text-4xl sm:text-5xl font-black tracking-tight drop-shadow-md z-10">
-                              {leader.initials}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-5">
+                Nexora Technology Services Pvt Ltd helps forward-thinking
+                organisations identify and evaluate the right enterprise
+                software architectures aligned with their long-term growth and
+                operational goals.
+              </p>
 
-                      {/* Experience Stat Metric Box */}
-                      <div className="mt-6 w-full max-w-[200px]">
-                        {leader.stats.map((st, idx) => (
-                          <div
-                            key={idx}
-                            className="p-3.5 rounded-2xl bg-blue-50/80 border border-blue-200/90 text-center shadow-xs"
-                          >
-                            <p className="text-2xl font-black text-slate-950 font-heading">
-                              {st.value}
-                            </p>
-                            <p className="text-xs font-extrabold text-[#0051fe] uppercase tracking-wider mt-0.5">
-                              {st.label}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
+              <p className="text-slate-600 text-base leading-relaxed mb-8">
+                From strategic roadmap design to seamless implementation, 24/7
+                mission-critical support, and custom integrations — we combine
+                deep technical acumen, agile methodologies, and proven delivery
+                excellence.
+              </p>
 
-                      {/* Social Connect Icons */}
-                      <div className="mt-5 flex items-center gap-2.5">
-                        <a
-                          href={leader.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Connect with ${leader.name} on LinkedIn`}
-                          className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-[#0051fe] hover:text-white text-slate-700 border border-slate-200/80 flex items-center justify-center transition-all shadow-sm hover:shadow-[0_4px_16px_rgba(0,81,254,0.3)] hover:-translate-y-0.5"
-                        >
-                          <svg
-                            className="w-4 h-4"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                          </svg>
-                        </a>
-                        <a
-                          href={`mailto:${leader.email}`}
-                          aria-label={`Send an email to ${leader.name}`}
-                          className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-[#0051fe] hover:text-white text-slate-700 border border-slate-200/80 flex items-center justify-center transition-all shadow-sm hover:shadow-[0_4px_16px_rgba(0,81,254,0.3)] hover:-translate-y-0.5"
-                        >
-                          <Mail className="w-4 h-4" />
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Right: Detailed Bio, Philosophy & Expertise */}
-                    <div className="lg:col-span-8 flex flex-col justify-between space-y-6">
-                      {/* Name & Title */}
-                      <div>
-                        <div className="mb-2">
-                          <span
-                            className={`inline-flex items-center px-3 py-1 rounded-full border text-xs font-extrabold uppercase tracking-wider ${leader.badgeBg}`}
-                          >
-                            {leader.title}
-                          </span>
-                        </div>
-
-                        <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-950 font-heading tracking-tight">
-                          {leader.name}
-                        </h3>
-                      </div>
-
-                      {/* Full Bio */}
-                      <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal">
-                        {leader.bio}
-                      </p>
-
-                      {/* Executive Philosophy Quote */}
-                      <div className="relative p-5 rounded-2xl bg-gradient-to-br from-blue-50/70 via-white to-blue-50/40 border border-blue-200/80 shadow-sm">
-                        <Quote className="w-6 h-6 text-[#0051fe]/30 absolute top-4 right-4 pointer-events-none" />
-                        <p className="text-xs sm:text-sm font-medium italic text-slate-800 leading-relaxed pr-6">
-                          &quot;{leader.quote}&quot;
-                        </p>
-                      </div>
-
-                      {/* Core Competencies / Expertise Pills */}
-                      <div>
-                        <p className="text-xs font-extrabold uppercase tracking-wider text-slate-700 mb-3">
-                          Executive Focus Areas
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {leader.expertise.map((tag, idx) => (
-                            <span
-                              key={idx}
-                              className="px-3 py-1.5 rounded-xl bg-white border border-blue-200/90 text-slate-800 text-xs font-bold shadow-xs hover:border-[#0051fe] hover:text-[#0051fe] transition-colors"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+              <div className="grid grid-cols-2 gap-3 mb-10">
+                {[
+                  "ERP Architecture & Deployment",
+                  "Custom Enterprise Engineering",
+                  "Proactive Application Support",
+                  "Role-Based Team Enablement",
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-blue-50/60 border border-blue-100 text-slate-800 text-xs sm:text-sm font-semibold"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-[#0051fe] flex-shrink-0" />
+                    <span>{item}</span>
                   </div>
-                </SpotlightCard>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  href="/contact"
+                  className="px-7 py-3.5 rounded-full bg-[#0051fe] hover:bg-[#0043d4] text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-[0_8px_20px_-4px_rgba(0,81,254,0.4)] flex items-center gap-2 transition-all duration-200"
+                >
+                  <span>Start a Conversation</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/about"
+                  className="px-7 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 hover:text-[#0051fe] border border-slate-200 text-xs sm:text-sm font-bold flex items-center gap-2 transition-all duration-200"
+                >
+                  <span>About Our Leadership</span>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Right Image Composition */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex-1 relative w-full flex justify-center items-center min-h-[360px] sm:min-h-[420px]"
+            >
+              {/* Decorative Concentric Dashed Rings */}
+              <div className="absolute w-[360px] sm:w-[440px] h-[360px] sm:h-[440px] rounded-full border border-dashed border-blue-200/80 animate-[spin_60s_linear_infinite] pointer-events-none" />
+              <div className="absolute w-[260px] sm:w-[320px] h-[260px] sm:h-[320px] rounded-full border border-blue-100 pointer-events-none" />
+
+              {/* Main Image */}
+              <div className="relative w-[280px] sm:w-[360px] h-[220px] sm:h-[280px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,81,254,0.18)] border-4 border-white z-10">
+                <Image
+                  src={img1}
+                  alt="Nexora Enterprise Services"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Accent Image Top-Right */}
+              <div className="absolute top-0 right-2 sm:right-6 w-[140px] sm:w-[180px] h-[100px] sm:h-[130px] rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,81,254,0.15)] border-4 border-white z-20">
+                <Image
+                  src={img3}
+                  alt="Nexora Innovation Hub"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Accent Image Bottom-Left */}
+              <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-6 w-[150px] sm:w-[190px] h-[110px] sm:h-[140px] rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,81,254,0.15)] border-4 border-white z-20">
+                <Image
+                  src={img2}
+                  alt="Nexora Team Collaboration"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Floating Quality Badge (Smoothly Animated) */}
+              <motion.div
+                animate={{
+                  y: [0, -9, 0],
+                  rotate: [0, 1, 0, -1, 0],
+                }}
+                transition={{
+                  duration: 4.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute bottom-4 right-2 sm:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 shadow-[0_12px_32px_rgba(0,81,254,0.2)] border border-blue-200/90 flex items-center gap-3 z-30 select-none"
+              >
+                <div className="w-10 h-10 rounded-xl bg-blue-100/90 text-[#0051fe] flex items-center justify-center font-bold shadow-sm">
+                  <Award className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">
+                    ISO Certified
+                  </p>
+                  <p className="text-[11px] text-slate-500 font-medium">
+                    Enterprise QA Standard
+                  </p>
+                </div>
               </motion.div>
-            ))}
+
+              {/* Top-Left Floating Metric Badge (Smoothly Animated) */}
+              <motion.div
+                animate={{
+                  y: [0, 9, 0],
+                  rotate: [0, -1, 0, 1, 0],
+                }}
+                transition={{
+                  duration: 5.2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.6,
+                }}
+                className="absolute top-2 left-2 sm:left-4 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 shadow-[0_12px_32px_rgba(0,81,254,0.2)] border border-blue-200/90 flex items-center gap-3 z-30 select-none"
+              >
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0051fe] to-[#2563eb] text-white flex items-center justify-center font-bold shadow-sm">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">
+                    100% Secure
+                  </p>
+                  <p className="text-[11px] text-[#0051fe] font-semibold">
+                    SOC2 Compliant
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          LEADERSHIP PHILOSOPHY & ETHOS
+          CORE SERVICES GRID (2-3-2 LAYOUT)
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-blue-100/80">
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
+      <section
+        id="services"
+        className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#f4f8fe] relative overflow-hidden"
+      >
+        {/* Ambient Glow */}
+        <div className="pointer-events-none absolute top-1/4 right-0 w-[600px] h-[600px] bg-[#0051fe]/10 rounded-full blur-3xl" />
+        <div className="pointer-events-none absolute bottom-10 left-0 w-[500px] h-[500px] bg-sky-400/10 rounded-full blur-3xl" />
+
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-3 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
-              Executive Tenets
+              What We Do
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight font-heading">
-              How Our Leadership Operates
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-heading mb-4">
+              Our <span className="text-[#0051fe]">Core Services</span>
             </h2>
-            <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
-              The non-negotiable principles that guide our technical choices,
-              engagement models, and organizational growth.
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+              Comprehensive, high-impact enterprise technology solutions
+              tailored to accelerate digital transformation, modernize
+              workflows, and deliver measurable operational ROI.
             </p>
           </div>
 
-          {/* Grid of Principles */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {leadershipPrinciples.map((item, idx) => {
+          {/* 
+            CORE SERVICES 2-3-2 GRID:
+            - Row 1: 2 cards (lg:col-span-3, lg:col-span-3)
+            - Row 2: 3 cards (lg:col-span-2, lg:col-span-2, lg:col-span-2)
+            - Row 3: 2 cards (lg:col-span-3, lg:col-span-3)
+          */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+            {services.map((item, idx) => {
               const Icon = item.icon;
               return (
                 <SpotlightCard
                   key={idx}
-                  spotlightColor="rgba(0, 81, 254, 0.16)"
-                  borderColor="rgba(0, 81, 254, 0.4)"
-                  className="p-7 sm:p-8 bg-gradient-to-br from-white/95 via-blue-50/40 to-white/90 border-blue-200/90 shadow-sm"
+                  spotlightColor="rgba(0, 81, 254, 0.22)"
+                  borderColor="rgba(0, 81, 254, 0.45)"
+                  className={`flex flex-col justify-between min-h-[300px] group cursor-pointer bg-gradient-to-br from-white/95 via-blue-50/40 to-white/90 border-blue-200/80 shadow-[0_10px_30px_-5px_rgba(0,81,254,0.06)] hover:shadow-[0_20px_45px_-8px_rgba(0,81,254,0.18)] ${item.colSpan} ${
+                    idx === 6 ? "md:col-span-2 lg:col-span-3" : ""
+                  }`}
                 >
-                  <div className="flex items-start gap-4 sm:gap-5">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0051fe] to-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-[0_6px_18px_rgba(0,81,254,0.35)]">
-                      <Icon className="w-5 h-5" />
+                  <div>
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-[#0051fe] to-[#2563eb] text-white flex items-center justify-center transition-all duration-300 shadow-[0_8px_20px_-4px_rgba(0,81,254,0.4)] group-hover:scale-110">
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <span className="relative overflow-hidden px-3.5 py-1 rounded-full bg-blue-100 text-[11px] font-bold text-[#0051fe] border border-blue-200/90 transition-colors duration-500 ease-out group-hover:border-[#0051fe] group-hover:shadow-[0_4px_16px_rgba(0,81,254,0.35)]">
+                        {/* Left-to-Right Animated Fill Layer */}
+                        <span className="absolute inset-0 bg-[#0051fe] -translate-x-full group-hover:translate-x-0 transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none" />
+                        <span className="relative z-10 transition-colors duration-500 ease-out group-hover:text-white">
+                          {item.tag}
+                        </span>
+                      </span>
                     </div>
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-bold text-slate-950 font-heading mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                        {item.description}
-                      </p>
-                    </div>
+
+                    <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-[#0051fe] transition-colors duration-400 font-heading">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500 group-hover:text-[#0051fe] transition-colors">
+                    <span>Enterprise Capability</span>
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </SpotlightCard>
               );
@@ -448,57 +533,225 @@ export default function About() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          CALL TO ACTION (CTA) BANNER
+          STRATEGIC DELIVERY & APPROACH SECTION
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full py-16 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]">
-        <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-3xl p-8 sm:p-12 overflow-hidden bg-gradient-to-br from-[#0051fe] via-[#0041cb] to-[#1e3a8a] text-white shadow-[0_20px_60px_-15px_rgba(0,81,254,0.45)] border border-blue-400/40 text-center">
-            {/* Ambient Background Aura Lights */}
-            <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-sky-400/30 rounded-full blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-16 right-0 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl" />
+      <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+            {/* Left: Interactive Step Cards */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex-1 w-full"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
+                Our Approach
+              </div>
 
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 border border-white/30 text-xs font-bold uppercase tracking-wider text-cyan-200 mb-4 backdrop-blur-md">
-                <span className="w-2 h-2 rounded-full bg-cyan-300 animate-pulse" />
-                Collaborate Directly With Leadership
-              </span>
-
-              <h2 className="text-3xl sm:text-4xl font-black text-white font-heading tracking-tight mb-4">
-                Ready to Discuss Your Next Architectural Initiative?
+              <h2 className="text-[1.35rem] min-[400px]:text-2xl sm:text-3xl md:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-extrabold text-slate-900 tracking-tight font-heading mb-6 leading-tight">
+                <span className="block whitespace-nowrap">
+                  Structured, Strategic &
+                </span>
+                <span className="block text-[#0051fe] whitespace-nowrap">
+                  Results Driven Execution
+                </span>
               </h2>
 
-              <p className="text-blue-100 text-sm sm:text-base leading-relaxed mb-8 font-medium">
-                Whether you need senior architecture advisory, specialized
-                engineering pods, or cloud modernization, our executive team is
-                ready to connect.
+              <p className="text-slate-600 text-base leading-relaxed mb-8">
+                Our battle-tested engagement model ensures transparent
+                milestones, complete governance, and zero disruption to your
+                daily operations.
               </p>
 
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  href="/contact"
-                  className="px-8 py-3.5 rounded-full bg-white text-[#0051fe] hover:bg-blue-50 font-extrabold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 inline-flex items-center gap-2"
-                >
-                  <span>Schedule Meeting</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  href="/organization/execution-model"
-                  className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2"
-                >
-                  <span>Explore Execution Model</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
+              <div className="flex flex-col gap-4">
+                {approachSteps.map((item, idx) => {
+                  return (
+                    <div
+                      key={idx}
+                      className="group p-4 sm:p-5 rounded-2xl bg-slate-50/80 hover:bg-blue-50/60 border border-slate-200/80 hover:border-blue-200 transition-all duration-300 flex items-start gap-4 shadow-sm hover:shadow-md"
+                    >
+                      <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#0051fe] to-[#2563eb] text-white flex-shrink-0 flex items-center justify-center font-bold text-sm shadow-[0_4px_12px_rgba(0,81,254,0.3)] group-hover:scale-105 transition-transform">
+                        {item.step}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="font-bold text-slate-900 text-base group-hover:text-[#0051fe] transition-colors font-heading">
+                            {item.title}
+                          </h4>
+                        </div>
+                        <p className="text-slate-600 text-sm leading-relaxed">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            </div>
+            </motion.div>
+
+            {/* Right: Approach Visuals */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex-1 relative w-full flex justify-center items-center min-h-[340px] sm:min-h-[400px]"
+            >
+              {/* Concentric rings */}
+              <div className="absolute w-[340px] sm:w-[420px] h-[340px] sm:h-[420px] rounded-full border border-dashed border-blue-200 pointer-events-none" />
+
+              {/* Main Image */}
+              <div className="relative w-[280px] sm:w-[350px] h-[220px] sm:h-[270px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,81,254,0.18)] border-4 border-white z-10">
+                <Image
+                  src={img2}
+                  alt="Nexora Roadmap Planning"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Accent Image Top-Right */}
+              <div className="absolute top-0 right-2 sm:right-6 w-[140px] sm:w-[170px] h-[100px] sm:h-[125px] rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,81,254,0.15)] border-4 border-white z-20">
+                <Image
+                  src={img1}
+                  alt="Nexora System Execution"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Accent Image Bottom-Left */}
+              <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-6 w-[140px] sm:w-[170px] h-[100px] sm:h-[125px] rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(0,81,254,0.15)] border-4 border-white z-20">
+                <Image
+                  src={img3}
+                  alt="Nexora Client Delivery"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Floating Agile Pill Badge (Smoothly Animated) */}
+              <motion.div
+                animate={{
+                  y: [0, -10, 0],
+                  rotate: [0, -1, 0, 1, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute top-6 left-2 sm:left-6 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 shadow-[0_12px_32px_rgba(0,81,254,0.2)] border border-blue-200/90 flex items-center gap-3 z-30 select-none"
+              >
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0051fe] to-[#2563eb] text-white flex items-center justify-center font-bold shadow-sm">
+                  <Rocket className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">
+                    Agile Delivery
+                  </p>
+                  <p className="text-[11px] text-[#0051fe] font-semibold">
+                    Faster Time-to-Market
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Bottom-Right Floating Speed Metric (Smoothly Animated) */}
+              <motion.div
+                animate={{
+                  y: [0, 8, 0],
+                  rotate: [0, 1, 0, -1, 0],
+                }}
+                transition={{
+                  duration: 5.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.8,
+                }}
+                className="absolute bottom-6 right-2 sm:right-6 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 shadow-[0_12px_32px_rgba(0,81,254,0.2)] border border-blue-200/90 flex items-center gap-3 z-30 select-none"
+              >
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0051fe] to-[#0284c7] text-white flex items-center justify-center font-bold shadow-sm">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">
+                    Zero Downtime
+                  </p>
+                  <p className="text-[11px] text-[#0051fe] font-semibold">
+                    Seamless Migration
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          SHARED ENTERPRISE FOOTER
+          CTA BANNER (With Outward Curved Integration & Footer Fill)
       ═══════════════════════════════════════════ */}
-      <Footer />
+      <div className="relative w-full bg-[#f8fafc]">
+        <section className="relative pt-20 md:pt-24 pb-28 md:pb-36 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#06112a] via-[#0036a7] to-[#0051fe] text-white overflow-hidden rounded-t-[2.5rem] sm:rounded-t-[3.5rem] md:rounded-t-[4.5rem]">
+          {/* Glow Spheres */}
+          <div className="pointer-events-none absolute -top-20 left-1/4 w-80 h-80 bg-sky-400/20 rounded-full blur-3xl" />
+          <div className="pointer-events-none absolute bottom-0 right-1/4 w-96 h-96 bg-[#0051fe]/35 rounded-full blur-3xl" />
+
+          {/* Cyber matrix grid */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+
+          <div className="max-w-4xl mx-auto text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-cyan-200 text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
+                Ready to Accelerate Growth?
+              </span>
+
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight mb-6">
+                Let&apos;s Build Your Enterprise{" "}
+                <br className="hidden sm:inline" />
+                <span className="text-cyan-200">
+                  Transformation Journey Together
+                </span>
+              </h2>
+
+              <p className="text-blue-100 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10 opacity-90 font-normal">
+                Partner with Nexora to unlock the full potential of your
+                technology architecture. From evaluation to scalable execution,
+                we are with you every step of the way.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="/contact"
+                  className="px-8 py-4 rounded-full bg-white text-[#0051fe] hover:bg-blue-50 text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_10px_25px_-4px_rgba(0,0,0,0.3)] hover:shadow-[0_16px_34px_-4px_rgba(0,0,0,0.4)] flex items-center gap-2 transition-all duration-200 cursor-pointer group"
+                >
+                  <span>Start a Conversation</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/about"
+                  className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/30 text-xs sm:text-sm font-bold flex items-center gap-2 backdrop-blur-md transition-all duration-200 cursor-pointer"
+                >
+                  <span>Explore About Us</span>
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Seamless Footer Integration with Outward Curved Overlap */}
+        <div className="-mt-14 sm:-mt-16 md:-mt-20 relative z-20">
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 }
