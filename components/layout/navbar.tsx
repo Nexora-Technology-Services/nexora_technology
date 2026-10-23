@@ -47,7 +47,6 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
   const navRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -88,15 +87,49 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // Disable page scrolling when mega menu or mobile menu is active/open across all tabs
+  useEffect(() => {
+    if (activeDropdown || mobileMenuOpen) {
+      const prevHtmlOverflow = document.documentElement.style.overflow;
+      const prevBodyOverflow = document.body.style.overflow;
+
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+
+      // Prevent wheel & touch scrolling from leaking to the page (covers About, Careers, What We Serve)
+      const preventScrollLeak = (e: WheelEvent | TouchEvent) => {
+        const target = e.target as HTMLElement | null;
+        // Allow internal scrolling inside menu only if the content actually overflows
+        const scrollable = target?.closest(".overflow-y-auto") as HTMLElement | null;
+        if (scrollable && scrollable.scrollHeight > scrollable.clientHeight) {
+          return;
+        }
+        e.preventDefault();
+      };
+
+      window.addEventListener("wheel", preventScrollLeak, { passive: false });
+      window.addEventListener("touchmove", preventScrollLeak, { passive: false });
+
+      return () => {
+        document.documentElement.style.overflow = prevHtmlOverflow;
+        document.body.style.overflow = prevBodyOverflow;
+        window.removeEventListener("wheel", preventScrollLeak);
+        window.removeEventListener("touchmove", preventScrollLeak);
+      };
+    }
+  }, [activeDropdown, mobileMenuOpen]);
+
   const closeAll = () => {
     setActiveDropdown(null);
     setMobileMenuOpen(false);
-    setHoveredNav(null);
   };
 
-  // Close on route change
+  // Close on route change asynchronously to avoid synchronous cascading renders
   useEffect(() => {
-    closeAll();
+    const timer = setTimeout(() => {
+      closeAll();
+    }, 0);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   const navItems: NavItem[] = [
@@ -245,25 +278,30 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={closeAll}
-            className="fixed inset-0 bg-slate-900/20 backdrop-blur-[2px] z-40 pointer-events-auto"
+            className="fixed inset-0 bg-slate-950/20 backdrop-blur-md sm:backdrop-blur-lg z-40 pointer-events-auto"
             aria-hidden="true"
           />
         )}
       </AnimatePresence>
 
-      {/* Floating White Frosted-Glass Header */}
+      {/* Floating Glassmorphic Header */}
       <header className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none">
         <motion.nav
           ref={navRef}
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className={`pointer-events-auto w-full max-w-6xl xl:max-w-7xl rounded-2xl sm:rounded-full transition-all duration-300 relative ${
+          className={`pointer-events-auto w-full max-w-6xl xl:max-w-7xl transition-all duration-300 relative border ${
+            mobileMenuOpen ? "rounded-3xl" : "rounded-2xl sm:rounded-full"
+          } ${
             scrolled || activeDropdown
-              ? "bg-white/95 shadow-[0_16px_45px_-8px_rgba(0,81,254,0.18),0_0_0_1px_rgba(255,255,255,0.95)] backdrop-blur-2xl py-2 px-4 sm:px-6"
-              : "bg-white/85 shadow-[0_12px_36px_-6px_rgba(15,23,42,0.08),0_0_0_1px_rgba(255,255,255,0.9)] backdrop-blur-xl py-2.5 px-4 sm:px-6"
+              ? "bg-white/45 backdrop-blur-lg backdrop-saturate-150 border-white/50 shadow-[0_20px_45px_-8px_rgba(15,23,42,0.18),0_10px_24px_-4px_rgba(0,81,254,0.15),0_-8px_24px_-2px_rgba(15,23,42,0.12),0_-4px_12px_rgba(0,81,254,0.1),inset_0_1px_1px_rgba(255,255,255,0.85)] py-2 px-4 sm:px-6"
+              : "bg-white/30 backdrop-blur-md backdrop-saturate-150 border-white/40 shadow-[0_16px_36px_-6px_rgba(15,23,42,0.14),0_8px_20px_-4px_rgba(0,81,254,0.12),0_-6px_20px_-2px_rgba(15,23,42,0.1),0_-3px_10px_rgba(0,81,254,0.08),inset_0_1px_1px_rgba(255,255,255,0.75)] py-2.5 px-4 sm:px-6"
           }`}
         >
+          {/* Top Specular Light Reflection (Apple Glass aesthetic) */}
+          <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none rounded-t-full" />
+
           <div className="flex items-center justify-between">
             {/* Brand Logo */}
             <Link
@@ -293,7 +331,6 @@ export default function Navbar() {
               {navItems.map((item) => {
                 const hasSub = Boolean("columns" in item && item.columns);
                 const isCurrentPage = item.href ? pathname === item.href : false;
-                const isHovered = hoveredNav === item.label;
                 const isOpen = activeDropdown === item.label;
 
                 if (!hasSub) {
@@ -301,37 +338,19 @@ export default function Navbar() {
                     <Link
                       key={item.label}
                       href={item.href!}
-                      onMouseEnter={() => setHoveredNav(item.label)}
-                      onMouseLeave={() => setHoveredNav(null)}
                       onClick={closeAll}
-                      className={`relative px-3.5 xl:px-4 py-2 rounded-full text-[15px] font-bold tracking-[-0.01em] transition-colors duration-200 select-none ${
+                      className={`relative px-3.5 xl:px-4 py-2 rounded-full text-[15px] font-bold tracking-[-0.01em] transition-colors duration-100 select-none group ${
                         isCurrentPage
                           ? "text-[#0051fe] font-extrabold"
                           : "text-slate-800 hover:text-[#0051fe]"
                       }`}
                     >
-                      {/* Floating hover pill */}
-                      <AnimatePresence>
-                        {isHovered && (
-                          <motion.span
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.15, ease: "easeOut" }}
-                            className="absolute inset-0 rounded-full bg-blue-50/90 -z-10 shadow-[0_2px_8px_rgba(0,81,254,0.08)] pointer-events-none"
-                          />
-                        )}
-                      </AnimatePresence>
+                      {/* Floating crystal glass hover pill — 100% Pure CSS, zero JS state lag */}
+                      <span
+                        className="absolute inset-0 rounded-full bg-white/50 border border-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.7)] -z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-75 group-hover:duration-100 ease-out"
+                      />
 
                       <span className="relative z-10">{item.label}</span>
-
-                      {/* Active Route Indicator Bar */}
-                      {isCurrentPage && (
-                        <motion.span
-                          layoutId="activeNavIndicator"
-                          className="absolute bottom-[-2px] left-3.5 right-3.5 h-[3px] bg-[#0051fe] rounded-full shadow-[0_2px_8px_rgba(0,81,254,0.4)]"
-                        />
-                      )}
                     </Link>
                   );
                 }
@@ -340,32 +359,23 @@ export default function Navbar() {
                   <div key={item.label} className="relative">
                     <button
                       type="button"
-                      onMouseEnter={() => setHoveredNav(item.label)}
-                      onMouseLeave={() => setHoveredNav(null)}
                       onClick={() => {
-                        // Submenu items only appear when clicking the item!
                         setActiveDropdown(isOpen ? null : item.label);
                       }}
                       aria-expanded={isOpen}
                       aria-haspopup="true"
-                      className={`relative px-3.5 xl:px-4 py-2 rounded-full text-[15px] font-bold tracking-[-0.01em] flex items-center gap-1.5 transition-colors duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0051fe] ${
-                        isOpen || isHovered
+                      className={`relative px-3.5 xl:px-4 py-2 rounded-full text-[15px] font-bold tracking-[-0.01em] flex items-center gap-1.5 transition-colors duration-100 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0051fe] group ${
+                        isOpen
                           ? "text-[#0051fe]"
                           : "text-slate-800 hover:text-[#0051fe]"
                       }`}
                     >
-                      {/* Floating hover pill */}
-                      <AnimatePresence>
-                        {isHovered && (
-                          <motion.span
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.15, ease: "easeOut" }}
-                            className="absolute inset-0 rounded-full bg-blue-50/90 -z-10 shadow-[0_2px_8px_rgba(0,81,254,0.08)] pointer-events-none"
-                          />
-                        )}
-                      </AnimatePresence>
+                      {/* Floating crystal glass hover pill — 100% Pure CSS, zero JS state lag */}
+                      <span
+                        className={`absolute inset-0 rounded-full bg-white/50 border border-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.7)] -z-10 pointer-events-none transition-opacity duration-75 group-hover:duration-100 ease-out ${
+                          isOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                        }`}
+                      />
 
                       <span className="relative z-10">{item.label}</span>
                       <ChevronDown
@@ -373,14 +383,6 @@ export default function Navbar() {
                           isOpen ? "rotate-180 text-[#0051fe]" : "opacity-70"
                         }`}
                       />
-
-                      {/* Active indicator bar when open */}
-                      {isOpen && (
-                        <motion.span
-                          layoutId="activeNavIndicator"
-                          className="absolute bottom-[-2px] left-3.5 right-3.5 h-[3px] bg-[#0051fe] rounded-full shadow-[0_2px_8px_rgba(0,81,254,0.4)]"
-                        />
-                      )}
                     </button>
                   </div>
                 );
@@ -409,7 +411,7 @@ export default function Navbar() {
             <div className="lg:hidden flex items-center">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-xl text-slate-700 hover:text-[#0051fe] hover:bg-blue-50 transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-slate-700 hover:text-[#0051fe] hover:bg-white/40 hover:backdrop-blur-sm transition-colors cursor-pointer"
                 aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? (
@@ -423,7 +425,7 @@ export default function Navbar() {
 
           {/* ═══════════════════════════════════════════════════════════════
               DESKTOP MEGA MENU SUBMENU (UP TO 3/4TH SCREEN HEIGHT)
-              Styled with the original white glassmorphism aesthetics!
+              Styled with Cohesive Frosted Glassmorphism!
           ═══════════════════════════════════════════════════════════════ */}
           <AnimatePresence>
             {activeDropdown && (
@@ -432,8 +434,11 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute left-0 right-0 top-[calc(100%+10px)] w-full rounded-3xl bg-white/95 backdrop-blur-3xl border border-white/90 shadow-[0_24px_65px_-12px_rgba(0,81,254,0.18),0_0_0_1px_rgba(0,81,254,0.06)] overflow-hidden max-h-[75vh] flex flex-col z-50"
+                className="absolute left-0 right-0 top-[calc(100%+12px)] w-full rounded-3xl bg-[#f0f7ff]/80 backdrop-blur-[80px] backdrop-saturate-150 border border-sky-100/80 shadow-[0_24px_55px_-10px_rgba(15,23,42,0.18),0_12px_28px_-6px_rgba(0,81,254,0.15),0_4px_12px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)] overflow-hidden max-h-[75vh] flex flex-col z-50"
               >
+                {/* Mega-menu specular top highlight */}
+                <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/90 to-transparent pointer-events-none rounded-t-3xl" />
+
                 {navItems.map((item) => {
                   if (
                     item.label !== activeDropdown ||
@@ -450,7 +455,7 @@ export default function Navbar() {
                       className="p-7 sm:p-9 lg:p-10 overflow-y-auto flex flex-col justify-between flex-1 space-y-6"
                     >
                       {/* Top Header: About Nexora with Electric Blue Icon Linking to Overview */}
-                      <div className="flex items-center justify-between pb-5 border-b border-slate-100">
+                      <div className="flex items-center justify-between pb-5 border-b border-sky-100/70">
                         <Link
                           href={item.overviewHref}
                           onClick={closeAll}
@@ -470,8 +475,8 @@ export default function Navbar() {
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 xl:gap-16 w-full">
                         {item.columns.map((col, cIdx) => (
                           <div key={cIdx} className="space-y-3.5 w-full">
-                            {/* Non-Clickable Category Heading */}
-                            <p className="text-xs font-extrabold text-slate-400 select-none cursor-default tracking-wider uppercase font-heading px-1">
+                            {/* Non-Clickable Category Heading in Primary Blue (Larger & Bold) */}
+                            <p className="text-[14px] sm:text-[15px] font-black text-[#0051fe] select-none cursor-default tracking-wider uppercase font-heading px-1">
                               {col.heading}
                             </p>
 
@@ -482,11 +487,14 @@ export default function Navbar() {
                                   <Link
                                     href={sub.href}
                                     onClick={closeAll}
-                                    className="flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-blue-50/80 rounded-xl transition-all duration-200 group w-full"
+                                    className="relative flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-white/65 hover:shadow-sm border border-transparent hover:border-sky-100/70 rounded-xl transition-colors duration-100 group w-full overflow-hidden"
                                   >
                                     <span className="w-2 h-2 rounded-full bg-[#0051fe] shrink-0 shadow-[0_0_8px_rgba(0,81,254,0.35)] opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all" />
                                     <span className="flex-1">{sub.name}</span>
                                     <ChevronRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#0051fe]" />
+
+                                    {/* Smooth slow bottom accent bar on hover */}
+                                    <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-gradient-to-r from-[#0051fe] via-[#2563eb] to-[#38bdf8] rounded-full scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out shadow-[0_1px_6px_rgba(0,81,254,0.4)] pointer-events-none" />
                                   </Link>
                                 </li>
                               ))}
@@ -503,7 +511,7 @@ export default function Navbar() {
 
           {/* ═══════════════════════════════════════════════════════════════
               MOBILE NAVIGATION DRAWER
-              Styled with the original white glassmorphism aesthetics!
+              Styled with Cohesive Frosted Glassmorphism!
           ═══════════════════════════════════════════════════════════════ */}
           <AnimatePresence>
             {mobileMenuOpen && (
@@ -512,7 +520,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                className="lg:hidden mt-3 pt-3 border-t border-slate-100 max-h-[75vh] overflow-y-auto space-y-1 pb-2"
+                className="lg:hidden mt-3 pt-3 border-t border-white/40 max-h-[75vh] overflow-y-auto space-y-1 pb-2"
               >
                 {navItems.map((item) => {
                   if (
@@ -525,7 +533,7 @@ export default function Navbar() {
                         key={item.label}
                         href={item.href || "/"}
                         onClick={closeAll}
-                        className="block px-3.5 py-2.5 rounded-xl text-base font-bold text-slate-900 hover:text-[#0051fe] hover:bg-blue-50/80 transition-colors"
+                        className="block px-3.5 py-2.5 rounded-xl text-base font-bold text-slate-900 hover:text-[#0051fe] hover:bg-white/40 hover:backdrop-blur-sm transition-colors"
                       >
                         {item.label}
                       </Link>
@@ -543,7 +551,7 @@ export default function Navbar() {
                         onClick={() =>
                           setMobileExpanded(isExpanded ? null : item.label)
                         }
-                        className="w-full flex items-center justify-between px-3.5 py-2.5 text-base font-bold text-slate-900 hover:text-[#0051fe] hover:bg-blue-50/80 transition-colors cursor-pointer"
+                        className="w-full flex items-center justify-between px-3.5 py-2.5 text-base font-bold text-slate-900 hover:text-[#0051fe] hover:bg-white/40 hover:backdrop-blur-sm transition-colors cursor-pointer"
                       >
                         <span>{item.label}</span>
                         <ChevronDown
@@ -560,7 +568,7 @@ export default function Navbar() {
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="pl-3 pr-1 py-2 space-y-3 bg-slate-50/80 rounded-xl my-1 overflow-hidden"
+                            className="pl-3 pr-1 py-2 space-y-3 bg-white/35 backdrop-blur-md border border-white/45 rounded-xl my-1 overflow-hidden"
                           >
                             {/* Overview Link */}
                             <Link
@@ -587,7 +595,7 @@ export default function Navbar() {
                                       key={sIdx}
                                       href={sub.href}
                                       onClick={closeAll}
-                                      className="block px-3 py-1.5 text-sm font-semibold text-slate-700 hover:text-[#0051fe] hover:bg-white rounded-lg transition-colors"
+                                      className="block px-3 py-1.5 text-sm font-semibold text-slate-700 hover:text-[#0051fe] hover:bg-white/50 rounded-lg transition-colors"
                                     >
                                       • {sub.name}
                                     </Link>

@@ -114,7 +114,7 @@ export default function Organization() {
       {/* ═══════════════════════════════════════════
           HERO BANNER — 3D CRYSTAL NTS BACKGROUND (UNCROPPED) & BALANCED FOREGROUND
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full min-h-screen flex items-center pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
+      <section id="overview" className="relative w-full min-h-screen flex items-center pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-10 xl:px-14 overflow-hidden border-b border-sky-200/70 bg-[#c5dfff]">
         {/* Full Bleed Hero Background Image (Edge-to-Edge with Visible Right-Aligned NTS 3D Logo) */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -148,7 +148,7 @@ export default function Organization() {
               <span
                 style={{ textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)" }}
               >
-                Nexora Technology Services Pvt Ltd
+                About Nexora • Enterprise Overview
               </span>
             </motion.div>
 

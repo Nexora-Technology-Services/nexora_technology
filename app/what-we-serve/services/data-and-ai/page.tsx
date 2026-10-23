@@ -544,7 +544,16 @@ export default function DataAIPage() {
               ].map((tab) => (
                 <button
                   key={tab.key}
-                  onClick={() => setActiveCategory(tab.key as any)}
+                  onClick={() =>
+                    setActiveCategory(
+                      tab.key as
+                        | "all"
+                        | "analytics"
+                        | "bi"
+                        | "automation"
+                        | "ml"
+                    )
+                  }
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer ${
                     activeCategory === tab.key
                       ? "bg-[#0051fe] text-white shadow-sm"
