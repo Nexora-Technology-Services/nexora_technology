@@ -39,7 +39,7 @@ const investorPillars = [
   {
     icon: Building2,
     title: "Global Market Expansion",
-    desc: "Systematic scale into high-growth North American, EMEA, and APAC enterprise technology sectors through dedicated delivery pods.",
+    desc: "Systematic scale into high-growth North American, EMEA, and APAC enterprise technology sectors through dedicated delivery teams.",
   },
 ];
 

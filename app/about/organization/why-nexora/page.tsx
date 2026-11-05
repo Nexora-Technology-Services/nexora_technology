@@ -8,70 +8,75 @@ import heroBg from "@/public/images/hero-section.png";
 import SpotlightCard from "@/components/ui/spotlightcard";
 import Footer from "@/components/layout/footer";
 import {
-  Zap,
-  Target,
-  Globe2,
-  Users2,
   CheckCircle2,
-  XCircle,
   ArrowRight,
+  Zap,
+  ShieldCheck,
+  TrendingUp,
+  Sparkles,
+  HeartHandshake,
 } from "lucide-react";
 
 export default function WhyNexoraPage() {
   const [h1Hovered, setH1Hovered] = useState(false);
 
-  const whyItems = [
+  const partnerPoints = [
     {
-      icon: Zap,
-      title: "Velocity & Agility",
-      desc: "Rapid sprint delivery with continuous feedback loops, bringing products to market up to 40% faster than traditional agency cycles.",
-      stat: "40% Faster Release",
+      title: "Industry Understanding",
+      desc: "Experience in manufacturing, distribution and enterprise technology environments.",
     },
     {
-      icon: Target,
-      title: "Business-First Architecture",
-      desc: "We don't just write code; we design scalable digital engines aligned with your revenue metrics, customer LTV, and retention.",
-      stat: "ROI-Aligned Design",
+      title: "End-to-End Capabilities",
+      desc: "From application development to cloud, data integration and support.",
     },
     {
-      icon: Globe2,
-      title: "Future-Ready Systems",
-      desc: "Built with modern protocols, strict security benchmarks, and elastic cloud infrastructure ready for massive concurrency.",
-      stat: "99.99% Elastic Scale",
+      title: "Flexible Engagement Models",
+      desc: "Project-based, dedicated teams, or long-term partnership.",
     },
     {
-      icon: Users2,
-      title: "Dedicated Partnership",
-      desc: "Direct access to senior solution architects, proactive communication, and long-term post-launch lifecycle support.",
-      stat: "Zero Account Layers",
+      title: "Skilled & Scalable Talent",
+      desc: "Access to experienced engineers and domain-savvy teams when you need them.",
+    },
+    {
+      title: "Quality & Security Focus",
+      desc: "Built-in quality processes, secure development practices and compliance awareness.",
+    },
+    {
+      title: "Collaborative Approach",
+      desc: "We work as an extension of your team, with transparency, shared ownership and focus on outcomes.",
     },
   ];
 
-  const comparison = [
+  const clientBenefits = [
     {
-      feature: "Team Seniority",
-      traditional: "Junior staff behind account managers",
-      nexora: "Dedicated senior architects & core pods",
+      icon: Zap,
+      badge: "Speed",
+      title: "Faster Time to Value",
+      desc: "Experienced teams and proven methodologies.",
     },
     {
-      feature: "Sprint Feedback",
-      traditional: "Monthly delayed status presentations",
-      nexora: "Bi-weekly live demos & staging previews",
+      icon: ShieldCheck,
+      badge: "Security",
+      title: "Reduced Execution Risk",
+      desc: "Structured delivery, quality and security focus.",
     },
     {
-      feature: "IP Ownership",
-      traditional: "Proprietary lock-ins and royalties",
-      nexora: "100% full client IP transfer from Day 1",
+      icon: TrendingUp,
+      badge: "Output",
+      title: "Operational Efficiency",
+      desc: "Technology solutions that simplify processes and improve productivity.",
     },
     {
-      feature: "Code Quality",
-      traditional: "Manual regression and accumulated tech debt",
-      nexora: "Automated test suites & strict linting benchmarks",
+      icon: Sparkles,
+      badge: "Agility",
+      title: "Access to Innovation",
+      desc: "Modern technologies to support evolving business needs.",
     },
     {
-      feature: "Post-Launch SLA",
-      traditional: "Ticket-based generic queue support",
-      nexora: "24/7 dedicated engineering telemetry & SLAs",
+      icon: HeartHandshake,
+      badge: "Trust",
+      title: "Long-Term Partnership",
+      desc: "Committed to your growth journey beyond individual projects.",
     },
   ];
 
@@ -156,7 +161,7 @@ export default function WhyNexoraPage() {
               }}
             >
               Discover why fast-growing scaleups and enterprise leaders trust
-              our dedicated pods for high-stakes digital transformations.
+              our dedicated teams for high-stakes digital transformations.
             </motion.p>
 
             {/* Action Buttons */}
@@ -179,107 +184,113 @@ export default function WhyNexoraPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          WHY NEXORA GRID
+          THE RIGHT PARTNER SECTION (STRATEGIC LEVERAGE)
       ═══════════════════════════════════════════ */}
       <section className="relative w-full py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f8fafc] via-[#edf4ff] to-[#f4f8fe]">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
               Strategic Leverage
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
-              Why Ambitious{" "}
-              <span className="text-[#0051fe]">Leaders Choose Us</span>
+              The right partner to support your{" "}
+              <span className="text-[#0051fe]">digital journey.</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {whyItems.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <SpotlightCard
-                  key={idx}
-                  spotlightColor="rgba(0, 81, 254, 0.18)"
-                  borderColor="rgba(0, 81, 254, 0.45)"
-                  className="flex flex-col justify-between p-8 bg-gradient-to-br from-white/95 via-blue-50/40 to-white/90 border-blue-200/90 shadow-[0_12px_35px_-6px_rgba(0,81,254,0.08)]"
-                >
-                  <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0051fe] to-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-[0_8px_22px_-4px_rgba(0,81,254,0.4)]">
-                      <Icon className="w-7 h-7" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-[#0051fe] transition-colors font-heading">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-slate-600 leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {partnerPoints.map((item, idx) => (
+              <SpotlightCard
+                key={idx}
+                spotlightColor="rgba(0, 81, 254, 0.15)"
+                borderColor="rgba(0, 81, 254, 0.35)"
+                className="flex flex-col p-7 bg-white/95 border-blue-200/80 shadow-[0_8px_30px_-6px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.12)] transition-all"
+              >
+                <div className="flex items-center gap-3 mb-3.5">
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 text-[#0051fe] flex items-center justify-center shrink-0 font-bold text-sm">
+                    0{idx + 1}
                   </div>
-
-                  <div className="mt-6 pt-4 border-t border-blue-100 flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#0051fe] uppercase tracking-wider">
-                      {item.stat}
-                    </span>
-                    <span className="text-xs font-semibold text-slate-500">
-                      Enterprise Standard
-                    </span>
-                  </div>
-                </SpotlightCard>
-              );
-            })}
+                  <h3 className="text-lg font-bold text-slate-900 font-heading leading-snug">
+                    {item.title}
+                  </h3>
+                </div>
+                <p className="text-sm text-slate-600 leading-relaxed pl-12">
+                  {item.desc}
+                </p>
+              </SpotlightCard>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          COMPARATIVE DIFFERENTIATION TABLE
+          WHAT THIS MEANS FOR OUR CLIENTS (SINGLE ROW 5-COLUMN)
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-blue-100/80">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+      <section className="relative w-full py-20 md:py-28 px-4 sm:px-6 lg:px-8 xl:px-12 bg-white border-t border-blue-100/80">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
+              Client Impact
+            </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
-              Traditional Outsourcing vs{" "}
-              <span className="text-[#0051fe]">Nexora</span>
+              What this means for{" "}
+              <span className="text-[#0051fe]">our clients</span>
             </h2>
             <p className="mt-3 text-slate-600 text-sm sm:text-base">
-              A transparent comparison of how our dedicated pod model delivers
-              superior outcomes.
+              Clear, compounding outcomes engineered into every engagement.
             </p>
           </div>
 
-          <div className="rounded-3xl overflow-hidden border border-blue-200/90 shadow-xl bg-white">
-            <div className="grid grid-cols-12 bg-slate-900 text-white p-4 sm:p-5 text-xs sm:text-sm font-bold uppercase tracking-wider">
-              <div className="col-span-4 sm:col-span-4">Evaluation Metric</div>
-              <div className="col-span-4 sm:col-span-4 text-slate-400">
-                Traditional Agency
-              </div>
-              <div className="col-span-4 sm:col-span-4 text-cyan-300 font-extrabold">
-                Nexora Technology Services
-              </div>
-            </div>
-
-            <div className="divide-y divide-blue-100">
-              {comparison.map((row, rIdx) => (
-                <div
-                  key={rIdx}
-                  className="grid grid-cols-12 p-4 sm:p-5 items-center text-xs sm:text-sm hover:bg-blue-50/40 transition-colors"
+          {/* 5-Column Grid with Horizontal Flow */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-3.5 xl:gap-4.5">
+            {clientBenefits.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <SpotlightCard
+                  key={idx}
+                  spotlightColor="rgba(0, 81, 254, 0.18)"
+                  borderColor="rgba(0, 81, 254, 0.4)"
+                  className="group relative flex flex-col justify-between p-5 xl:p-6 rounded-2xl bg-gradient-to-b from-white via-[#f8fbff] to-blue-50/20 border-blue-100 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_32px_-8px_rgba(0,81,254,0.18)] hover:-translate-y-1.5 transition-all duration-300"
                 >
-                  <div className="col-span-4 sm:col-span-4 font-bold text-slate-900">
-                    {row.feature}
+                  <div>
+                    {/* Top Accent: Numbering badge & Category Tag */}
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <span className="text-[11px] font-black font-mono tracking-wider text-[#0051fe]/70 bg-blue-50/90 px-2 py-0.5 rounded-md border border-blue-100/80">
+                        0{idx + 1}
+                      </span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100/80 px-2 py-0.5 rounded-full">
+                        {item.badge}
+                      </span>
+                    </div>
+
+                    {/* Icon container */}
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#0051fe] to-[#2563eb] text-white flex items-center justify-center mb-4 shadow-[0_8px_18px_-4px_rgba(0,81,254,0.4)] group-hover:scale-105 group-hover:rotate-1 transition-transform duration-300">
+                      <Icon className="w-5 h-5" />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-[15px] xl:text-base font-extrabold text-slate-900 font-heading leading-snug mb-2 group-hover:text-[#0051fe] transition-colors">
+                      {item.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs xl:text-[13px] text-slate-600 leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
-                  <div className="col-span-4 sm:col-span-4 text-slate-500 flex items-center gap-1.5 pr-2">
-                    <XCircle className="w-4 h-4 text-red-400 shrink-0" />
-                    <span>{row.traditional}</span>
-                  </div>
-                  <div className="col-span-4 sm:col-span-4 text-[#0051fe] font-bold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
-                    <span>{row.nexora}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+
+                  {/* Bottom indicator border line */}
+                  {/* <div className="mt-5 pt-3.5 border-t border-blue-100/70 flex items-center justify-between">
+                    <span className="text-[10px] font-semibold text-slate-400 group-hover:text-[#0051fe] transition-colors">
+                      Guaranteed Focus
+                    </span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#0051fe]/60 group-hover:text-[#0051fe] transition-colors" />
+                  </div> */}
+                </SpotlightCard>
+              );
+            })}
           </div>
 
           <div className="mt-16 text-center">

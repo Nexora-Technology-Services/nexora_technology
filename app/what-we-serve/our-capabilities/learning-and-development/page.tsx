@@ -195,7 +195,7 @@ export default function LearningDevelopment() {
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
-                href="/components/Organization"
+                href="/about"
                 className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/90 hover:bg-white text-slate-900 hover:text-[#0051fe] border border-white text-xs sm:text-sm font-bold flex items-center gap-2 backdrop-blur-md shadow-[0_8px_20px_rgba(0,81,254,0.12)] hover:shadow-[0_12px_28px_rgba(0,81,254,0.2)] transition-all duration-200 cursor-pointer"
               >
                 <span>About Us</span>
@@ -292,7 +292,7 @@ export default function LearningDevelopment() {
                 </Link>
 
                 <Link
-                  href="/components/Organization"
+                  href="/about"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
                 >
                   About Us
@@ -608,7 +608,7 @@ export default function LearningDevelopment() {
                 </Link>
 
                 <Link
-                  href="/components/Organization"
+                  href="/about"
                   className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
                 >
                   <span>About Us</span>

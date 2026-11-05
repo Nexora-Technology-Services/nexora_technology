@@ -4,146 +4,28 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import heroBg from "@/public/images/hero-section.png";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import SpotlightCard from "@/components/ui/spotlightcard";
 import Footer from "@/components/layout/footer";
 import img1 from "@/public/images/img-1.jpg";
 import img2 from "@/public/images/img-2.jpg";
 import img3 from "@/public/images/img-3.jpg";
 import {
-  Settings2,
-  Code2,
-  ArrowUpCircle,
-  Globe,
-  ShieldCheck,
+ 
   CheckCircle2,
   ArrowRight,
   ArrowUpRight,
   Sparkles,
-  Workflow,
   TrendingUp,
   BarChart3,
   Users,
   Factory,
   Building2,
-  Gauge,
   Boxes,
-  Lock,
-  ChevronLeft,
-  ChevronRight,
-  Activity,
+ 
 } from "lucide-react";
 
-// Core ERP Service Pillars
-interface ServicePillar {
-  id: string;
-  stepNumber: string;
-  title: string;
-  subtitle: string;
-  badge: string;
-  icon: React.ElementType;
-  content: string[];
-  capabilities: string[];
-  metrics: string;
-}
 
-const erpServices: ServicePillar[] = [
-  {
-    id: "implementation",
-    stepNumber: "01",
-    title: "Implementation",
-    subtitle: "End-to-End Enterprise System Deployment",
-    badge: "Core Service",
-    icon: Settings2,
-    content: [
-      "ERP Implementation helps organizations streamline and automate their business processes by integrating various functions such as finance, HR, inventory, procurement, sales, and operations into a single centralized system.",
-      "A successful ERP implementation improves operational efficiency, enhances data accuracy, enables real-time reporting, and supports better decision-making across the organization.",
-    ],
-    capabilities: [
-      "Multi-Department Business Process Integration",
-      "Unified Central Data Repository & Master Data Management",
-      "Automated End-to-End Operational Workflows",
-      "Real-Time Executive BI & Reporting Dashboards",
-    ],
-    metrics: "40% Faster Cross-Department Workflow Execution",
-  },
-  {
-    id: "custom-development",
-    stepNumber: "02",
-    title: "Custom Development",
-    subtitle: "Tailor-Made Modules & Specialized Extensions",
-    badge: "High Flexibility",
-    icon: Code2,
-    content: [
-      "ERP Custom Development enables businesses to build tailored ERP solutions that align perfectly with their unique workflows, operational requirements, and industry-specific processes. Unlike standard ERP systems, custom ERP development provides flexibility to add personalized modules, automate complex tasks, integrate third-party applications, and scale as the business grows.",
-      "Our ERP custom development services focus on designing user-friendly, secure, and scalable solutions that improve efficiency, enhance productivity, and provide real-time business insights. From finance and inventory management to HR, CRM, and reporting dashboards, we develop customized ERP applications that help organizations streamline operations and achieve better business performance.",
-    ],
-    capabilities: [
-      "Custom Workflow Automation & Specialized Business Logic",
-      "Enterprise REST / GraphQL & Legacy Third-Party API Integration",
-      "Modular Microservices & Scalable Cloud Micro-Frontends",
-      "Role-Based Access Control (RBAC) & Custom Governance Portals",
-    ],
-    metrics: "100% Fit to Unique Industry Operating Workflows",
-  },
-  {
-    id: "upgrade",
-    stepNumber: "03",
-    title: "Upgrade & Modernization",
-    subtitle: "Legacy Migration to Modern Cloud Platforms",
-    badge: "Performance & Security",
-    icon: ArrowUpCircle,
-    content: [
-      "ERP Upgrade services help organizations modernize their existing ERP systems with the latest features, improved performance, enhanced security, and better user experience. Upgrading an ERP system ensures compatibility with current technologies, improves operational efficiency, and enables businesses to leverage advanced capabilities such as automation, analytics, cloud integration, and real-time reporting.",
-      "Our ERP upgrade solutions focus on seamless migration, minimal business disruption, data integrity, and optimized system performance. We help businesses transition smoothly from legacy systems to upgraded platforms while ensuring scalability, reliability, and improved productivity to support future business growth.",
-    ],
-    capabilities: [
-      "Zero-Downtime Data Migration & Schema Harmonization",
-      "Legacy Monolith to Cloud-Native Architecture Transition",
-      "Latest Security Patching & Strict Compliance Enforcement",
-      "User Experience & Modern Mobile-Responsive Interface Overhaul",
-    ],
-    metrics: "Zero Business Disruption & 99.9% Data Integrity",
-  },
-  {
-    id: "global-rollout",
-    stepNumber: "04",
-    title: "Global Rollout",
-    subtitle: "Multi-Region, Multi-Currency Standardization",
-    badge: "Multi-Country Scale",
-    icon: Globe,
-    content: [
-      "ERP Global Rollout services help organizations successfully deploy and standardize ERP systems across multiple locations, regions, and business units worldwide. A global ERP rollout ensures consistent business processes, centralized data management, regulatory compliance, and improved collaboration across international operations.",
-      "Our ERP global rollout approach focuses on strategic planning, localization, multi-country compliance, seamless data migration, user training, and change management to ensure smooth implementation across global teams. We help businesses achieve operational consistency, enhanced visibility, and scalable growth through efficient and well-managed ERP deployment strategies.",
-    ],
-    capabilities: [
-      "Multi-Currency, Multi-Language & Regional Tax Localization",
-      "Standardized Corporate Global Operating Template",
-      "Cross-Border Compliance (GDPR, SOC2, Local Statutory Laws)",
-      "Comprehensive Change Management & Multi-Tier User Enablement",
-    ],
-    metrics: "20+ Country Multi-Entity Standardization Capability",
-  },
-  {
-    id: "support",
-    stepNumber: "05",
-    title: "Support & Managed Services",
-    subtitle: "24/7 SLA-Backed Maintenance & Optimization",
-    badge: "Mission-Critical SLA",
-    icon: ShieldCheck,
-    content: [
-      "ERP Support services ensure the smooth functioning, maintenance, and continuous improvement of ERP systems to help businesses operate efficiently without disruptions. Effective ERP support helps organizations resolve technical issues quickly, optimize system performance, manage updates, and ensure users can maximize the value of the ERP platform.",
-      "Our ERP support solutions include system monitoring, troubleshooting, performance optimization, user assistance, bug fixing and ongoing maintenance with agreed SLAs. We provide reliable and proactive support to ensure business continuity, improved productivity, and seamless ERP operations tailored to evolving business needs.",
-    ],
-    capabilities: [
-      "24/7/365 Proactive Telemetry & Automated System Health Monitoring",
-      "Strict SLA-Backed Incident Resolution (L1, L2 & L3 Engineering)",
-      "Continuous Performance Tuning & Database Index Optimization",
-      "Quarterly Feature Enhancements & Proactive Release Management",
-    ],
-    metrics: "15-Minute Critical Incident SLA Response Time",
-  },
-];
 
 // Enterprise Functional Modules
 const erpModules = [
@@ -185,61 +67,12 @@ const erpModules = [
   },
 ];
 
-// Implementation Methodology Steps
-const methodologySteps = [
-  {
-    step: "01",
-    phase: "Discovery & Blueprint",
-    desc: "Deep-dive business process mapping, gap analysis, stakeholder interviews, and future-state enterprise architecture definition.",
-  },
-  {
-    step: "02",
-    phase: "System Architecture & Design",
-    desc: "Data modeling, security governance frameworks, infrastructure sizing, and detailed functional design specifications.",
-  },
-  {
-    step: "03",
-    phase: "Agile Build & Customization",
-    desc: "Configuring core modules, developing bespoke extensions, building integration adapters, and automated testing pipelines.",
-  },
-  {
-    step: "04",
-    phase: "Data Migration & Validation",
-    desc: "Legacy data sanitization, test cutovers, user acceptance testing (UAT), security penetration tests, and dry runs.",
-  },
-  {
-    step: "05",
-    phase: "Global Go-Live & Hypercare",
-    desc: "Seamless production cutover, executive command center supervision, end-user enablement, and dedicated 24/7 hypercare support.",
-  },
-];
 
-// Enterprise Platforms Supported
-const platformsSupported = [
-  { name: "SAP S/4HANA & ECC", tag: "Enterprise Core" },
-  { name: "Microsoft Dynamics 365", tag: "Cloud Ecosystem" },
-  { name: "Oracle NetSuite", tag: "High-Growth Cloud" },
-  { name: "Odoo Enterprise", tag: "Modular Agile" },
-  { name: "Custom Cloud ERP", tag: "Proprietary Architecture" },
-];
+
+
 
 export default function ERPService() {
-  const [activeTab, setActiveTab] = useState<string>("implementation");
   const [h1Hovered, setH1Hovered] = useState(false);
-
-  const currentIndex = erpServices.findIndex((s) => s.id === activeTab);
-  const selectedService = erpServices[currentIndex >= 0 ? currentIndex : 0];
-
-  const handlePrev = () => {
-    const prevIndex =
-      (currentIndex - 1 + erpServices.length) % erpServices.length;
-    setActiveTab(erpServices[prevIndex].id);
-  };
-
-  const handleNext = () => {
-    const nextIndex = (currentIndex + 1) % erpServices.length;
-    setActiveTab(erpServices[nextIndex].id);
-  };
 
   return (
     <div className="flex-1 flex flex-col relative overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-blue-100 selection:text-[#0051fe]">
@@ -339,10 +172,10 @@ export default function ERPService() {
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
-                href="#erp-services"
+                href="#modules"
                 className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/90 hover:bg-white text-slate-900 hover:text-[#0051fe] border border-white text-xs sm:text-sm font-bold flex items-center gap-2 backdrop-blur-md shadow-[0_8px_20px_rgba(0,81,254,0.12)] hover:shadow-[0_12px_28px_rgba(0,81,254,0.2)] transition-all duration-200 cursor-pointer"
               >
-                <span>Explore Service Pillars</span>
+                <span>Explore Modules</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
@@ -405,7 +238,7 @@ export default function ERPService() {
                   <ArrowRight className="w-4 h-4 text-white" />
                 </Link>
                 <Link
-                  href="/components/Organization"
+                  href="/about"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-slate-100 hover:bg-slate-200 text-slate-800 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
                 >
                   About Nexora
@@ -488,17 +321,13 @@ export default function ERPService() {
           SECTION 2: THE 5 CORE SERVICE PILLARS
           Active Pillar Spotlight Showcase with Dual Arrows
       ═══════════════════════════════════════════ */}
-      {/* ═══════════════════════════════════════════
-          SECTION 2: THE 5 CORE SERVICE PILLARS
-          Fully Mobile-Optimized Active Pillar Showcase
-      ═══════════════════════════════════════════ */}
-      <section
+      {/* <section
         id="erp-services"
         className="py-12 sm:py-20 lg:py-24 px-3.5 sm:px-6 lg:px-8 bg-[#f0f5fc] border-t border-b border-slate-200/80"
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto"> */}
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          {/* <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-3 sm:mb-4">
               <Workflow className="w-3.5 h-3.5 text-[#0051fe]" />
               <span>Full Lifecycle Capabilities</span>
@@ -513,10 +342,10 @@ export default function ERPService() {
               milestone of your enterprise technology evolution — from
               greenfield deployment to continuous innovation.
             </p>
-          </div>
+          </div> */}
 
           {/* Mobile Top Navigation & Status Bar */}
-          <div className="flex sm:hidden items-center justify-between gap-2 mb-3 bg-white/95 backdrop-blur-md px-3 py-2 rounded-2xl border border-slate-200/90 shadow-sm">
+          {/* <div className="flex sm:hidden items-center justify-between gap-2 mb-3 bg-white/95 backdrop-blur-md px-3 py-2 rounded-2xl border border-slate-200/90 shadow-sm">
             <div className="flex items-center gap-2">
               <span className="font-heading font-black text-xs text-[#0051fe] bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
                 {selectedService.stepNumber} / 05
@@ -524,10 +353,10 @@ export default function ERPService() {
               <span className="font-heading font-bold text-xs text-slate-800 truncate max-w-[150px]">
                 {selectedService.title}
               </span>
-            </div>
+            </div> */}
 
             {/* Micro Dots */}
-            <div className="flex items-center gap-1">
+            {/* <div className="flex items-center gap-1">
               {erpServices.map((svc) => (
                 <button
                   key={svc.id}
@@ -541,21 +370,21 @@ export default function ERPService() {
                 />
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Active Pillar Spotlight Showcase Container */}
-          <div className="relative flex items-center sm:gap-4 lg:gap-6 mb-6 sm:mb-10">
+          {/* <div className="relative flex items-center sm:gap-4 lg:gap-6 mb-6 sm:mb-10"> */}
             {/* Desktop Left Switch Arrow */}
-            <button
+            {/* <button
               onClick={handlePrev}
               aria-label="Previous ERP service pillar"
               className="hidden sm:flex flex-shrink-0 w-11 h-11 lg:w-13 lg:h-13 rounded-full bg-white hover:bg-blue-50 text-[#0051fe] border border-slate-200/90 hover:border-blue-400 shadow-md hover:shadow-lg items-center justify-center transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 z-20"
             >
               <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
-            </button>
+            </button> */}
 
             {/* Center Showcase Card: 100% width on Mobile, no side button squeeze */}
-            <div className="w-full sm:flex-1 min-w-0">
+            {/* <div className="w-full sm:flex-1 min-w-0">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedService.id}
@@ -569,9 +398,9 @@ export default function ERPService() {
                     borderColor="rgba(0, 81, 254, 0.35)"
                     className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-10 border border-slate-200 shadow-xl overflow-hidden relative"
                   >
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start lg:items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start lg:items-center"> */}
                       {/* Left Column of Card */}
-                      <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+                      {/* <div className="lg:col-span-7 space-y-4 sm:space-y-5">
                         <div className="flex items-center gap-2.5 sm:gap-3">
                           <span className="font-heading font-black text-xl sm:text-2xl text-[#0051fe]">
                             {selectedService.stepNumber}
@@ -603,10 +432,10 @@ export default function ERPService() {
                             <span>Key Impact: {selectedService.metrics}</span>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
 
                       {/* Right Column of Card: Core Capabilities Checklist */}
-                      <div className="lg:col-span-5 bg-gradient-to-br from-[#f8fafc] to-blue-50/60 p-4 sm:p-6 lg:p-7 rounded-xl sm:rounded-2xl border border-blue-100 space-y-3 sm:space-y-4 w-full">
+                      {/* <div className="lg:col-span-5 bg-gradient-to-br from-[#f8fafc] to-blue-50/60 p-4 sm:p-6 lg:p-7 rounded-xl sm:rounded-2xl border border-blue-100 space-y-3 sm:space-y-4 w-full">
                         <div className="flex items-center gap-2 font-heading font-bold text-xs sm:text-sm text-slate-900 border-b border-blue-200/60 pb-2.5 sm:pb-3">
                           <selectedService.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#0051fe] flex-shrink-0" />
                           <span>Key Strategic Deliverables</span>
@@ -640,20 +469,20 @@ export default function ERPService() {
                   </SpotlightCard>
                 </motion.div>
               </AnimatePresence>
-            </div>
+            </div> */}
 
             {/* Desktop Right Switch Arrow */}
-            <button
+            {/* <button
               onClick={handleNext}
               aria-label="Next ERP service pillar"
               className="hidden sm:flex flex-shrink-0 w-11 h-11 lg:w-13 lg:h-13 rounded-full bg-white hover:bg-blue-50 text-[#0051fe] border border-slate-200/90 hover:border-blue-400 shadow-md hover:shadow-lg items-center justify-center transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 z-20"
             >
               <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
             </button>
-          </div>
+          </div> */}
 
           {/* Mobile Bottom Thumb Navigation Controls */}
-          <div className="flex sm:hidden items-center justify-between gap-3 mb-6">
+          {/* <div className="flex sm:hidden items-center justify-between gap-3 mb-6">
             <button
               onClick={handlePrev}
               aria-label="Previous ERP service pillar"
@@ -670,10 +499,10 @@ export default function ERPService() {
               <span>Next Pillar</span>
               <ChevronRight className="w-4 h-4" />
             </button>
-          </div>
+          </div> */}
 
           {/* Horizontal Swipeable Track on Mobile / 5-Column Grid on Desktop */}
-          <div className="flex gap-2.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-2 pt-1 -mx-3.5 px-3.5 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-4 snap-x">
+          {/* <div className="flex gap-2.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-2 pt-1 -mx-3.5 px-3.5 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:gap-4 snap-x">
             {erpServices.map((svc) => {
               const IconComp = svc.icon;
               const isSelected = activeTab === svc.id;
@@ -714,12 +543,13 @@ export default function ERPService() {
             })}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ═══════════════════════════════════════════
           SECTION 3: ENTERPRISE FUNCTIONAL MODULES
       ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
+      <section
+      id="modules" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-4">
@@ -779,225 +609,6 @@ export default function ERPService() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 4: IMPLEMENTATION METHODOLOGY
-      ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 via-[#0a1e3d] to-slate-950 text-white relative overflow-hidden">
-        {/* Ambient Lights */}
-        <div className="pointer-events-none absolute top-0 right-1/4 w-96 h-96 bg-[#0051fe]/20 rounded-full blur-3xl z-0" />
-        <div className="pointer-events-none absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl z-0" />
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-4 backdrop-blur-md">
-              <Activity className="w-3.5 h-3.5 text-cyan-300" />
-              <span>Predictable Delivery</span>
-            </div>
-
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
-              Proven 5-Stage Implementation Roadmap
-            </h2>
-
-            <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed">
-              We eliminate ERP delivery risks through a structured, transparent,
-              and battle-tested delivery framework with quantifiable gates at
-              every milestone.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-6 relative">
-            {methodologySteps.map((step, idx) => (
-              <div
-                key={idx}
-                className="bg-white/10 border border-white/15 rounded-2xl p-5 sm:p-6 backdrop-blur-md relative flex flex-col justify-between hover:bg-white/15 hover:border-cyan-300/40 transition-all duration-300 group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-heading font-black text-2xl text-cyan-300 group-hover:scale-110 transition-transform">
-                      {step.step}
-                    </span>
-                    <span className="w-2 h-2 rounded-full bg-cyan-400" />
-                  </div>
-
-                  <h3 className="font-heading font-bold text-sm sm:text-base text-white mb-2 leading-snug">
-                    {step.phase}
-                  </h3>
-
-                  <p className="text-xs text-blue-200/80 leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-white/10 text-[10px] uppercase font-mono tracking-wider text-cyan-200 font-semibold">
-                  Phase 0{idx + 1} Gate
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Supported Platforms Banner */}
-          <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
-                <p className="font-heading font-bold text-base text-white">
-                  Cross-Platform ERP Ecosystem Competency
-                </p>
-                <p className="text-xs text-blue-200/80">
-                  Certified architectural advisory and delivery across tier-1
-                  and open-source stacks
-                </p>
-              </div>
-              <div className="flex flex-wrap items-center gap-2.5">
-                {platformsSupported.map((plat) => (
-                  <div
-                    key={plat.name}
-                    className="px-3.5 py-1.5 rounded-xl bg-white/10 border border-white/15 text-xs text-white font-heading font-semibold hover:bg-white/20 transition-colors"
-                  >
-                    <span>{plat.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          SECTION 5: WHY PARTNER WITH NEXORA
-          Second Image Showcase + Differentiators
-      ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Differentiators */}
-            <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#0051fe]" />
-                <span>Why Nexora ERP</span>
-              </div>
-
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-                A Trusted Partner Across the <br />
-                <span className="text-[#0051fe]">Entire ERP Lifecycle</span>
-              </h2>
-
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                We combine deep technical engineering with robust functional
-                domain knowledge to ensure your enterprise technology investment
-                drives sustained competitive advantage.
-              </p>
-
-              <div className="space-y-4 pt-2">
-                {[
-                  {
-                    icon: Workflow,
-                    title: "Single Partner, Full Lifecycle",
-                    desc: "From blueprinting through 24/7 post-launch support — one unified engineering pod that understands your unique workflows inside and out.",
-                  },
-                  {
-                    icon: Globe,
-                    title: "Global Reach, Local Statutory Expertise",
-                    desc: "Multi-country rollout expertise ensuring seamless regional tax localization, multi-currency reporting, and statutory compliance.",
-                  },
-                  {
-                    icon: Lock,
-                    title: "Enterprise Security & High Availability",
-                    desc: "Hardened infrastructure architectures built with role-based governance, automated data encryption, and 99.98% availability SLAs.",
-                  },
-                  {
-                    icon: Gauge,
-                    title: "Transparent Timelines & Quantifiable ROI",
-                    desc: "Rigorous milestone-based accountability, predictable budgetary controls, and measurable efficiency gains across operational divisions.",
-                  },
-                ].map((item, idx) => {
-                  const ItemIcon = item.icon;
-                  return (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-4 p-4 rounded-xl hover:bg-blue-50/50 transition-colors"
-                    >
-                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-200/60 flex items-center justify-center text-[#0051fe] flex-shrink-0 mt-0.5">
-                        <ItemIcon className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h3 className="font-heading font-bold text-sm text-slate-900 mb-1">
-                          {item.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                          {item.desc}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Right Images Composite 2 */}
-            <div className="lg:col-span-6 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none pt-4 pb-10 sm:pb-14 sm:pr-8">
-                <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/15 to-cyan-500/15 rounded-3xl blur-2xl -z-10" />
-
-                {/* Primary Large Image */}
-                <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white shadow-2xl bg-white aspect-[4/3] w-full max-w-lg mx-auto">
-                  <Image
-                    src={img3}
-                    alt="Global Enterprise ERP Rollout and Implementation Support"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-
-                  {/* Floating Card inside main image placed at top so bottom card NEVER blocks it */}
-                  <div className="absolute top-4 left-4 right-4 p-3.5 sm:p-4 rounded-xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg text-slate-900 z-10">
-                    <div className="flex items-center justify-between gap-2">
-                      <div>
-                        <p className="font-heading font-bold text-[11px] text-[#0051fe] uppercase tracking-wider">
-                          Global Standard
-                        </p>
-                        <p className="font-heading font-bold text-xs sm:text-sm text-slate-900">
-                          Multi-Country Rollout Excellence
-                        </p>
-                      </div>
-                      <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 text-[10px] sm:text-[11px] font-bold flex-shrink-0">
-                        99.9% Uptime
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Card Top Right */}
-                <div className="absolute -top-4 -right-2 sm:-top-6 sm:-right-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xl hidden sm:block max-w-[190px] z-20">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-heading font-bold text-slate-900">
-                      12+ Years
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-500">
-                    Enterprise technology engineering &amp; ERP architecture
-                  </p>
-                </div>
-
-                {/* Floating Card Bottom Left */}
-                <div className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-6 p-3.5 sm:p-4 rounded-2xl bg-[#0051fe] text-white shadow-2xl hidden sm:block max-w-[210px] z-20">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Sparkles className="w-4 h-4 text-cyan-300" />
-                    <span className="text-xs font-heading font-bold text-white">
-                      Tailored Delivery
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-blue-100">
-                    Guaranteed zero business disruption throughout transition
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
           SECTION 6: PRE-FOOTER CALL TO ACTION (CTA)
           Light Blue Background & Reduced Padding
       ═══════════════════════════════════════════ */}
@@ -1033,7 +644,7 @@ export default function ERPService() {
             </Link>
 
             <Link
-              href="/organization/execution-model"
+              href="/about/organization/execution-model"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
             >
               Explore Our Execution Model

@@ -7,9 +7,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import SpotlightCard from "@/components/ui/spotlightcard";
 import Footer from "@/components/layout/footer";
-import img1 from "@/public/images/img-1.jpg";
-import img2 from "@/public/images/img-2.jpg";
-import img3 from "@/public/images/img-3.jpg";
+// import img1 from "@/public/images/img-1.jpg";
+// import img2 from "@/public/images/img-2.jpg";
+// import img3 from "@/public/images/img-3.jpg";
 import {
   Landmark,
   Factory,
@@ -67,7 +67,7 @@ const industries: IndustryItem[] = [
     id: "manufacturing",
     category: "industrial",
     icon: Factory,
-    title: "Manufacturing & Industry 4.0",
+    title: "Manufacturing Industry",
     badge: "MFG 4.0",
     code: "IND-02",
     summary: "Intelligent automation and connected shop-floor telemetry.",
@@ -111,7 +111,7 @@ const industries: IndustryItem[] = [
       "Low-Latency Video Streaming & Content Delivery",
       "Multi-Tenant SaaS Platforms with Automated Tenant Isolation",
       "Data Lakehouse Architectures & Real-Time Telemetry",
-      "Agile CI/CD Pipelines with Automated Testing Pods",
+      "Agile CI/CD Pipelines with Automated Testing Teams",
     ],
     metrics: "< 50ms Edge Video Latency",
   },
@@ -188,7 +188,7 @@ const enterprisePillars = [
   },
   {
     icon: Globe2,
-    title: "Dedicated Domain Pods",
+    title: "Dedicated Domain Teams",
     desc: "Specialized engineering squads with proven subject matter expertise in your specific industry regulations and operational workflows.",
   },
 ];
@@ -332,18 +332,18 @@ export default function IndustriesServed() {
           DOMAIN EXPERTISE SHOWCASE SECTION
           Solid text color for "Your Industry Realities"
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f1f6fd] via-[#e5f0fc] to-[#edf5fd] overflow-hidden">
+      {/* <section className="relative w-full py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f1f6fd] via-[#e5f0fc] to-[#edf5fd] overflow-hidden"> */}
         {/* Subtle mesh background shapes */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-300/20 to-sky-200/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-gradient-to-tr from-cyan-300/15 to-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+        {/* <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-300/20 to-sky-200/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-gradient-to-tr from-cyan-300/15 to-blue-400/10 rounded-full blur-3xl pointer-events-none" /> */}
 
         {/* Micro-dot grid overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(#0051fe_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.035] pointer-events-none" />
+        {/* <div className="absolute inset-0 bg-[radial-gradient(#0051fe_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.035] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"> */}
             {/* Left Column: Domain Narrative */}
-            <div className="lg:col-span-6">
+            {/* <div className="lg:col-span-6">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
                 Domain Mastery
@@ -358,13 +358,13 @@ export default function IndustriesServed() {
                 Off-the-shelf software and generic templates crumble under
                 sector-specific regulatory audits, throughput spikes, and
                 complex legacy integrations. At Nexora, every system is
-                engineered by domain-literate pods who comprehend the precise
+                engineered by domain-literate teams who comprehend the precise
                 compliance, latency, and operational boundaries of your
                 vertical.
-              </p>
+              </p> */}
 
               {/* Three Strategic Strengths */}
-              <div className="space-y-4 mb-8">
+              {/* <div className="space-y-4 mb-8">
                 <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/70 border border-white/80 backdrop-blur-sm shadow-sm hover:border-blue-200 transition-colors">
                   <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 mt-0.5">
                     <ShieldCheck className="w-4 h-4 text-[#0051fe]" />
@@ -423,18 +423,18 @@ export default function IndustriesServed() {
                   href="/components/Organization"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
                 >
-                  About Our Pods
+                  About Our Teams
                 </Link>
               </div>
-            </div>
+            </div> */}
 
             {/* Right Column: Layered Premium Image Display */}
-            <div className="lg:col-span-6 relative">
+            {/* <div className="lg:col-span-6 relative">
               <div className="relative mx-auto max-w-lg lg:max-w-none">
-                <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-600/20 blur-xl opacity-75 -z-10" />
+                <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-600/20 blur-xl opacity-75 -z-10" /> */}
 
                 {/* Primary Card / Main Image */}
-                <div className="relative rounded-2xl overflow-hidden border-2 border-white/80 shadow-2xl bg-white z-10 group">
+                {/* <div className="relative rounded-2xl overflow-hidden border-2 border-white/80 shadow-2xl bg-white z-10 group">
                   <div className="relative h-72 sm:h-80 w-full overflow-hidden">
                     <Image
                       src={img1}
@@ -453,14 +453,14 @@ export default function IndustriesServed() {
                       </h3>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Secondary Offset Image 1 */}
-                <div className="hidden sm:block absolute -bottom-8 -left-8 w-52 h-40 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20 bg-white">
+                {/* <div className="hidden sm:block absolute -bottom-8 -left-8 w-52 h-40 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20 bg-white">
                   <div className="relative w-full h-full">
                     <Image
                       src={img2}
-                      alt="Precision Engineering Pods"
+                      alt="Precision Engineering Teams"
                       fill
                       className="object-cover"
                     />
@@ -471,10 +471,10 @@ export default function IndustriesServed() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Secondary Offset Image 2 */}
-                <div className="hidden sm:block absolute -top-8 -right-8 w-48 h-36 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20 bg-white">
+                {/* <div className="hidden sm:block absolute -top-8 -right-8 w-48 h-36 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20 bg-white">
                   <div className="relative w-full h-full">
                     <Image
                       src={img3}
@@ -487,10 +487,10 @@ export default function IndustriesServed() {
                       99.99% SLA
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Floating Metric Badge */}
-                <div className="absolute -bottom-6 right-6 sm:right-10 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-blue-100 shadow-xl z-30 flex items-center gap-3">
+                {/* <div className="absolute -bottom-6 right-6 sm:right-10 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-blue-100 shadow-xl z-30 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
                     <Sparkles className="w-5 h-5 text-[#0051fe]" />
                   </div>
@@ -507,7 +507,7 @@ export default function IndustriesServed() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ═══════════════════════════════════════════
           CORE SECTORS WE SERVE — THE MAIN GRID
@@ -782,7 +782,7 @@ export default function IndustriesServed() {
           </div>
 
           {/* Proven Impact Statistics Banner */}
-          <div className="rounded-2xl bg-white/[0.08] border border-white/20 p-8 backdrop-blur-md shadow-2xl">
+          {/* <div className="rounded-2xl bg-white/[0.08] border border-white/20 p-8 backdrop-blur-md shadow-2xl">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-white/15">
               {stats.map((item, idx) => (
                 <div
@@ -801,7 +801,7 @@ export default function IndustriesServed() {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 

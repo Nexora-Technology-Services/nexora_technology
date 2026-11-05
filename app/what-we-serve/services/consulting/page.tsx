@@ -6,9 +6,9 @@ import Link from "next/link";
 import heroBg from "@/public/images/hero-section.png";
 import { motion } from "framer-motion";
 import Footer from "@/components/layout/footer";
-import img1 from "@/public/images/img-1.jpg";
-import img2 from "@/public/images/img-2.jpg";
-import img3 from "@/public/images/img-3.jpg";
+// import img1 from "@/public/images/img-1.jpg";
+// import img2 from "@/public/images/img-2.jpg";
+// import img3 from "@/public/images/img-3.jpg";
 import {
   Boxes,
   Workflow,
@@ -19,17 +19,17 @@ import {
   Compass,
   ArrowRight,
   ArrowUpRight,
-  ShieldCheck,
-  CheckCircle2,
-  TrendingUp,
-  Target,
-  Users,
-  Zap,
-  Globe,
-  Search,
-  Wrench,
-  Check,
-  Briefcase,
+  // ShieldCheck,
+  // CheckCircle2,
+  // TrendingUp,
+  // Target,
+  // Users,
+  // Zap,
+  // Globe,
+  // Search,
+  // Wrench,
+  // Check,
+  // Briefcase,
 } from "lucide-react";
 
 const services = [
@@ -93,56 +93,56 @@ const pillars = [
   },
 ];
 
-const whyItems = [
-  {
-    icon: Target,
-    title: "Business-First Approach",
-    desc: "We start with your goals, not technology. Every recommendation is grounded in what drives real business value.",
-  },
-  {
-    icon: Users,
-    title: "Collaborative Partnership",
-    desc: "We work alongside your teams — sharing knowledge, building capability, and ensuring genuine long-term success.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Measurable Results",
-    desc: "Outcomes are tied to KPIs. We track progress, report transparently, and adjust strategies based on real data.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Industry Best Practices",
-    desc: "Our consultants bring cross-industry expertise and frameworks refined across hundreds of engagements.",
-  },
-  {
-    icon: Zap,
-    title: "Scalable Solutions",
-    desc: "We design for where you are today and where you are going — ensuring solutions scale with your growth.",
-  },
-  {
-    icon: Globe,
-    title: "End-to-End Support",
-    desc: "From initial advisory through implementation and beyond — a single trusted partner for your entire journey.",
-  },
-];
+// const whyItems = [
+//   {
+//     icon: Target,
+//     title: "Business-First Approach",
+//     desc: "We start with your goals, not technology. Every recommendation is grounded in what drives real business value.",
+//   },
+//   {
+//     icon: Users,
+//     title: "Collaborative Partnership",
+//     desc: "We work alongside your teams — sharing knowledge, building capability, and ensuring genuine long-term success.",
+//   },
+//   {
+//     icon: TrendingUp,
+//     title: "Measurable Results",
+//     desc: "Outcomes are tied to KPIs. We track progress, report transparently, and adjust strategies based on real data.",
+//   },
+//   {
+//     icon: ShieldCheck,
+//     title: "Industry Best Practices",
+//     desc: "Our consultants bring cross-industry expertise and frameworks refined across hundreds of engagements.",
+//   },
+//   {
+//     icon: Zap,
+//     title: "Scalable Solutions",
+//     desc: "We design for where you are today and where you are going — ensuring solutions scale with your growth.",
+//   },
+//   {
+//     icon: Globe,
+//     title: "End-to-End Support",
+//     desc: "From initial advisory through implementation and beyond — a single trusted partner for your entire journey.",
+//   },
+// ];
 
-const continuousItems = [
-  {
-    icon: Search,
-    title: "Deep Business Analysis",
-    desc: "We invest time to truly understand your operations before making a single recommendation.",
-  },
-  {
-    icon: Wrench,
-    title: "Implementation Support",
-    desc: "Our consultants stay hands-on through execution — bridging strategy and delivery.",
-  },
-  {
-    icon: BarChart3,
-    title: "Outcome Measurement",
-    desc: "Every engagement is tied to clear KPIs so you can see the value we deliver.",
-  },
-];
+// const continuousItems = [
+//   {
+//     icon: Search,
+//     title: "Deep Business Analysis",
+//     desc: "We invest time to truly understand your operations before making a single recommendation.",
+//   },
+//   {
+//     icon: Wrench,
+//     title: "Implementation Support",
+//     desc: "Our consultants stay hands-on through execution — bridging strategy and delivery.",
+//   },
+//   {
+//     icon: BarChart3,
+//     title: "Outcome Measurement",
+//     desc: "Every engagement is tied to clear KPIs so you can see the value we deliver.",
+//   },
+// ];
 
 export default function Consulting() {
   const [h1Hovered, setH1Hovered] = useState(false);
@@ -241,7 +241,7 @@ export default function Consulting() {
                 href="/contact"
                 className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0051fe] hover:bg-[#0041cb] text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_12px_28px_-4px_rgba(0,81,254,0.45)] hover:shadow-[0_18px_36px_-4px_rgba(0,81,254,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 transition-all duration-200 cursor-pointer group"
               >
-                <span>Talk to a Consultants</span>
+                <span>Talk to a Consultant</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
@@ -252,10 +252,9 @@ export default function Consulting() {
       {/* ═══════════════════════════════════════════
           SECTION 2: ABOUT CONSULTING / PHILOSOPHY
       ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
+      {/* <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Column: Text & Values */}
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5 text-[#0051fe]" />
@@ -318,14 +317,12 @@ export default function Consulting() {
               </div>
             </div>
 
-            {/* Right Column: Multi-Layered Image Presentation */}
             <div className="lg:col-span-6 relative flex justify-center items-center py-6">
-              {/* Background Ambient Glow */}
+              
               <div className="absolute w-80 h-80 bg-blue-400/15 rounded-full blur-3xl pointer-events-none -z-0" />
               <div className="absolute w-60 h-60 bg-sky-300/20 rounded-full blur-2xl pointer-events-none -z-0" />
 
               <div className="relative w-full max-w-lg aspect-[4/3] flex items-center justify-center">
-                {/* Main Large Image */}
                 <div className="relative w-[84%] h-[80%] rounded-2xl overflow-hidden shadow-2xl border border-slate-200/80 z-10 transition-transform duration-500 hover:scale-[1.01]">
                   <Image
                     src={img1}
@@ -338,7 +335,6 @@ export default function Consulting() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
                 </div>
 
-                {/* Accent Floating Image Top-Right */}
                 <div className="hidden sm:block absolute -top-4 -right-2 w-44 h-32 rounded-xl overflow-hidden shadow-xl border-4 border-white z-20 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
                   <Image
                     src={img3}
@@ -349,7 +345,6 @@ export default function Consulting() {
                   />
                 </div>
 
-                {/* Accent Floating Image Bottom-Left */}
                 <div className="hidden sm:block absolute -bottom-5 -left-3 w-48 h-36 rounded-xl overflow-hidden shadow-xl border-4 border-white z-20 transition-all duration-300 hover:translate-y-1 hover:shadow-2xl">
                   <Image
                     src={img2}
@@ -360,7 +355,6 @@ export default function Consulting() {
                   />
                 </div>
 
-                {/* Floating Glassmorphism Badge 1 */}
                 <div className="absolute bottom-6 right-2 sm:right-6 bg-white/95 backdrop-blur-md rounded-xl p-3.5 shadow-xl border border-blue-100 z-30 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0051fe]">
                     <ShieldCheck className="w-5 h-5" />
@@ -375,7 +369,6 @@ export default function Consulting() {
                   </div>
                 </div>
 
-                {/* Floating Glassmorphism Badge 2 */}
                 <div className="hidden sm:flex absolute top-4 left-4 bg-gradient-to-br from-[#0051fe] to-[#1e3a8a] text-white rounded-xl p-3 shadow-xl border border-blue-400/30 z-30 items-center gap-2.5">
                   <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center text-cyan-300">
                     <Briefcase className="w-4 h-4" />
@@ -393,7 +386,7 @@ export default function Consulting() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ═══════════════════════════════════════════
           SECTION 3: CONSULTING AREAS GRID (BLUE BACKGROUND)
@@ -421,13 +414,23 @@ export default function Consulting() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {services.map((svc) => {
+          {/* Consulting Areas Dynamic Grid: Arranged 2 - 3 - 2 on Desktop */}
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
+            {services.map((svc, idx) => {
               const IconComponent = svc.icon;
+              // Row 1 (idx 0, 1): 2 cards -> lg:w-[calc(50%-16px)] xl:w-[calc(42%-16px)] (or balanced 2-column width)
+              // Row 2 (idx 2, 3, 4): 3 cards -> lg:w-[calc(33.333%-22px)]
+              // Row 3 (idx 5, 6): 2 cards -> lg:w-[calc(50%-16px)] xl:w-[calc(42%-16px)]
+              const isTwoCardRow = idx === 0 || idx === 1 || idx === 5 || idx === 6;
+
               return (
                 <div
                   key={svc.title}
-                  className="group bg-white rounded-2xl p-7 sm:p-8 border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 relative overflow-hidden flex flex-col justify-between hover:-translate-y-1"
+                  className={`w-full md:w-[calc(50%-16px)] ${
+                    isTwoCardRow
+                      ? "lg:w-[calc(50%-16px)] max-w-xl"
+                      : "lg:w-[calc(33.333%-22px)] max-w-lg"
+                  } group bg-white rounded-2xl p-7 sm:p-8 border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 relative overflow-hidden flex flex-col justify-between hover:-translate-y-1`}
                 >
                   {/* Subtle Top Accent Line */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-[#0051fe] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left z-10" />
@@ -503,8 +506,7 @@ export default function Consulting() {
       {/* ═══════════════════════════════════════════
           SECTION 5: WHY CHOOSE US (BLUE BACKGROUND)
       ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#eaf2fc] via-[#f0f6fd] to-[#e4eefb] border-y border-blue-200/60 relative overflow-hidden">
-        {/* Soft Ambient Glows */}
+      {/* <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#eaf2fc] via-[#f0f6fd] to-[#e4eefb] border-y border-blue-200/60 relative overflow-hidden">
         <div className="pointer-events-none absolute -top-10 right-10 w-96 h-96 bg-[#0051fe]/10 rounded-full blur-3xl" />
         <div className="pointer-events-none absolute -bottom-10 left-10 w-96 h-96 bg-sky-400/15 rounded-full blur-3xl" />
 
@@ -533,7 +535,6 @@ export default function Consulting() {
                   key={w.title}
                   className="group bg-white rounded-2xl p-7 sm:p-8 border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 relative overflow-hidden flex flex-col hover:-translate-y-1"
                 >
-                  {/* Top Accent Line */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-[#0051fe] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left z-10" />
 
                   <div className="w-13 h-13 rounded-2xl bg-blue-50 border border-blue-100 text-[#0051fe] flex items-center justify-center mb-5 group-hover:scale-105 group-hover:bg-[#0051fe] group-hover:border-[#0051fe] group-hover:text-white transition-all duration-300 shadow-xs">
@@ -552,15 +553,14 @@ export default function Consulting() {
             })}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ═══════════════════════════════════════════
           SECTION 6: CONTINUOUS IMPROVEMENT & SECOND IMAGE STACK
       ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
+      {/* <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Column: Methodology Points */}
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5 text-[#0051fe]" />
@@ -605,14 +605,11 @@ export default function Consulting() {
               </div>
             </div>
 
-            {/* Right Column: Multi-Layered Image Showcase */}
             <div className="lg:col-span-6 relative flex justify-center items-center py-6">
-              {/* Background Ambient Glow */}
               <div className="absolute w-80 h-80 bg-blue-400/15 rounded-full blur-3xl pointer-events-none -z-0" />
               <div className="absolute w-60 h-60 bg-sky-300/20 rounded-full blur-2xl pointer-events-none -z-0" />
 
               <div className="relative w-full max-w-lg aspect-[4/3] flex items-center justify-center">
-                {/* Main Large Image */}
                 <div className="relative w-[84%] h-[80%] rounded-2xl overflow-hidden shadow-2xl border border-slate-200/80 z-10 transition-transform duration-500 hover:scale-[1.01]">
                   <Image
                     src={img2}
@@ -624,7 +621,6 @@ export default function Consulting() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
                 </div>
 
-                {/* Accent Floating Image Top-Right */}
                 <div className="hidden sm:block absolute -top-4 -right-2 w-44 h-32 rounded-xl overflow-hidden shadow-xl border-4 border-white z-20 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
                   <Image
                     src={img3}
@@ -635,7 +631,6 @@ export default function Consulting() {
                   />
                 </div>
 
-                {/* Accent Floating Image Bottom-Left */}
                 <div className="hidden sm:block absolute -bottom-5 -left-3 w-48 h-36 rounded-xl overflow-hidden shadow-xl border-4 border-white z-20 transition-all duration-300 hover:translate-y-1 hover:shadow-2xl">
                   <Image
                     src={img1}
@@ -646,7 +641,6 @@ export default function Consulting() {
                   />
                 </div>
 
-                {/* Floating Glassmorphism Badge */}
                 <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-xl p-3.5 shadow-xl border border-blue-100 z-30 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0051fe]">
                     <Sparkles className="w-5 h-5" />
@@ -659,7 +653,6 @@ export default function Consulting() {
                   </div>
                 </div>
 
-                {/* Floating Glassmorphism Badge 2 */}
                 <div className="absolute bottom-6 right-2 sm:right-6 bg-gradient-to-br from-[#0051fe] to-[#1e3a8a] text-white rounded-xl p-3.5 shadow-xl border border-blue-400/30 z-30 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-cyan-300">
                     <CheckCircle2 className="w-5 h-5" />
@@ -675,7 +668,7 @@ export default function Consulting() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ═══════════════════════════════════════════
           SECTION 7: INSET-ROUNDED CTA BANNER
@@ -719,7 +712,7 @@ export default function Consulting() {
                 </Link>
 
                 <Link
-                  href="/components/Organization"
+                  href="/about"
                   className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
                 >
                   <span>About Us</span>

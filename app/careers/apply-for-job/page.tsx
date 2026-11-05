@@ -10,7 +10,6 @@ import Footer from "@/components/layout/footer";
 import {
   Briefcase,
   Mail,
-  Send,
   MapPin,
   Clock,
   ArrowRight,
@@ -18,42 +17,24 @@ import {
   Cloud,
   Cpu,
   Layers,
-  ShieldCheck,
-  CheckCircle2,
 } from "lucide-react";
 
 const openRoles = [
   {
     title: "Senior Full-Stack Engineer (Next.js / Node.js)",
     dept: "Engineering",
-    location: "Bengaluru, India (Hybrid)",
+    location: "Bengaluru, India (In Office)",
     type: "Full-Time",
     icon: Code2,
     desc: "Architect high-performance distributed systems, modern React/Next.js interfaces, and scalable REST/GraphQL APIs.",
   },
   {
-    title: "Lead Cloud & DevOps Architect",
-    dept: "Cloud & Infrastructure",
+    title: "Lead Sales",
+    dept: "Sales",
     location: "Bengaluru, India (Hybrid)",
     type: "Full-Time",
     icon: Cloud,
-    desc: "Oversee multi-cloud deployments (AWS/Azure/GCP), Kubernetes orchestrations, terraform automation, and security posture.",
-  },
-  {
-    title: "AI & Machine Learning Engineer",
-    dept: "Data & AI Pod",
-    location: "Bengaluru, India (Hybrid)",
-    type: "Full-Time",
-    icon: Cpu,
-    desc: "Build LLM-augmented workflow engines, custom embeddings, predictive telemetry, and production machine learning pipelines.",
-  },
-  {
-    title: "Enterprise ERP Solutions Consultant",
-    dept: "ERP Advisory",
-    location: "Bengaluru, India (Hybrid)",
-    type: "Full-Time",
-    icon: Layers,
-    desc: "Design end-to-end ERP migration roadmaps, custom modules, business process optimization, and multi-tier integrations.",
+    desc: "selling high-value technical consulting services and managing complex stakeholder relationships.",
   },
 ];
 
@@ -71,7 +52,7 @@ export default function ApplyForJobPage() {
             fill
             priority
             quality={100}
-            className="object-cover object-right select-none pointer-events-none"
+            className="object-cover object-left md:object-right select-none pointer-events-none"
             sizes="100vw"
           />
           <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />

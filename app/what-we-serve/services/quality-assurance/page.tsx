@@ -20,7 +20,7 @@ import {
   Sparkles,
   // Activity,
   // Target,
-  Layers,
+  // Layers,
 } from "lucide-react";
 
 const keyPractices = [
@@ -199,10 +199,9 @@ export default function QualityAssurance() {
       {/* ═══════════════════════════════════════════
           SECTION 2: OUR APPROACH & IMAGE SHOWCASE
       ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
+      {/* <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Column: Text */}
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5 text-[#0051fe]" />
@@ -248,14 +247,11 @@ export default function QualityAssurance() {
               </div>
             </div>
 
-            {/* Right Column: Multi-Layered Image Presentation */}
             <div className="lg:col-span-6 relative flex justify-center items-center py-6">
-              {/* Background Ambient Glow */}
               <div className="absolute w-80 h-80 bg-blue-400/15 rounded-full blur-3xl pointer-events-none -z-0" />
               <div className="absolute w-60 h-60 bg-sky-300/20 rounded-full blur-2xl pointer-events-none -z-0" />
 
               <div className="relative w-full max-w-lg aspect-[4/3] flex items-center justify-center">
-                {/* Main Large Image */}
                 <div className="relative w-[84%] h-[80%] rounded-2xl overflow-hidden shadow-2xl border border-slate-200/80 z-10 transition-transform duration-500 hover:scale-[1.01]">
                   <Image
                     src={img1}
@@ -268,7 +264,6 @@ export default function QualityAssurance() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
                 </div>
 
-                {/* Accent Floating Image Top-Right */}
                 <div className="hidden sm:block absolute -top-4 -right-2 w-44 h-32 rounded-xl overflow-hidden shadow-xl border-4 border-white z-20 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
                   <Image
                     src={img3}
@@ -279,7 +274,6 @@ export default function QualityAssurance() {
                   />
                 </div>
 
-                {/* Accent Floating Image Bottom-Left */}
                 <div className="hidden sm:block absolute -bottom-5 -left-3 w-48 h-36 rounded-xl overflow-hidden shadow-xl border-4 border-white z-20 transition-all duration-300 hover:translate-y-1 hover:shadow-2xl">
                   <Image
                     src={img2}
@@ -290,7 +284,6 @@ export default function QualityAssurance() {
                   />
                 </div>
 
-                {/* Floating Glassmorphism Badge 1 */}
                 <div className="absolute bottom-6 right-2 sm:right-6 bg-white/95 backdrop-blur-md rounded-xl p-3.5 shadow-xl border border-blue-100 z-30 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0051fe]">
                     <ShieldCheck className="w-5 h-5" />
@@ -303,7 +296,6 @@ export default function QualityAssurance() {
                   </div>
                 </div>
 
-                {/* Floating Glassmorphism Badge 2 */}
                 <div className="hidden sm:flex absolute top-4 left-4 bg-gradient-to-br from-[#0051fe] to-[#1e3a8a] text-white rounded-xl p-3 shadow-xl border border-blue-400/30 z-30 items-center gap-2.5">
                   <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center text-cyan-300">
                     <Layers className="w-4 h-4" />
@@ -319,7 +311,7 @@ export default function QualityAssurance() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ═══════════════════════════════════════════
           SECTION 3: KEY PRACTICES (BLUE BACKGROUND)
@@ -535,7 +527,7 @@ export default function QualityAssurance() {
                 </Link>
 
                 <Link
-                  href="/components/Organization"
+                  href="/about"
                   className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
                 >
                   <span>About Us</span>

@@ -16,7 +16,11 @@ import {
   ArrowRight,
   ShieldCheck,
   GitBranch,
-  Eye,
+  TrendingUp,
+  Users,
+  ShieldAlert,
+  Zap,
+  Repeat,
 } from "lucide-react";
 
 export default function ExecutionModelPage() {
@@ -25,65 +29,78 @@ export default function ExecutionModelPage() {
   const processSteps = [
     {
       step: "01",
-      title: "Discovery & Blueprint",
-      desc: "Deep dive into your technical constraints, user personas, and target KPIs to architect the perfect roadmap and sprint budget.",
+      phaseName: "Phase 1",
+      title: "Initiate to Plan",
+      desc: "Establish strategic alignment, comprehensive governance frameworks, and an actionable roadmap to guarantee predictable milestone delivery.",
       icon: Search,
-      deliverables: [
-        "Product Specification Document",
-        "Architecture Blueprints",
-        "KPI & Milestone Roadmap",
-      ],
     },
     {
       step: "02",
-      title: "Architecture & UI/UX",
-      desc: "Interactive high-fidelity wireframes, modular design tokens, schema definitions, and cloud infrastructure specifications.",
+      phaseName: "Phase 2",
+      title: "Analyze to Design",
+      desc: "Conduct thorough current-state evaluations, map target architectures, perform gap assessments, and formalize blueprint specifications.",
       icon: Layout,
-      deliverables: [
-        "Interactive Framer Prototypes",
-        "Cloud IAM & Network Topology",
-        "Database Schema Specs",
-      ],
     },
     {
       step: "03",
-      title: "Agile Development",
-      desc: "Bi-weekly sprint demos, test-driven codebases, pull-request peer reviews, and automated staging environments.",
+      phaseName: "Phase 3",
+      title: "Build to Realize",
+      desc: "Bring functional designs into reality through structured configuration, custom software engineering, pipeline integrations, and data migration.",
       icon: Code2,
-      deliverables: [
-        "Bi-Weekly Sprint Demos",
-        "Automated Regression Test Suites",
-        "Staging Preview Environments",
-      ],
     },
     {
       step: "04",
-      title: "Deployment & Scaling",
-      desc: "Zero-downtime production deployment, telemetry observability, latency monitoring, and continuous performance tuning.",
+      phaseName: "Phase 4",
+      title: "Test to Confirm",
+      desc: "Validate every functional boundary, verify integration points, benchmark load performance, and ensure enterprise compliance before release.",
+      icon: ShieldCheck,
+    },
+    {
+      step: "05",
+      phaseName: "Phase 5",
+      title: "Finalize to Go-Live",
+      desc: "Execute precise cutover sequences, upskill business users, ensure operational launch readiness, and provide dedicated hypercare stability.",
       icon: Rocket,
-      deliverables: [
-        "Automated CI/CD Pipelines",
-        "24/7 Telemetry & Observability",
-        "Complete IP & Documentation Transfer",
-      ],
+    },
+    {
+      step: "06",
+      phaseName: "Phase 6",
+      title: "Close to Transfer",
+      desc: "Formalize project completion, complete seamless knowledge handover to operations teams, and track long-term ROI and business value realization.",
+      icon: GitBranch,
     },
   ];
 
-  const highlights = [
+  const keyOutcomes = [
     {
-      icon: GitBranch,
-      title: "Transparent Sprint Demos",
-      desc: "Review working software every 14 days with staging deployments you can test in real time.",
+      icon: Zap,
+      title: "Predictable delivery",
+      metric: "On-Time Sprints",
+      desc: "Stage-gated milestones eliminate schedule variance and maintain clear execution pace.",
     },
     {
-      icon: ShieldCheck,
-      title: "Automated QA & Security",
-      desc: "Every commit undergoes automated linting, security vulnerability scans, and unit test suites.",
+      icon: Users,
+      title: "Improved adoption",
+      metric: "User-Centered",
+      desc: "Structured training and proactive enablement drive maximum stakeholder engagement.",
     },
     {
-      icon: Eye,
-      title: "Live Telemetry & Observability",
-      desc: "Full visibility into system performance, error logs, and cloud resource utilization.",
+      icon: ShieldAlert,
+      title: "Reduced Risk",
+      metric: "Zero Surprises",
+      desc: "Continuous automated validation, fit-gap scrutiny, and early regression detection.",
+    },
+    {
+      icon: TrendingUp,
+      title: "Higher Business Value",
+      metric: "Maximized ROI",
+      desc: "Direct alignment with strategic enterprise objectives and measurable KPIs.",
+    },
+    {
+      icon: Repeat,
+      title: "Successful Transition to support",
+      metric: "Seamless Handoff",
+      desc: "Thorough documentation, knowledge transfer, and hypercare guarantee long-term stability.",
     },
   ];
 
@@ -168,14 +185,6 @@ export default function ExecutionModelPage() {
               control from day one with continuous telemetry and zero technical
               debt.
             </motion.p>
-            {/* <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.2 }}
-              className="text-slate-900 text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8 font-bold"
-            >
-              Predictable delivery cycles engineered to keep you in total control from day one with continuous telemetry and zero technical debt.
-            </motion.p> */}
 
             {/* Action Buttons */}
             <motion.div
@@ -203,69 +212,61 @@ export default function ExecutionModelPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          PROCESS 4 PHASES DETAILED
+          PROCESS 6 PHASES DETAILED
       ═══════════════════════════════════════════ */}
       <section
         id="process"
         className="relative w-full py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f8fafc] via-[#edf4ff] to-[#f4f8fe]"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
-              Structured 4-Phase System
+              Structured 6-Phase Lifecycle
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-slate-900 tracking-tight font-heading leading-tight">
               How Your Project Moves From{" "}
-              <span className="text-[#0051fe]">Concept to Scale</span>
+              <span className="text-[#0051fe]">Initiation to Realization</span>
             </h2>
+            <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+              An enterprise-grade, stage-gated delivery blueprint engineered for
+              rapid execution, rigorous validation, and long-term operational
+              success.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {processSteps.map((item, idx) => {
+              const Icon = item.icon;
               return (
                 <SpotlightCard
                   key={idx}
                   spotlightColor="rgba(0, 81, 254, 0.18)"
                   borderColor="rgba(0, 81, 254, 0.45)"
-                  className="p-8 bg-gradient-to-br from-white/95 via-blue-50/40 to-white/90 border-blue-200/90 shadow-[0_12px_35px_-6px_rgba(0,81,254,0.08)] flex flex-col justify-between"
+                  className="p-7 sm:p-8 bg-gradient-to-br from-white/95 via-blue-50/40 to-white/90 border-blue-200/90 shadow-[0_12px_35px_-6px_rgba(0,81,254,0.08)] flex flex-col justify-between rounded-3xl hover:shadow-[0_20px_45px_-8px_rgba(0,81,254,0.16)] transition-all duration-300 group"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0051fe] to-[#1d4ed8] text-white flex items-center justify-center font-extrabold text-xl shadow-[0_8px_22px_rgba(0,81,254,0.4)]">
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#0051fe] to-[#1d4ed8] text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-[0_8px_22px_rgba(0,81,254,0.35)] group-hover:scale-105 transition-transform duration-300">
                         {item.step}
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-blue-100 text-xs font-bold text-[#0051fe] border border-blue-200">
-                        Phase {idx + 1}
+                      <span className="px-3 py-1 rounded-full bg-blue-100 text-[11px] font-extrabold text-[#0051fe] border border-blue-200 tracking-wide uppercase">
+                        {item.phaseName}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-extrabold text-slate-900 mb-3 group-hover:text-[#0051fe] transition-colors font-heading">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-6">
+                    <div className="flex items-center gap-2.5 mb-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#0051fe] flex items-center justify-center border border-blue-100">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 group-hover:text-[#0051fe] transition-colors font-heading">
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6 font-normal">
                       {item.desc}
                     </p>
-
-                    <div className="space-y-2 pt-4 border-t border-blue-100">
-                      <p className="text-xs font-extrabold uppercase tracking-wider text-[#0051fe]">
-                        Key Deliverables:
-                      </p>
-                      {item.deliverables.map((del, dIdx) => (
-                        <div
-                          key={dIdx}
-                          className="flex items-center gap-2 text-xs font-semibold text-slate-700"
-                        >
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#0051fe] shrink-0" />
-                          <span>{del}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t border-blue-100/80 flex items-center justify-between text-xs font-bold text-[#0051fe]">
-                    <span>Stage Gate Review</span>
-                    <span>100% Quality Checked</span>
                   </div>
                 </SpotlightCard>
               );
@@ -275,50 +276,60 @@ export default function ExecutionModelPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          GOVERNANCE & TRANSPARENCY
+          KEY OUTCOMES SECTION
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-blue-100/80">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative w-full py-20 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f4f8fe] via-[#edf4ff] to-white border-t border-blue-100/90 overflow-hidden">
+        {/* Subtle decorative glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0051fe] tracking-tight font-heading">
-              Agile Governance & Predictability
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-[#0051fe] text-xs font-extrabold uppercase tracking-widest mb-4 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe]" />
+              Measurable Business Impact
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
+              Key <span className="text-[#0051fe]">Outcomes</span>
             </h2>
-            <p className="mt-3 text-slate-600 text-sm sm:text-base">
-              You maintain total transparency into codebase check-ins, sprint
-              velocity, and burn-down charts.
+            <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+              Every phase of our execution model is tied directly to tangible,
+              de-risked enterprise milestones.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {highlights.map((h, i) => {
-              const Icon = h.icon;
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            {keyOutcomes.map((item, idx) => {
+              const Icon = item.icon;
               return (
                 <div
-                  key={i}
-                  className="p-7 rounded-3xl bg-blue-50/50 border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-300 transition-all"
+                  key={idx}
+                  className="relative p-6 rounded-3xl bg-white/90 border border-blue-200/80 backdrop-blur-sm shadow-[0_10px_30px_-8px_rgba(0,81,254,0.08)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.18)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-[#0051fe] text-white flex items-center justify-center mb-5 shadow-sm">
-                    <Icon className="w-5 h-5" />
+                  <div>
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0051fe] to-[#1d4ed8] text-white flex items-center justify-center mb-5 shadow-[0_6px_18px_rgba(0,81,254,0.3)] group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-5 h-5" />
+                    </div>
+
+                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/80 text-[10px] font-extrabold text-[#0051fe] tracking-wider uppercase mb-2.5">
+                      {item.metric}
+                    </span>
+
+                    <h3 className="text-base sm:text-lg font-extrabold text-slate-900 mb-2 leading-snug group-hover:text-[#0051fe] transition-colors font-heading">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {item.desc}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    {h.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    {h.desc}
-                  </p>
+
+                  <div className="mt-5 pt-3.5 border-t border-blue-100 flex items-center gap-1.5 text-[11px] font-bold text-[#0051fe]">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#0051fe] shrink-0" />
+                    <span>Guaranteed Standard</span>
+                  </div>
                 </div>
               );
             })}
-          </div>
-
-          <div className="mt-16 text-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#0051fe] hover:bg-[#0043d4] text-white text-xs font-bold uppercase tracking-wider shadow-[0_8px_25px_rgba(0,81,254,0.4)] hover:shadow-xl hover:scale-105 transition-all"
-            >
-              <span>Schedule Roadmap Discovery</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
           </div>
         </div>
       </section>

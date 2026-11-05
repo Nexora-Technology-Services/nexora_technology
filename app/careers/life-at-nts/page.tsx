@@ -49,7 +49,7 @@ export default function WorkingAtNTSPage() {
     {
       icon: GraduationCap,
       title: "Continuous Upskilling",
-      desc: "Annual learning stipends, sponsored certifications (AWS, SAP, Azure, GCP), and internal study pods to help you stay ahead of industry curves.",
+      desc: "Annual learning stipends, sponsored certifications (AWS, SAP, Azure, GCP), and internal study teams to help you stay ahead of industry curves.",
       metric: "Funded Certifications",
     },
     {
@@ -240,7 +240,7 @@ export default function WorkingAtNTSPage() {
               className="flex flex-wrap items-center gap-4 mb-5 sm:mb-6"
             >
               <Link
-                href="/components/Careers"
+                href="/careers/apply-for-job"
                 className="px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0051fe] hover:bg-[#0041cb] text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-[0_12px_28px_-4px_rgba(0,81,254,0.45)] hover:shadow-[0_18px_36px_-4px_rgba(0,81,254,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2 transition-all duration-200 cursor-pointer group"
               >
                 <Briefcase className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -515,7 +515,7 @@ export default function WorkingAtNTSPage() {
 
               <div className="pt-4">
                 <Link
-                  href="/components/Careers"
+                  href="/careers/apply-for-job"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-[#0051fe] hover:bg-[#0041cb] text-white shadow-md shadow-[#0051fe]/25 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
                 >
                   View Open Roles
@@ -605,7 +605,7 @@ export default function WorkingAtNTSPage() {
                 </a>
 
                 <Link
-                  href="/components/Careers"
+                  href="/careers/apply-for-job"
                   className="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider backdrop-blur-md transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
                 >
                   <span>Explore Careers</span>

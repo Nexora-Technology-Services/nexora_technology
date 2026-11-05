@@ -327,8 +327,8 @@ export default function CloudSolutions() {
             </p>
           </div>
 
-          {/* Offerings Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 relative z-10">
+          {/* Offerings Dynamic Grid: Responsive & Auto-Centered for 5 Cards */}
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 relative z-10">
             {offerings.map((o, idx) => {
               const Icon = o.icon;
               return (
@@ -338,9 +338,9 @@ export default function CloudSolutions() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="h-full"
+                  className="w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] max-w-md lg:max-w-none flex"
                 >
-                  <div className="h-full flex flex-col p-7 sm:p-8 rounded-2xl bg-white border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 group cursor-pointer relative overflow-hidden hover:-translate-y-1">
+                  <div className="w-full flex flex-col p-7 sm:p-8 rounded-2xl bg-white border border-blue-100 hover:border-[#0051fe]/60 shadow-[0_4px_20px_-4px_rgba(0,81,254,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,81,254,0.16)] transition-all duration-300 group cursor-pointer relative overflow-hidden hover:-translate-y-1">
                     {/* Top Accent Bar at the true top edge of the card */}
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0051fe] to-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left z-20" />
 

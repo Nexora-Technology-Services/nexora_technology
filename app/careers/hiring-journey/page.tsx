@@ -21,7 +21,7 @@ import {
 const journeyMilestones = [
   {
     week: "Day 1 - Week 1",
-    title: "Welcome & Pod Onboarding",
+    title: "Welcome & Team Onboarding",
     desc: "Hardware setup, access provisioning, meeting your engineering buddy, and getting introduced to company culture.",
   },
   {
@@ -32,7 +32,7 @@ const journeyMilestones = [
   {
     week: "Month 2 - Month 3",
     title: "Full Autonomy & Client Engagement",
-    desc: "Lead architectural discussions, contribute to core pods, and collaborate directly with enterprise stakeholders.",
+    desc: "Lead architectural discussions, contribute to core teams, and collaborate directly with enterprise stakeholders.",
   },
   {
     week: "Month 6+",
@@ -55,7 +55,7 @@ export default function HiringJourneyPage() {
             fill
             priority
             quality={100}
-            className="object-cover object-right select-none pointer-events-none"
+            className="object-cover object-left md:object-right select-none pointer-events-none"
             sizes="100vw"
           />
           <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />

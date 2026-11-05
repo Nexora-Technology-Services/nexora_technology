@@ -47,19 +47,42 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const navRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
-    let prev = false;
+    let prevPast = false;
+    let lastY = window.scrollY;
+
     const handleScroll = () => {
-      const isPast = window.scrollY > 20;
-      if (isPast !== prev) {
-        prev = isPast;
+      const currentY = window.scrollY;
+
+      // Scrolled past 20px threshold for navbar background density
+      const isPast = currentY > 20;
+      if (isPast !== prevPast) {
+        prevPast = isPast;
         setScrolled(isPast);
       }
+
+      // Hide when scrolling down, show when scrolling up
+      if (currentY > 60) {
+        if (currentY > lastY + 8) {
+          // Scrolling down - transition up and disappear
+          setIsVisible(false);
+        } else if (currentY < lastY - 8) {
+          // Scrolling up - transition in
+          setIsVisible(true);
+        }
+      } else {
+        // At or near top of the page - always visible
+        setIsVisible(true);
+      }
+
+      lastY = currentY;
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -131,13 +154,43 @@ export default function Navbar() {
     }, 0);
     return () => clearTimeout(timer);
   }, [pathname]);
-
+  
   const navItems: NavItem[] = [
     { label: "Home", href: "/" },
     {
+      label: "About Us",
+      overviewTitle: "About Nexora",
+      overviewHref: "/about",
+      columns: [
+        {
+          heading: "Organization",
+          items: [
+            { name: "Who We Are", href: "/about/organization/who-we-are" },
+            { name: "Leaders", href: "/about/organization/leaders" },
+            { name: "Our Values", href: "/about/organization/our-values" },
+            {
+              name: "Execution Model",
+              href: "/about/organization/execution-model",
+            },
+            { name: "Why Nexora", href: "/about/organization/why-nexora" },
+          ],
+        },
+        {
+          heading: "Media & Investors",
+          items: [
+            { name: "Media", href: "/about/media-and-investors/media" },
+            {
+              name: "Board of Directors",
+              href: "/about/media-and-investors/board-of-directors",
+            },
+          ],
+        },
+      ],
+    },
+    {
       label: "What We Serve",
       overviewTitle: "Explore What We Serve",
-      overviewHref: "/what-we-serve/services/data-and-ai",
+      overviewHref: "/about#services",
       columns: [
         {
           heading: "Services",
@@ -188,51 +241,6 @@ export default function Navbar() {
       ],
     },
     {
-      label: "About Us",
-      overviewTitle: "About Nexora",
-      overviewHref: "/about",
-      columns: [
-        {
-          heading: "Organization",
-          items: [
-            { name: "Who We Are", href: "/about/organization/who-we-are" },
-            { name: "Leaders", href: "/about/organization/leaders" },
-            { name: "Our Values", href: "/about/organization/our-values" },
-            {
-              name: "Execution Model",
-              href: "/about/organization/execution-model",
-            },
-            { name: "Why Nexora", href: "/about/organization/why-nexora" },
-          ],
-        },
-        {
-          heading: "Media & Investors",
-          items: [
-            { name: "Media", href: "/about/media-and-investors/media" },
-            {
-              name: "Board of Directors",
-              href: "/about/media-and-investors/board-of-directors",
-            },
-          ],
-        },
-        {
-          heading: "Our Network & Commitments",
-          items: [
-            { name: "Global Delivery Model", href: "/about" },
-            {
-              name: "Security & ISO Standards",
-              href: "/about/organization/why-nexora",
-            },
-            {
-              name: "Sustainability & Ethics",
-              href: "/about/organization/our-values",
-            },
-            { name: "Client Trust & Recognition", href: "/about" },
-          ],
-        },
-      ],
-    },
-    {
       label: "Careers",
       overviewTitle: "Careers at Nexora",
       overviewHref: "/careers",
@@ -240,7 +248,6 @@ export default function Navbar() {
         {
           heading: "Opportunities",
           items: [
-            { name: "Careers Portal", href: "/careers" },
             { name: "Apply for Job", href: "/careers/apply-for-job" },
             { name: "Life @ NTS", href: "/careers/life-at-nts" },
             { name: "Work & Impact", href: "/careers/work-and-impact" },
@@ -252,14 +259,6 @@ export default function Navbar() {
             { name: "Culture", href: "/careers/culture" },
             { name: "How We Hire", href: "/careers/how-we-hire" },
             { name: "Hiring Journey", href: "/careers/hiring-journey" },
-          ],
-        },
-        {
-          heading: "Growth & Benefits",
-          items: [
-            { name: "Fast-Track Mentorship", href: "/careers/work-and-impact" },
-            { name: "Continuous Learning Fund", href: "/careers/culture" },
-            { name: "Hybrid Workplace Model", href: "/careers/life-at-nts" },
           ],
         },
       ],
@@ -278,7 +277,7 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={closeAll}
-            className="fixed inset-0 bg-slate-950/20 backdrop-blur-md sm:backdrop-blur-lg z-40 pointer-events-auto"
+            className="fixed inset-0 bg-white/5 backdrop-blur-md sm:backdrop-blur-lg z-40 pointer-events-auto"
             aria-hidden="true"
           />
         )}
@@ -288,19 +287,20 @@ export default function Navbar() {
       <header className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none">
         <motion.nav
           ref={navRef}
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ y: -60, opacity: 0 }}
+          animate={{
+            y: isVisible || activeDropdown || mobileMenuOpen ? 0 : -140,
+            opacity: 1,
+          }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className={`pointer-events-auto w-full max-w-6xl xl:max-w-7xl transition-all duration-300 relative border ${
             mobileMenuOpen ? "rounded-3xl" : "rounded-2xl sm:rounded-full"
           } ${
             scrolled || activeDropdown
-              ? "bg-white/45 backdrop-blur-lg backdrop-saturate-150 border-white/50 shadow-[0_20px_45px_-8px_rgba(15,23,42,0.18),0_10px_24px_-4px_rgba(0,81,254,0.15),0_-8px_24px_-2px_rgba(15,23,42,0.12),0_-4px_12px_rgba(0,81,254,0.1),inset_0_1px_1px_rgba(255,255,255,0.85)] py-2 px-4 sm:px-6"
-              : "bg-white/30 backdrop-blur-md backdrop-saturate-150 border-white/40 shadow-[0_16px_36px_-6px_rgba(15,23,42,0.14),0_8px_20px_-4px_rgba(0,81,254,0.12),0_-6px_20px_-2px_rgba(15,23,42,0.1),0_-3px_10px_rgba(0,81,254,0.08),inset_0_1px_1px_rgba(255,255,255,0.75)] py-2.5 px-4 sm:px-6"
+              ? "bg-white/10 backdrop-blur-3xl border-white/40 shadow-[0_20px_45px_-8px_rgba(15,23,42,0.18),0_10px_24px_-4px_rgba(0,81,254,0.15),0_-8px_24px_-2px_rgba(15,23,42,0.12),0_-4px_12px_rgba(0,81,254,0.1)] py-2 px-4 sm:px-6"
+              : "bg-white/10 backdrop-blur-3xl border-white/40 shadow-[0_16px_36px_-6px_rgba(15,23,42,0.14),0_8px_20px_-4px_rgba(0,81,254,0.12),0_-6px_20px_-2px_rgba(15,23,42,0.1),0_-3px_10px_rgba(0,81,254,0.08)] py-2.5 px-4 sm:px-6"
           }`}
         >
-          {/* Top Specular Light Reflection (Apple Glass aesthetic) */}
-          <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none rounded-t-full" />
 
           <div className="flex items-center justify-between">
             {/* Brand Logo */}
@@ -434,10 +434,8 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute left-0 right-0 top-[calc(100%+12px)] w-full rounded-3xl bg-[#f0f7ff]/80 backdrop-blur-[80px] backdrop-saturate-150 border border-sky-100/80 shadow-[0_24px_55px_-10px_rgba(15,23,42,0.18),0_12px_28px_-6px_rgba(0,81,254,0.15),0_4px_12px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)] overflow-hidden max-h-[75vh] flex flex-col z-50"
+                className="absolute left-0 right-0 top-[calc(100%+12px)] w-full rounded-3xl bg-white/10 backdrop-blur-3xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.12)] overflow-hidden max-h-[75vh] flex flex-col z-50"
               >
-                {/* Mega-menu specular top highlight */}
-                <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/90 to-transparent pointer-events-none rounded-t-3xl" />
 
                 {navItems.map((item) => {
                   if (
@@ -455,13 +453,13 @@ export default function Navbar() {
                       className="p-7 sm:p-9 lg:p-10 overflow-y-auto flex flex-col justify-between flex-1 space-y-6"
                     >
                       {/* Top Header: About Nexora with Electric Blue Icon Linking to Overview */}
-                      <div className="flex items-center justify-between pb-5 border-b border-sky-100/70">
+                      <div className="flex items-center justify-between pb-5 border-b border-slate-200/60">
                         <Link
                           href={item.overviewHref}
                           onClick={closeAll}
                           className="group inline-flex items-center gap-3.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0051fe] rounded-2xl"
                         >
-                          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight group-hover:text-[#0051fe] transition-colors font-heading">
+                          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-[0.01em] group-hover:text-[#0051fe] transition-colors font-heading">
                             {item.overviewTitle}
                           </h2>
                           {/* Electric blue accent square with chevron right */}
@@ -472,29 +470,35 @@ export default function Navbar() {
                       </div>
 
                       {/* Middle: Organized Columns Equally Aligned Across Full Width */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 xl:gap-16 w-full">
+                      <div
+                        className={`grid grid-cols-1 ${
+                          item.columns.length === 2
+                            ? "md:grid-cols-2"
+                            : "md:grid-cols-3"
+                        } gap-8 lg:gap-12 xl:gap-16 w-full`}
+                      >
                         {item.columns.map((col, cIdx) => (
                           <div key={cIdx} className="space-y-3.5 w-full">
                             {/* Non-Clickable Category Heading in Primary Blue (Larger & Bold) */}
-                            <p className="text-[14px] sm:text-[15px] font-black text-[#0051fe] select-none cursor-default tracking-wider uppercase font-heading px-1">
+                            <p className="text-[15px] sm:text-[16px] font-black text-[#0051fe] select-none cursor-default tracking-[0.06em] uppercase font-heading px-1">
                               {col.heading}
                             </p>
 
                             {/* Sub items under this category */}
-                            <ul className="space-y-1 w-full">
+                            <ul className="space-y-1 w-full flex flex-col items-start">
                               {col.items.map((sub, sIdx) => (
-                                <li key={sIdx} className="w-full">
+                                <li key={sIdx} className="w-auto">
                                   <Link
                                     href={sub.href}
                                     onClick={closeAll}
-                                    className="relative flex items-center gap-2.5 px-3.5 py-2.5 text-[14.5px] font-bold text-slate-800 hover:text-[#0051fe] hover:bg-white/65 hover:shadow-sm border border-transparent hover:border-sky-100/70 rounded-xl transition-colors duration-100 group w-full overflow-hidden"
+                                    className="relative inline-flex items-center gap-2.5 px-3 py-1.5 text-[15px] font-bold text-slate-950 tracking-[0.015em] hover:text-[#0051fe] hover:bg-white/70 hover:shadow-sm border border-transparent hover:border-white/60 rounded-xl transition-all duration-150 group overflow-hidden"
                                   >
-                                    <span className="w-2 h-2 rounded-full bg-[#0051fe] shrink-0 shadow-[0_0_8px_rgba(0,81,254,0.35)] opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all" />
-                                    <span className="flex-1">{sub.name}</span>
-                                    <ChevronRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#0051fe]" />
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#0051fe] shrink-0 shadow-[0_0_8px_rgba(0,81,254,0.35)] opacity-90 group-hover:opacity-100 group-hover:scale-125 transition-all" />
+                                    <span>{sub.name}</span>
+                                    <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#0051fe]" />
 
-                                    {/* Smooth slow bottom accent bar on hover */}
-                                    <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-gradient-to-r from-[#0051fe] via-[#2563eb] to-[#38bdf8] rounded-full scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out shadow-[0_1px_6px_rgba(0,81,254,0.4)] pointer-events-none" />
+                                    {/* Smooth bottom accent bar on hover */}
+                                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#0051fe] via-[#2563eb] to-[#38bdf8] rounded-full scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out shadow-[0_1px_6px_rgba(0,81,254,0.4)] pointer-events-none" />
                                   </Link>
                                 </li>
                               ))}

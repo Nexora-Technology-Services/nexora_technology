@@ -225,7 +225,7 @@ export default function Organization() {
             </motion.div>
 
             {/* Enterprise Trust & Capability Metrics (Positioned Perfectly Inside Viewport) */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.4 }}
@@ -272,7 +272,7 @@ export default function Organization() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
         </div>
       </section>
@@ -346,7 +346,7 @@ export default function Organization() {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  href="/about"
+                  href="/about/organization/leaders"
                   className="px-7 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 hover:text-[#0051fe] border border-slate-200 text-xs sm:text-sm font-bold flex items-center gap-2 transition-all duration-200"
                 >
                   <span>About Our Leadership</span>

@@ -89,7 +89,7 @@ const platforms: PlatformItem[] = [
     category: "ml",
     badge: "Predictive Intelligence",
     icon: Bot,
-    desc: "An enterprise-grade data science and machine learning platform that empowers engineering pods to engineer predictive algorithms, automate feature selection, and streamline model lifecycle validation.",
+    desc: "An enterprise-grade data science and machine learning platform that empowers engineering teams to engineer predictive algorithms, automate feature selection, and streamline model lifecycle validation.",
     capabilities: [
       "Automated Machine Learning (AutoML)",
       "High-Dimensional Feature Engineering",
@@ -352,12 +352,10 @@ export default function DataAIPage() {
                   "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
               }}
             >
-              At Nexora Technology Services Pvt Ltd, we help businesses unlock
-              the power of Data, Machine Learning (ML), and Artificial
-              Intelligence (AI) to drive smarter decisions, automate processes,
-              and accelerate innovation. Our solutions enable organizations to
-              transform raw data into meaningful insights and intelligent
-              business outcomes.
+              At Nexora Technology Services Pvt Ltd, we leverage Data, ML, and
+              AI to drive smarter decisions and automate business processes.We
+              transform raw data into actionable insights, enabling innovation
+              and intelligent business growth.
             </motion.p>
 
             {/* Action Buttons */}
@@ -389,7 +387,7 @@ export default function DataAIPage() {
       {/* ═══════════════════════════════════════════
           ENTERPRISE ROI & VALUE METRICS BAR
       ═══════════════════════════════════════════ */}
-      <section className="relative z-20 -mt-7 max-w-6xl mx-auto px-4 w-full">
+      {/* <section className="relative z-20 -mt-7 max-w-6xl mx-auto px-4 w-full">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {[
             {
@@ -433,7 +431,7 @@ export default function DataAIPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* ═══════════════════════════════════════════
           CORE CAPABILITIES MATRIX (SPOTLIGHT CARDS)
@@ -483,7 +481,7 @@ export default function DataAIPage() {
                   </p>
                 </div>
 
-                <div>
+                {/* <div>
                   <div className="border-t border-slate-100 pt-3">
                     <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
                       Key Deliverables
@@ -499,7 +497,7 @@ export default function DataAIPage() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </div> */}
               </SpotlightCard>
             );
           })}
@@ -551,7 +549,7 @@ export default function DataAIPage() {
                         | "analytics"
                         | "bi"
                         | "automation"
-                        | "ml"
+                        | "ml",
                     )
                   }
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer ${
@@ -689,7 +687,7 @@ export default function DataAIPage() {
       {/* ═══════════════════════════════════════════
           END-TO-END DELIVERY ARCHITECTURE
       ═══════════════════════════════════════════ */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+      {/* <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-[#0051fe] text-xs font-bold uppercase tracking-wider mb-3">
             <Workflow className="w-3.5 h-3.5" />
@@ -742,70 +740,7 @@ export default function DataAIPage() {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          INDUSTRY USE CASES & APPLIED VALUE
-      ═══════════════════════════════════════════ */}
-      <section className="py-14 px-4 sm:px-6 lg:px-8 bg-white border-t border-slate-200/80">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-[#0051fe] mb-2 font-heading">
-              Proven Sector Value
-            </h3>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 font-heading">
-              Applied Data &amp; AI Across Core Industries
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {industryUseCases.map((useCase) => {
-              const Icon = useCase.icon;
-              return (
-                <div
-                  key={useCase.sector}
-                  className="rounded-2xl border border-slate-200/90 bg-[#f8fafc] p-6 hover:border-blue-300 hover:bg-white transition-all duration-300 shadow-2xs"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-[#0051fe] flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">
-                      {useCase.sector}
-                    </h3>
-                  </div>
-
-                  <div className="space-y-2.5 text-xs sm:text-sm">
-                    <div>
-                      <span className="font-bold text-slate-700">
-                        Challenge:{" "}
-                      </span>
-                      <span className="text-slate-600">
-                        {useCase.challenge}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-bold text-[#0051fe]">
-                        Solution:{" "}
-                      </span>
-                      <span className="text-slate-600">{useCase.solution}</span>
-                    </div>
-                    <div className="pt-2 border-t border-slate-200/80">
-                      <span className="font-bold text-emerald-700">
-                        Measurable Impact:{" "}
-                      </span>
-                      <span className="font-medium text-emerald-900">
-                        {useCase.impact}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
+      </section> */}
       {/* ═══════════════════════════════════════════
           HIGH-CONVERSION CTA BANNER
       ═══════════════════════════════════════════ */}

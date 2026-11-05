@@ -62,7 +62,7 @@ const governancePillars = [
   {
     icon: Building2,
     title: "Global Compliance & Ethics",
-    desc: "Adhering to SOC2, GDPR, and international enterprise security and confidentiality benchmarks across all delivery pods.",
+    desc: "Adhering to SOC2, GDPR, and international enterprise security and confidentiality benchmarks across all delivery teams.",
   },
 ];
 
@@ -80,7 +80,7 @@ export default function BoardOfDirectorsPage() {
             fill
             priority
             quality={100}
-            className="object-cover object-right select-none pointer-events-none"
+            className="object-cover object-left md:object-right select-none pointer-events-none"
             sizes="100vw"
           />
           <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />

@@ -37,7 +37,7 @@ const hiringStages = [
   {
     step: "04",
     title: "Values & Culture Alignment",
-    desc: "Meet leaders and future pod members to understand team dynamics, mentorship opportunities, and working styles.",
+    desc: "Meet leaders and future team members to understand team dynamics, mentorship opportunities, and working styles.",
   },
   {
     step: "05",
@@ -60,7 +60,7 @@ export default function HowWeHirePage() {
             fill
             priority
             quality={100}
-            className="object-cover object-right select-none pointer-events-none"
+            className="object-cover object-left md:object-right select-none pointer-events-none"
             sizes="100vw"
           />
           <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/30 via-white/5 to-transparent pointer-events-none" />

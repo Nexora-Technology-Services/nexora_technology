@@ -308,7 +308,7 @@ export default function TalentAcquisition() {
                 </Link>
 
                 <Link
-                  href="/components/Organization"
+                  href="/about"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
                 >
                   About Us
