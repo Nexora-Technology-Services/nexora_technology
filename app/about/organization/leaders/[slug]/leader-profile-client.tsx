@@ -208,7 +208,7 @@ export default function LeaderProfileClient({ leader }: LeaderProfileClientProps
               </SpotlightCard>
 
               {/* Quick Metrics Cards */}
-              <div className="grid grid-cols-2 gap-3">
+              {/* <div className="grid grid-cols-2 gap-3">
                 {leader.stats.slice(0, 2).map((st, i) => (
                   <div
                     key={i}
@@ -222,7 +222,7 @@ export default function LeaderProfileClient({ leader }: LeaderProfileClientProps
                     </p>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
 
             {/* ──────────────────────────────────────
@@ -262,7 +262,7 @@ export default function LeaderProfileClient({ leader }: LeaderProfileClientProps
               </div>
 
               {/* Core Competencies & Focus Areas */}
-              <div>
+              {/* <div>
                 <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-[#0051fe]" />
                   <span>Executive Focus Areas & Competencies</span>
@@ -277,7 +277,7 @@ export default function LeaderProfileClient({ leader }: LeaderProfileClientProps
                     </span>
                   ))}
                 </div>
-              </div>
+              </div> */}
 
               {/* Career Highlights / Milestones if available */}
               {/* {leader.highlights && leader.highlights.length > 0 && (
