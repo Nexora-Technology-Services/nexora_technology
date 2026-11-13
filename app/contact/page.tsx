@@ -14,14 +14,13 @@ import {
   CheckCircle2,
   ArrowRight,
   ArrowUpRight,
-  Earth,
   ShieldCheck,
   Building2,
   MessageSquare,
   Loader2,
   HelpCircle,
   ChevronDown,
-  Zap,
+  AlertCircle,
 } from "lucide-react";
 
 export default function Contact() {
@@ -35,26 +34,65 @@ export default function Contact() {
   });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setSending(true);
-    await new Promise((r) => setTimeout(r, 1400));
-    setSending(false);
-    setSent(true);
-    setTimeout(() => {
-      setSent(false);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        service: "",
-        message: "",
+    setErrorMessage(null);
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey || accessKey === "YOUR_ACCESS_KEY_HERE") {
+      setSending(false);
+      setErrorMessage("Web3Forms access key is missing. Please set NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY in .env.local.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: "New Project Brief from Nexora Website",
+          from_name: formData.name,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || "Not provided",
+          service: formData.service || "General Inquiry",
+          message: formData.message,
+          botcheck: "",
+        }),
       });
-    }, 4000);
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSent(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          message: "",
+        });
+        setTimeout(() => {
+          setSent(false);
+        }, 5000);
+      } else {
+        setErrorMessage(result.message || "Failed to send message. Please try again.");
+      }
+    } catch {
+      setErrorMessage("Network error occurred while transmitting your brief. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const contactDetails = [
@@ -147,14 +185,14 @@ export default function Contact() {
   const faqs = [
     {
       q: "How fast can we initiate a new project with Nexora?",
-      a: "Following an initial discovery session, we assemble dedicated engineering pods and present an actionable architecture roadmap and sprint plan within 3 to 5 business days.",
+      a: "Following an initial discovery session, we assemble dedicated engineering teams and present an actionable architecture roadmap and sprint plan within 3 to 5 business days.",
     },
     {
       q: "Do we retain full Intellectual Property (IP) ownership?",
       a: "Yes, 100%. All source code, design assets, database schemas, and documentation created during our engagement belong exclusively to your organization under standard NDA & IP transfer agreements.",
     },
     {
-      q: "Can Nexora provide dedicated engineering pods for long-term roadmaps?",
+      q: "Can Nexora provide dedicated engineering teams for long-term roadmaps?",
       a: "Absolutely. We provide dedicated agile teams — comprising senior full-stack engineers, cloud architects, QA leads, and scrum masters — fully aligned with your timezone and workflow.",
     },
     {
@@ -240,7 +278,7 @@ export default function Contact() {
                   "0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(15, 23, 42, 0.08)",
               }}
             >
-              Partner with senior architects and dedicated engineering pods to
+              Partner with senior architects and dedicated engineering teams to
               build, scale, and modernize your mission-critical digital systems.
             </motion.p>
 
@@ -253,7 +291,7 @@ export default function Contact() {
             ></motion.div>
 
             {/* Enterprise Trust & Capability Metrics (Positioned Perfectly Inside Viewport) */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.4 }}
@@ -291,7 +329,7 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
         </div>
       </section>
@@ -448,7 +486,7 @@ export default function Contact() {
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Alex Morgan"
+                      placeholder="e.g. John Doe"
                       value={formData.name}
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
@@ -464,7 +502,7 @@ export default function Contact() {
                     <input
                       type="email"
                       required
-                      placeholder="alex@company.com"
+                      placeholder="john@company.com"
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
@@ -482,7 +520,7 @@ export default function Contact() {
                     </label>
                     <input
                       type="tel"
-                      placeholder="+1 (555) 000-0000"
+                      placeholder="+91  12345  67890"
                       value={formData.phone}
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
@@ -503,7 +541,7 @@ export default function Contact() {
                         }
                         className="w-full px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-200 text-sm text-slate-900 focus:bg-white focus:border-[#0051fe] focus:ring-4 focus:ring-[#0051fe]/10 outline-none transition-all duration-200 appearance-none cursor-pointer"
                       >
-                        <option value="">
+                        <option value="" disabled>
                           Select an engineering domain...
                         </option>
                         {serviceOptions.map((opt, i) => (
@@ -568,6 +606,17 @@ export default function Contact() {
                       </span>
                     )}
                   </button>
+
+                  {errorMessage && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-3 p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 flex items-start gap-2.5"
+                    >
+                      <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                      <span>{errorMessage}</span>
+                    </motion.div>
+                  )}
                 </div>
               </form>
             </div>
